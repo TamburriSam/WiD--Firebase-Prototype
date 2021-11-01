@@ -5,9 +5,8 @@ import "firebase/firestore";
 import { useEffect, useState } from "react";
 import TextField from "@mui/material/TextField";
 import React from "react";
-import { getAccordionDetailsUtilityClass, useThemeProps } from "@mui/material";
 
-function RoomLI({ clickMe, data, props }) {
+function RoomLI({ createNewProfile, data, props }) {
   const db = firebase.firestore();
 
   const [nodes, setNodes] = useState({});
@@ -19,10 +18,6 @@ function RoomLI({ clickMe, data, props }) {
 
   const getData = () => {
     db.collection("rooms").onSnapshot((snapshot) => {
-      console.log(snapshot.docs);
-      snapshot.docs.forEach((doc) => {
-        console.log(doc.id);
-      });
       setNodes(snapshot.docs);
       setLoading(false);
     });
@@ -47,7 +42,8 @@ function RoomLI({ clickMe, data, props }) {
                   <button
                     data-id='btn'
                     id={node.id}
-                    className='waves-effect waves-light btn room-select'
+                    onClick={(e) => createNewProfile(e)}
+                    className='btn room-select'
                   >
                     Join
                   </button>

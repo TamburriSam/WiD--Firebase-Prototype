@@ -7,9 +7,11 @@ import TextField from "@mui/material/TextField";
 import React from "react";
 import CurrentRoom from "./CurrentRoom";
 import RoomLI from "./RoomLI";
+import { isCompositeComponent } from "react-dom/cjs/react-dom-test-utils.production.min";
 
 function Rooms() {
   const db = firebase.firestore();
+
   const [roomName, setRoomName] = useState("");
   const [roomCount, setRoomCount] = useState("");
   const [displayName, setdisplayName] = useState("");
@@ -22,14 +24,16 @@ function Rooms() {
 
   const [data, setData] = useState();
 
+  const auth = firebase.auth();
+
   useEffect(() => {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         setdisplayName(user.displayName);
         setuserID(user.uid);
-        console.log("ok");
+        console.log("logged in");
       } else {
-        console.log("not ok");
+        console.log("logged out");
       }
     });
   }, [isAuth]);
@@ -51,138 +55,97 @@ function Rooms() {
     }
   };
 
-  const validNum = (num) => {
-    if (typeof num === "number" && num > 2) {
-      setRoomCount(num);
-    } else {
-      alert("Must be number");
-    }
+  const createNewProfile = (e) => {
+    setroomID(e.target.id);
+    let rooms = db.collection("rooms").doc(e.target.id);
+    let id = e.target.id;
+    setroomID(e.target.id);
+    const currentUser = auth.currentUser.uid;
+    const email = auth.currentUser.email;
+
+    const userInfo = {
+      [currentUser]: {
+        name: displayName,
+        favorite_letter: "",
+        uid: currentUser,
+        flag: parseInt(0),
+        rooms_joined: id,
+        user_name: email,
+        list_one_input: [],
+        list_two_input: [],
+        list_three_input: [],
+        recipients: [],
+        list_four_input: [],
+        list_one_received: [],
+        list_two_received: [],
+        list_three_received: [],
+        list_four_received: [],
+      },
+    };
+
+    watchForCount(id, userInfo);
   };
 
-  const setUpRooms = (data) => {
-    let r = document.querySelector(".tbody1"); //if there is data
+  function watchForCount(id, userInfo) {
+    let activeCount, totalCount;
+    let roomRef = db.collection("rooms").doc(id);
 
-    if (data.length) {
-      let html = "";
-      console.log(data);
+    roomRef.get().then((doc) => {
+      let users = doc.data().users;
+      let userArray = [];
+      activeCount = doc.data().active_count;
+      totalCount = doc.data().total_count;
 
-      setData(data);
+      for (const prop in users) {
+        userArray.push(users[prop].uid);
+      }
 
-      data.forEach((doc) => {
-        console.log(doc.data());
-      });
-
-      /*   data.forEach((doc) => {
-        const room = doc.data();
-
-        //console.log("Iterated snapshot", room);
-
-        const li = `<tr>
-        <td>${room.name}</td>
-         <td>${room.active_count}/${room.total_count} Active </td>
-          <td>
-
-
-
-
-           <button data-id="btn" class="waves-effect waves-light btn room-select" id="${doc.id}">Join</button> 
-
-
-
-
-
-            </td>
-          </tr><br>`;
-
-        html += li;
-      });
-      r.innerHTML = html; */
-    }
-  };
-
-  const watchForCount = (id) => {
-    /*     let docref = db.collection("rooms").doc(roomName);
-     */
-    console.log(id);
-
-    /* return db.runTransaction((transaction) => {
-      return transaction.get(docref).then((doc) => {
-  
-        if (
-          doc.data().active_count < doc.data().total_count &&
-          !doc.data().users.includes(firebase.auth().currentUser.displayName)
-        ) {
-          let newCount = doc.data().active_count + 1;
-          transaction.update(docref, { active_count: newCount });
-          transaction.update(docref, {
-            users: firebase.firestore.FieldValue.arrayUnion(
-              firebase.auth().currentUser.displayName
-            ),
+      if (!userArray.includes(userID) && activeCount < totalCount) {
+        roomRef
+          .set(
+            {
+              users: userInfo,
+            },
+            { merge: true }
+          )
+          .then(() => {
+            console.log("user added");
+            roomRef
+              .update({
+                active_count: activeCount + 1,
+              })
+              .then(() => {
+                console.log("Document successfully updated!");
+                removeUsersFromOtherRooms();
+              })
+              .catch((error) => {
+                console.error("Error updating document: ", error);
+              });
           });
-           checkForLetter(); 
-        } else if (
-          doc.data().users.includes(firebase.auth().currentUser.displayName)
-        ) {
-            checkForLetter(); 
-        }
+      }
+    });
+  }
+
+  const removeUsersFromOtherRooms = () => {
+    const snapshot = db
+      .collection("rooms")
+      .get()
+      .then((snapshot) => {
+        snapshot.docs.forEach((collection) => {
+          collection.data().users.forEach((user) => {
+            console.log(user);
+          });
+        });
       });
-    }); */
+
+    console.log(snapshot);
   };
 
-  /*  document.body.addEventListener("click", function (e) {
-    let currentUser = firebase.auth().currentUser.uid;
-    let email = firebase.auth().currentUser.email;
-    if (e.target.dataset.id == "btn") {
-      setroomID(e.target.id);
-      let rooms = db.collection("rooms").doc(e.target.id);
-      let id = e.target.id;
-
-      let userInfo = {
-        [currentUser]: {
-          name: displayName,
-
-          favorite_letter: "",
-             uid: currentUser,
-          flag: parseInt(0),
-          rooms_joined: id,
-          user_name: email,
-          list_one_input: [],
-          list_two_input: [],
-          list_three_input: [],
-          recipients: [],
-          list_four_input: [],
-          list_one_received: [],
-          list_two_received: [],
-          list_three_received: [],
-          list_four_received: [],
-        },
-      };
-
-      console.log("ok");
-
-      return rooms
-        .set(
-          {
-            users: userInfo,
-          },
-          { merge: true }
-        )
-        .then(() => {
-          console.log("user added");
-
-          watchForCount(id);
-                    randomWordLists();
-           
-        })
-        .catch((err) => {
-          console.log(`Err on line 254`, err);
-        });
-    }
-  }); */
+  const watchForTotalCount = () => {};
 
   return (
     <div className='background'>
-      <Nav name={`Hello ${displayName}`} />
+      {/*     <Nav name={`Hello ${displayName}`} /> */}
       <div className='liveRoom'>
         <div id='active-container'>
           <h1>Active Rooms</h1>
@@ -214,10 +177,7 @@ function Rooms() {
             onChange={(e) => setRoomCount(parseInt(e.target.value))}
             required
           />
-          <button
-            onClick={createRoom}
-            className='creater waves-effect waves-light btn create-room'
-          >
+          <button onClick={createRoom} className='creater btn create-room'>
             Create Room
           </button>
         </div>
@@ -235,11 +195,9 @@ function Rooms() {
           </tbody>
         </table>
       </div>
-      <TextField id='outlined-basic' label='Username' variant='outlined' />
-      <TextField id='filled-basic' label='Filled' variant='filled' />
-      <TextField id='standard-basic' label='Standard' variant='standard' />
 
-      <RoomLI data={data} /* clickMe={clickMe} */ />
+      <RoomLI data={data} createNewProfile={createNewProfile} />
+      <button onClick={removeUsersFromOtherRooms}>test</button>
     </div>
   );
 }
