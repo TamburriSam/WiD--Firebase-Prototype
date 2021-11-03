@@ -11,6 +11,7 @@ import { isCompositeComponent } from "react-dom/cjs/react-dom-test-utils.product
 
 function Rooms() {
   const db = firebase.firestore();
+  const auth = firebase.auth();
 
   const [roomName, setRoomName] = useState("");
   const [roomCount, setRoomCount] = useState("");
@@ -20,23 +21,65 @@ function Rooms() {
   const [roomFromDb, setroomFromDb] = useState("");
   const [count, setCount] = useState(0);
   const [isAuth, setIsAuth] = useState();
-  const userLocal = JSON.parse(localStorage.getItem("user"));
-
+  const [inRoom, setinRoom] = useState(false);
   const [data, setData] = useState();
-
-  const auth = firebase.auth();
-
+  const [waitingRoom, setwaitingRoom] = useState(false);
+  const [loadWaitingRoom, setloadWaitingRoom] = useState(false);
+  //auth
   useEffect(() => {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         setdisplayName(user.displayName);
         setuserID(user.uid);
+        if (localStorage.getItem("waiting")) {
+          console.log("its here");
+        }
         console.log("logged in");
       } else {
         console.log("logged out");
       }
     });
   }, [isAuth]);
+
+  //if theres been a room entered before- local storage should load the waiting room for that room
+  useEffect(() => {
+    console.log("changed");
+    console.log(roomID);
+
+    setloadWaitingRoom(true);
+  }, [waitingRoom]);
+
+  //game room switch - takes user out of room on unmount or room switch
+  useEffect(() => {
+    console.log("switched");
+    setTimeout(() => {
+      if (roomID) {
+        db.collection("rooms")
+          .doc(roomID)
+          .get()
+          .then((doc) => {
+            console.log(doc.data());
+          });
+      }
+    }, 1000);
+  }, [roomID]);
+
+  //game start trigger
+  useEffect(() => {
+    if (inRoom) {
+      db.collection("rooms")
+        .doc(roomID)
+        .onSnapshot((snapshot) => {
+          let data = snapshot.data();
+          let activeCount = data.active_count;
+          let totalCount = data.total_count;
+
+          if (activeCount === totalCount) {
+            alert("Game Started");
+          }
+        });
+    }
+  }, [inRoom]);
 
   const createRoom = () => {
     if (typeof roomCount === "number" && roomCount < 40 && roomCount > 1) {
@@ -57,7 +100,6 @@ function Rooms() {
 
   const createNewProfile = (e) => {
     setroomID(e.target.id);
-    let rooms = db.collection("rooms").doc(e.target.id);
     let id = e.target.id;
     setroomID(e.target.id);
     const currentUser = auth.currentUser.uid;
@@ -86,7 +128,7 @@ function Rooms() {
     watchForCount(id, userInfo);
   };
 
-  function watchForCount(id, userInfo) {
+  const watchForCount = (id, userInfo) => {
     let activeCount, totalCount;
     let roomRef = db.collection("rooms").doc(id);
 
@@ -110,13 +152,17 @@ function Rooms() {
           )
           .then(() => {
             console.log("user added");
+            setroomID(id);
+
             roomRef
               .update({
                 active_count: activeCount + 1,
               })
               .then(() => {
+                setinRoom(true);
+                checkForLetter(id);
+                console.log(`roomid`, id);
                 console.log("Document successfully updated!");
-                removeUsersFromOtherRooms();
               })
               .catch((error) => {
                 console.error("Error updating document: ", error);
@@ -124,24 +170,65 @@ function Rooms() {
           });
       }
     });
-  }
-
-  const removeUsersFromOtherRooms = () => {
-    const snapshot = db
-      .collection("rooms")
-      .get()
-      .then((snapshot) => {
-        snapshot.docs.forEach((collection) => {
-          collection.data().users.forEach((user) => {
-            console.log(user);
-          });
-        });
-      });
-
-    console.log(snapshot);
   };
 
-  const watchForTotalCount = () => {};
+  const checkForLetter = (id) => {
+    console.log(userID);
+    db.collection("rooms")
+      .doc(id)
+      .get()
+      .then((doc) => {
+        let userProfile;
+        let users = doc.data().users;
+        let userArray = [];
+        for (const prop in users) {
+          if (users[prop].uid.includes(userID)) {
+            userProfile = users[prop];
+          }
+        }
+        if (userProfile.favorite_letter == "") {
+          console.log("favorite letter not found");
+          selectAFavoriteLetter(id);
+          localStorage.setItem("waiting", true);
+          setwaitingRoom(true);
+        }
+        console.log(`user profile`, userProfile);
+      });
+  };
+
+  const selectAFavoriteLetter = (id) => {
+    let answer = prompt("what your fav letter?");
+    let room = db.collection("rooms").doc(id);
+    console.log(`room id`, id);
+    if (answer.length < 2) {
+      console.log(`fav letter`, answer);
+
+      room.get().then((doc) => {
+        return room
+          .set(
+            {
+              users: {
+                [userID]: {
+                  favorite_letter: answer,
+                },
+              },
+            },
+            { merge: true }
+          )
+          .then(() => {
+            console.log("Document successfully updated!");
+          })
+          .catch((error) => {
+            console.error("Error updating document: ", error);
+          });
+      });
+    }
+  };
+
+  //the way we prevent someone from being in more than one room at a time
+  //when the user clicks any join button we first need to see if there is already a room id set
+  //if there is - remove them from the users array and decrease active count of room
+  const removeUserFromCurrentRoomIfOtherRoomClicked = () => {};
 
   return (
     <div className='background'>
@@ -152,9 +239,8 @@ function Rooms() {
           <br />
           <br />
 
-          <button className='waves-effect waves-light btn' id='createNewRoom'>
+          <button className='btn' id='createNewRoom'>
             Create New Room
-            {count}
           </button>
           <br />
 
@@ -197,7 +283,6 @@ function Rooms() {
       </div>
 
       <RoomLI data={data} createNewProfile={createNewProfile} />
-      <button onClick={removeUsersFromOtherRooms}>test</button>
     </div>
   );
 }
