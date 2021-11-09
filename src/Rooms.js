@@ -3,12 +3,10 @@ import Nav from "./Nav";
 import "./Nav.css";
 import "firebase/firestore";
 import { useEffect, useState } from "react";
-import TextField from "@mui/material/TextField";
 import React from "react";
-import CurrentRoom from "./CurrentRoom";
 import RoomLI from "./RoomLI";
-import { isCompositeComponent } from "react-dom/cjs/react-dom-test-utils.production.min";
-
+import CurrentRoom from "./CurrentRoom";
+import { wait } from "@testing-library/react";
 function Rooms() {
   const db = firebase.firestore();
   const auth = firebase.auth();
@@ -18,13 +16,14 @@ function Rooms() {
   const [displayName, setdisplayName] = useState("");
   const [roomID, setroomID] = useState("");
   const [userID, setuserID] = useState("");
-  const [roomFromDb, setroomFromDb] = useState("");
-  const [count, setCount] = useState(0);
   const [isAuth, setIsAuth] = useState();
   const [inRoom, setinRoom] = useState(false);
   const [data, setData] = useState();
   const [waitingRoom, setwaitingRoom] = useState(false);
   const [loadWaitingRoom, setloadWaitingRoom] = useState(false);
+  const [currentRoomName, setcurrentRoomName] = useState("");
+  const [favoriteLetter, setFavoriteLetter] = useState("");
+
   //auth
   useEffect(() => {
     firebase.auth().onAuthStateChanged((user) => {
@@ -34,6 +33,7 @@ function Rooms() {
         if (localStorage.getItem("waiting")) {
           console.log("its here");
         }
+        console.log(waitingRoom);
         console.log("logged in");
       } else {
         console.log("logged out");
@@ -41,13 +41,26 @@ function Rooms() {
     });
   }, [isAuth]);
 
-  //if theres been a room entered before- local storage should load the waiting room for that room
-  useEffect(() => {
-    console.log("changed");
-    console.log(roomID);
+  //MEMORY LEAK
+  //MEMORY LEAK
+  //MEMORY LEAK
+  // so when you render the waiting room- the list of rooms is still updating
+  // causing a no big issue error, but leaking memory and slowing appliaction
+  // figure out a way to fix
 
-    setloadWaitingRoom(true);
-  }, [waitingRoom]);
+  useEffect(() => {
+    console.log(localStorage.getItem("room_id") !== "");
+
+    if (
+      localStorage.getItem("room_id") &&
+      localStorage.getItem("room_id") !== ""
+    ) {
+      console.log("ok");
+      setwaitingRoom(true);
+    } else {
+      setwaitingRoom(false);
+    }
+  }, []);
 
   //game room switch - takes user out of room on unmount or room switch
   useEffect(() => {
@@ -71,10 +84,25 @@ function Rooms() {
         .doc(roomID)
         .onSnapshot((snapshot) => {
           let data = snapshot.data();
+          let users = data.users;
           let activeCount = data.active_count;
           let totalCount = data.total_count;
+          let letters = [];
+          console.log(`data`, data);
 
-          if (activeCount === totalCount) {
+          console.log("CHANGED NOWS");
+          for (const prop in users) {
+            if (users[prop].favorite_letter !== "") {
+              letters.push(users[prop].favorite_letter);
+              console.log(letters);
+              console.log(letters.length);
+            }
+          }
+          console.log(letters.length);
+          console.log(totalCount);
+          console.log(letters.length === totalCount);
+
+          if (activeCount === totalCount && letters.length === totalCount) {
             alert("Game Started");
           }
         });
@@ -99,9 +127,13 @@ function Rooms() {
   };
 
   const createNewProfile = (e) => {
+    let LSroomId = localStorage.getItem("room_id");
+
+    if (LSroomId) {
+      removeUserFromCurrentRoomIfOtherRoomClicked(e);
+    }
     setroomID(e.target.id);
     let id = e.target.id;
-    setroomID(e.target.id);
     const currentUser = auth.currentUser.uid;
     const email = auth.currentUser.email;
 
@@ -153,14 +185,14 @@ function Rooms() {
           .then(() => {
             console.log("user added");
             setroomID(id);
-
+            localStorage.setItem("room_id", id);
             roomRef
               .update({
                 active_count: activeCount + 1,
               })
               .then(() => {
-                setinRoom(true);
-                checkForLetter(id);
+                /*                 setinRoom(true);
+                 */ checkForLetter(id);
                 console.log(`roomid`, id);
                 console.log("Document successfully updated!");
               })
@@ -178,6 +210,9 @@ function Rooms() {
       .doc(id)
       .get()
       .then((doc) => {
+        let name = doc.data().name;
+        setcurrentRoomName(name);
+        localStorage.setItem("room", name);
         let userProfile;
         let users = doc.data().users;
         let userArray = [];
@@ -190,7 +225,6 @@ function Rooms() {
           console.log("favorite letter not found");
           selectAFavoriteLetter(id);
           localStorage.setItem("waiting", true);
-          setwaitingRoom(true);
         }
         console.log(`user profile`, userProfile);
       });
@@ -200,9 +234,10 @@ function Rooms() {
     let answer = prompt("what your fav letter?");
     let room = db.collection("rooms").doc(id);
     console.log(`room id`, id);
-    if (answer.length < 2) {
+    //update to regex checking a-z eventually
+    if (answer.length < 2 && typeof answer == "string") {
       console.log(`fav letter`, answer);
-
+      localStorage.setItem("favorite_letter", answer);
       room.get().then((doc) => {
         return room
           .set(
@@ -216,6 +251,9 @@ function Rooms() {
             { merge: true }
           )
           .then(() => {
+            setwaitingRoom(true);
+            setinRoom(true);
+
             console.log("Document successfully updated!");
           })
           .catch((error) => {
@@ -228,7 +266,61 @@ function Rooms() {
   //the way we prevent someone from being in more than one room at a time
   //when the user clicks any join button we first need to see if there is already a room id set
   //if there is - remove them from the users array and decrease active count of room
-  const removeUserFromCurrentRoomIfOtherRoomClicked = () => {};
+  const removeUserFromCurrentRoomIfOtherRoomClicked = (e) => {
+    let LSroomId = localStorage.getItem("room_id");
+    let userArray = [];
+    let newUserList, activeCount;
+
+    if (LSroomId) {
+      if (LSroomId !== "" && e.target.id !== LSroomId) {
+        //also put a check for if the id of the button matches user id
+        //if it does- do nothing
+        db.collection("rooms")
+          .doc(LSroomId)
+          .get()
+          .then((doc) => {
+            let users = doc.data().users;
+            activeCount = doc.data().active_count;
+            for (const prop in users) {
+              userArray.push(users[prop]);
+            }
+
+            newUserList = userArray.filter((item) => {
+              return item.uid !== auth.currentUser.uid;
+            });
+
+            console.log(newUserList);
+
+            console.log(userArray);
+            console.log(`found`, doc.data().users);
+          })
+          .then(() => {
+            db.collection("rooms").doc(LSroomId).update({
+              users: newUserList,
+            });
+          })
+          .then(() => {
+            db.collection("rooms")
+              .doc(LSroomId)
+              .update({
+                active_count: activeCount - 1,
+              });
+          });
+      }
+    }
+  };
+
+  //lets do a conditional render
+  //if the waititng room is set to true
+  //display a new component "waiting room" with the room info and participants in room
+  if (waitingRoom) {
+    return (
+      <CurrentRoom
+        name={localStorage.getItem("room")}
+        favorite_letter={localStorage.getItem("favorite_letter")}
+      />
+    );
+  }
 
   return (
     <div className='background'>
@@ -247,6 +339,9 @@ function Rooms() {
           <br />
           <br />
         </div>
+        <button onClick={removeUserFromCurrentRoomIfOtherRoomClicked}>
+          Test
+        </button>
         <br />
         <div id='create-room'>
           <input
