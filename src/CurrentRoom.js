@@ -5,9 +5,10 @@ import "firebase/firestore";
 import { useEffect, useState } from "react";
 import TextField from "@mui/material/TextField";
 import React from "react";
+import Rooms from "./Rooms";
 import { isCompositeComponent } from "react-dom/test-utils";
 
-function CurrentRoom(props) {
+function CurrentRoom({ name, favorite_letter, removeUser }) {
   const db = firebase.firestore();
 
   const [nodes, setNodes] = useState({});
@@ -27,10 +28,13 @@ function CurrentRoom(props) {
         .doc(roomID)
         .onSnapshot((snapshot) => {
           let userArray = [];
-          userArray.push(snapshot.data().users);
+          let users = snapshot.data().users;
+
+          for (const prop in users) {
+            userArray.push(users[prop].name);
+          }
 
           setNodes(userArray);
-          setLoading(false);
           setUsers(true);
         });
     }
@@ -41,10 +45,11 @@ function CurrentRoom(props) {
   useEffect(() => {
     if (users) {
       console.log(nodes);
+      setLoading(false);
 
-      let userArray = [];
-
-      console.log(Object.entries(nodes));
+      nodes.map((node) => {
+        console.log(node);
+      });
     }
   }, [users]);
 
@@ -54,15 +59,25 @@ function CurrentRoom(props) {
 
   return (
     <div>
-      <h1>You're in room {props.name}</h1>
-      <h2>Your favorite letter : {props.favorite_letter}</h2>
-      <h3>Users in room: </h3>
+      <button onClick={(e) => removeUser(e)}>Leave Room</button>
 
-      {/*     <ul>
+      <h1>You're in room {name}</h1>
+      <h2>Your favorite letter : {favorite_letter}</h2>
+      <h3>Users in room: </h3>
+      {console.log(users)}
+      <table>
         {nodes.map((node, index) => {
-          return <li>{node}</li>;
+          return (
+            <thead key={index.toString()}>
+              <tr>
+                <td>{node}</td>
+
+                <td></td>
+              </tr>
+            </thead>
+          );
         })}
-      </ul> */}
+      </table>
     </div>
   );
 }

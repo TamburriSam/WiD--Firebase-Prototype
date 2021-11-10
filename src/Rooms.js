@@ -130,7 +130,7 @@ function Rooms() {
     let LSroomId = localStorage.getItem("room_id");
 
     if (LSroomId) {
-      removeUserFromCurrentRoomIfOtherRoomClicked(e);
+      removeUser(e);
     }
     setroomID(e.target.id);
     let id = e.target.id;
@@ -266,10 +266,12 @@ function Rooms() {
   //the way we prevent someone from being in more than one room at a time
   //when the user clicks any join button we first need to see if there is already a room id set
   //if there is - remove them from the users array and decrease active count of room
-  const removeUserFromCurrentRoomIfOtherRoomClicked = (e) => {
+  const removeUser = (e) => {
     let LSroomId = localStorage.getItem("room_id");
     let userArray = [];
     let newUserList, activeCount;
+
+    console.log("clicked");
 
     if (LSroomId) {
       if (LSroomId !== "" && e.target.id !== LSroomId) {
@@ -288,11 +290,6 @@ function Rooms() {
             newUserList = userArray.filter((item) => {
               return item.uid !== auth.currentUser.uid;
             });
-
-            console.log(newUserList);
-
-            console.log(userArray);
-            console.log(`found`, doc.data().users);
           })
           .then(() => {
             db.collection("rooms").doc(LSroomId).update({
@@ -305,6 +302,8 @@ function Rooms() {
               .update({
                 active_count: activeCount - 1,
               });
+            localStorage.clear();
+            window.location.reload(true);
           });
       }
     }
@@ -318,6 +317,7 @@ function Rooms() {
       <CurrentRoom
         name={localStorage.getItem("room")}
         favorite_letter={localStorage.getItem("favorite_letter")}
+        removeUser={removeUser}
       />
     );
   }
@@ -339,9 +339,7 @@ function Rooms() {
           <br />
           <br />
         </div>
-        <button onClick={removeUserFromCurrentRoomIfOtherRoomClicked}>
-          Test
-        </button>
+        <button onClick={removeUser}>Test</button>
         <br />
         <div id='create-room'>
           <input
