@@ -16,11 +16,47 @@ function CurrentRoom({ name, favorite_letter, removeUser }) {
   const [roomID, setroomID] = useState("");
   const [roomLoad, setroomLoad] = useState(false);
   const [users, setUsers] = useState(false);
+  const [gameStart, setgameStart] = useState(false);
+  const [inRoom, setinRoom] = useState(false);
 
   useEffect(() => {
     setroomID(localStorage.getItem("room_id"));
     setroomLoad(true);
+    setinRoom(true);
   }, []);
+
+  useEffect(() => {
+    console.log("ok");
+    if (inRoom) {
+      db.collection("rooms")
+        .doc(roomID)
+        .onSnapshot((snapshot) => {
+          let data = snapshot.data();
+          let users = data.users;
+          let activeCount = data.active_count;
+          let totalCount = data.total_count;
+          let letters = [];
+          console.log(`data`, data);
+
+          console.log("CHANGED NOWS");
+          for (const prop in users) {
+            if (users[prop].favorite_letter !== "") {
+              letters.push(users[prop].favorite_letter);
+              console.log(letters);
+              console.log(letters.length);
+            }
+          }
+          console.log(letters.length);
+          console.log(totalCount);
+          console.log(letters.length === totalCount);
+
+          if (activeCount === totalCount && letters.length === totalCount) {
+            alert("Game Started");
+            localStorage.setItem("game_start", true);
+          }
+        });
+    }
+  }, [inRoom]);
 
   useEffect(() => {
     if (roomLoad) {
@@ -60,7 +96,7 @@ function CurrentRoom({ name, favorite_letter, removeUser }) {
   return (
     <div>
       <button onClick={(e) => removeUser(e)}>Leave Room</button>
-
+      <h1 className='waiting'>Waiting</h1>
       <h1>You're in room {name}</h1>
       <h2>Your favorite letter : {favorite_letter}</h2>
       <h3>Users in room: </h3>

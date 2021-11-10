@@ -78,7 +78,7 @@ function Rooms() {
   }, [roomID]);
 
   //game start trigger
-  useEffect(() => {
+  /*   useEffect(() => {
     if (inRoom) {
       db.collection("rooms")
         .doc(roomID)
@@ -104,10 +104,11 @@ function Rooms() {
 
           if (activeCount === totalCount && letters.length === totalCount) {
             alert("Game Started");
+            localStorage.setItem("game_start", true);
           }
         });
     }
-  }, [inRoom]);
+  }, [inRoom]); */
 
   const createRoom = () => {
     if (typeof roomCount === "number" && roomCount < 40 && roomCount > 1) {
@@ -266,6 +267,10 @@ function Rooms() {
   //the way we prevent someone from being in more than one room at a time
   //when the user clicks any join button we first need to see if there is already a room id set
   //if there is - remove them from the users array and decrease active count of room
+
+  //NOT WORKING
+  //NOT WORKING- DOESNT FILTER OUT CERTAIN INSTANCES
+  //HAVE TO TEST
   const removeUser = (e) => {
     let LSroomId = localStorage.getItem("room_id");
     let userArray = [];
@@ -290,6 +295,8 @@ function Rooms() {
             newUserList = userArray.filter((item) => {
               return item.uid !== auth.currentUser.uid;
             });
+
+            console.log(newUserList);
           })
           .then(() => {
             db.collection("rooms").doc(LSroomId).update({
@@ -302,11 +309,35 @@ function Rooms() {
               .update({
                 active_count: activeCount - 1,
               });
+          })
+          .then(() => {
             localStorage.clear();
-            window.location.reload(true);
+          })
+          .then(() => {
+            setTimeout(() => {
+              window.location.reload(true);
+            }, 1000);
           });
       }
     }
+  };
+
+  const startCountdown = (seconds) => {
+    let counter = seconds;
+
+    const interval = setInterval(() => {
+      counter--;
+
+      document.querySelector(
+        "#waiting"
+      ).innerHTML = `Game Starting in ${counter} seconds`;
+
+      if (counter < 1) {
+        clearInterval(interval);
+        console.log("Ding!");
+        window.location = "game1.html";
+      }
+    }, 1000);
   };
 
   //lets do a conditional render
