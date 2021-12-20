@@ -4,25 +4,50 @@ import white_logo_dark_bg from "./logos/white_logo_dark_background.jpg";
 import blurb from "./logos/blurb10.jpeg";
 import mobileLogo from "./logos/whiteLogoStandalone.png";
 import App from "./App.js";
-import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
+import Rooms from "./Rooms";
 import "./index.css";
+import { useEffect, useState } from "react";
+import uniqid from "uniqid";
 
 function IndexPage(props) {
-  const uiConfig = {
-    // Popup signin flow rather than redirect flow.
-    signInFlow: "popup",
-    // Redirect to /signedIn after sign in is successful. Alternatively you can provide a callbacks.signInSuccess function.
-    signInSuccessUrl: "/main",
-    // We will display Google and Facebook as auth providers.
-    signInOptions: [
-      firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-      firebase.auth.EmailAuthProvider.PROVIDER_ID,
-    ],
+  const [inputField, setinputField] = useState("Enter a Screen Name");
+  const [nextPage, setnextPage] = useState(false);
+  const [uniqueId, setuniqueId] = useState(uniqid());
+
+  const handleChange = (e) => {
+    setinputField(e.target.value);
+
+    console.log(uniqueId);
   };
 
-  const styled = (
+  const submitForm = (e) => {
+    console.log("submitted");
+    console.log(inputField);
+    localStorage.setItem("username", inputField);
+    localStorage.setItem("user_id", uniqueId);
+    setnextPage(true);
+    e.preventDefault();
+  };
+
+  useEffect(() => {
+    const LSitem = localStorage.getItem("username");
+
+    if (LSitem) {
+      setnextPage(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    console.log(nextPage);
+  }, [nextPage]);
+
+  if (nextPage) {
+    return <Rooms />;
+  }
+
+  /*  const styled = (
     <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />
-  );
+  ); */
   return (
     <div id='indexBody'>
       <div id='overlay'></div>
@@ -32,11 +57,21 @@ function IndexPage(props) {
             <h2 id='title'>
               <img id='logo-alone' src={logoStandAlone} alt='logo' />
             </h2>
+            <form onSubmit={submitForm}>
+              <label>
+                Enter Username
+                <input
+                  type='text'
+                  placeholder={inputField}
+                  onChange={handleChange}
+                />
+              </label>
+              <input type='submit' value='Submit' />
+            </form>
 
-            {styled}
             <br />
           </div>
-        </div>{" "}
+        </div>
       </div>
 
       <div id='overlay-black'>

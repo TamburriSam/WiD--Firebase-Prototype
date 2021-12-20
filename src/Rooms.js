@@ -25,20 +25,17 @@ function Rooms() {
 
   //auth
   useEffect(() => {
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        setdisplayName(user.displayName);
-        setuserID(user.uid);
-        if (localStorage.getItem("waiting")) {
-          console.log("its here");
-        }
-        console.log(waitingRoom);
-        console.log("logged in");
-      } else {
-        console.log("logged out");
-      }
-    });
-  }, [isAuth]);
+    //get the username from LS and set it to a state instead of this
+    const LSuserName = localStorage.getItem("username");
+    const LSid = localStorage.getItem("user_id");
+
+    if (LSuserName) {
+      setdisplayName(LSuserName);
+      setuserID(LSid);
+    } else {
+      console.log("not working");
+    }
+  }, []);
 
   //MEMORY LEAK
   //MEMORY LEAK
@@ -135,7 +132,7 @@ function Rooms() {
     }
     setroomID(e.target.id);
     let id = e.target.id;
-    const currentUser = auth.currentUser.uid;
+    const currentUser = userID;
     const email = auth.currentUser.email;
 
     const userInfo = {
@@ -155,6 +152,7 @@ function Rooms() {
         list_two_received: [],
         list_three_received: [],
         list_four_received: [],
+        poem: "",
       },
     };
 
@@ -359,6 +357,9 @@ function Rooms() {
       <div className='liveRoom'>
         <div id='active-container'>
           <h1>Active Rooms</h1>
+          <br></br>
+          <p>Username: {displayName}</p>
+          <p>Unique User Id: {userID}</p>
           <br />
           <br />
 
