@@ -120,6 +120,7 @@ function Rooms() {
         list_three: [],
         list_four: [],
         users: {},
+        poems: [],
       });
     } else {
       alert("Must Enter Number Over 1 and Less than 40");
