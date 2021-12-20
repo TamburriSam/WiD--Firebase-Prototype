@@ -133,7 +133,7 @@ function Rooms() {
     setroomID(e.target.id);
     let id = e.target.id;
     const currentUser = userID;
-    const email = auth.currentUser.email;
+    const screenName = displayName;
 
     const userInfo = {
       [currentUser]: {
@@ -142,7 +142,7 @@ function Rooms() {
         uid: currentUser,
         flag: parseInt(0),
         rooms_joined: id,
-        user_name: email,
+        user_name: screenName,
         list_one_input: [],
         list_two_input: [],
         list_three_input: [],
@@ -291,7 +291,7 @@ function Rooms() {
             }
 
             newUserList = userArray.filter((item) => {
-              return item.uid !== auth.currentUser.uid;
+              return item.uid !== userID;
             });
 
             console.log(newUserList);
@@ -309,7 +309,10 @@ function Rooms() {
               });
           })
           .then(() => {
-            localStorage.clear();
+            localStorage.removeItem("room_id");
+            localStorage.removeItem("favorite_letter");
+            localStorage.removeItem("waiting");
+            localStorage.removeItem("room");
           })
           .then(() => {
             setTimeout(() => {
