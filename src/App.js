@@ -2,7 +2,6 @@ import firebase from "firebase/app";
 import "firebase/auth";
 import "./Nav.css";
 import IndexPage from "./IndexPage";
-import Nav from "./Nav";
 import "firebase/auth";
 import "firebase/firestore";
 import React from "react";

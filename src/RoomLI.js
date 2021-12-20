@@ -1,5 +1,4 @@
 import firebase from "firebase/app";
-import Nav from "./Nav";
 import "./Nav.css";
 import "firebase/firestore";
 import { useEffect, useState } from "react";

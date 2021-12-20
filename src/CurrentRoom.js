@@ -1,5 +1,4 @@
 import firebase from "firebase/app";
-import Nav from "./Nav";
 import "./Nav.css";
 import "firebase/firestore";
 import { useEffect, useState } from "react";
@@ -78,6 +77,8 @@ function CurrentRoom({ name, favorite_letter, removeUser }) {
 
   //END HERE
   // THERES SOMETHING WRONG WITH WHEN THE NEW USER LIST OBJECT GETS PUSHED TO DB IT IS NAMING IT ZERO- SO WE HAVE AN EMPTY OBJECT AND THEN OTHER OBJECTS> SO WE CANT MAP THRU IT
+
+  //this will be to load the user list
   useEffect(() => {
     if (users) {
       console.log(nodes);
