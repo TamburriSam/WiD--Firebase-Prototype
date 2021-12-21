@@ -134,26 +134,25 @@ function Rooms() {
     let id = e.target.id;
     const currentUser = userID;
     const screenName = displayName;
+    let rando = Math.floor(Math.random() * 1100);
 
     const userInfo = {
-      [currentUser]: {
-        name: displayName,
-        favorite_letter: "",
-        uid: currentUser,
-        flag: parseInt(0),
-        rooms_joined: id,
-        user_name: screenName,
-        list_one_input: [],
-        list_two_input: [],
-        list_three_input: [],
-        recipients: [],
-        list_four_input: [],
-        list_one_received: [],
-        list_two_received: [],
-        list_three_received: [],
-        list_four_received: [],
-        poem: "",
-      },
+      name: displayName,
+      favorite_letter: "",
+      uid: currentUser,
+      flag: parseInt(0),
+      rooms_joined: id,
+      user_name: screenName,
+      list_one_input: [],
+      list_two_input: [],
+      list_three_input: [],
+      recipients: [],
+      list_four_input: [],
+      list_one_received: [],
+      list_two_received: [],
+      list_three_received: [],
+      list_four_received: [],
+      poem: "",
     };
 
     watchForCount(id, userInfo);
@@ -169,18 +168,17 @@ function Rooms() {
       activeCount = doc.data().active_count;
       totalCount = doc.data().total_count;
 
+      console.log(users);
+
       for (const prop in users) {
         userArray.push(users[prop].uid);
       }
 
       if (!userArray.includes(userID) && activeCount < totalCount) {
         roomRef
-          .set(
-            {
-              users: userInfo,
-            },
-            { merge: true }
-          )
+          .update({
+            users: firebase.firestore.FieldValue.arrayUnion(userInfo),
+          })
           .then(() => {
             console.log("user added");
             setroomID(id);
@@ -237,29 +235,10 @@ function Rooms() {
     if (answer.length < 2 && typeof answer == "string") {
       console.log(`fav letter`, answer);
       localStorage.setItem("favorite_letter", answer);
-      room.get().then((doc) => {
-        return room
-          .set(
-            {
-              users: {
-                [userID]: {
-                  favorite_letter: answer,
-                },
-              },
-            },
-            { merge: true }
-          )
-          .then(() => {
-            setwaitingRoom(true);
-            setinRoom(true);
-
-            console.log("Document successfully updated!");
-          })
-          .catch((error) => {
-            console.error("Error updating document: ", error);
-          });
-      });
     }
+
+    setwaitingRoom(true);
+    setinRoom(true);
   };
 
   //the way we prevent someone from being in more than one room at a time
@@ -272,7 +251,8 @@ function Rooms() {
   const removeUser = (e) => {
     let LSroomId = localStorage.getItem("room_id");
     let userArray = [];
-    let newUserList, activeCount;
+    let activeCount;
+    let users;
 
     console.log("clicked");
 
@@ -284,35 +264,27 @@ function Rooms() {
           .doc(LSroomId)
           .get()
           .then((doc) => {
-            let users = doc.data().users;
+            users = doc.data().users;
             activeCount = doc.data().active_count;
             for (const prop in users) {
               userArray.push(users[prop]);
             }
-
-            newUserList = userArray.filter((item) => {
-              return item.uid !== userID;
-            });
-
-            console.log(newUserList);
-          })
-          .then(() => {
-            db.collection("rooms").doc(LSroomId).update({
-              users: newUserList,
-            });
           })
           .then(() => {
             db.collection("rooms")
               .doc(LSroomId)
               .update({
-                active_count: activeCount - 1,
+                users: userArray.filter((post) => post.uid !== userID),
+              })
+              .catch(function (error) {
+                console.error("Error removing document: ", error);
               });
           })
           .then(() => {
-            localStorage.removeItem("room_id");
-            localStorage.removeItem("favorite_letter");
-            localStorage.removeItem("waiting");
-            localStorage.removeItem("room");
+            decreaseCount(activeCount);
+          })
+          .then(() => {
+            removeLSitems();
           })
           .then(() => {
             setTimeout(() => {
@@ -321,6 +293,22 @@ function Rooms() {
           });
       }
     }
+  };
+
+  const decreaseCount = (activeCount) => {
+    let LSroomId = localStorage.getItem("room_id");
+    db.collection("rooms")
+      .doc(LSroomId)
+      .update({
+        active_count: activeCount - 1,
+      });
+  };
+
+  const removeLSitems = () => {
+    localStorage.removeItem("room_id");
+    localStorage.removeItem("favorite_letter");
+    localStorage.removeItem("waiting");
+    localStorage.removeItem("room");
   };
 
   const startCountdown = (seconds) => {

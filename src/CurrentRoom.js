@@ -49,7 +49,9 @@ function CurrentRoom({ name, favorite_letter, removeUser }) {
           console.log(totalCount);
           console.log(letters.length === totalCount);
 
-          if (activeCount === totalCount && letters.length === totalCount) {
+          //might want to change to only the fist conditionial
+          //something is happening with mobile entry of that letter
+          if (activeCount === totalCount) {
             alert("Game Started");
             localStorage.setItem("game_start", true);
           }
