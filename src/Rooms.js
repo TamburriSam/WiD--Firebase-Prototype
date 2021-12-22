@@ -167,8 +167,7 @@ function Rooms() {
                 active_count: activeCount + 1,
               })
               .then(() => {
-                /*                 setinRoom(true);
-                 */ checkForLetter(id);
+                checkForLetter(id);
                 console.log(`roomid`, id);
                 console.log("Document successfully updated!");
               })
@@ -188,6 +187,7 @@ function Rooms() {
       .then((doc) => {
         let name = doc.data().name;
         setcurrentRoomName(name);
+        randomWordsFromDB();
         localStorage.setItem("room", name);
         let userProfile;
         let users = doc.data().users;
@@ -217,6 +217,78 @@ function Rooms() {
 
     setwaitingRoom(true);
     setinRoom(true);
+  };
+
+  const randomWordsFromDB = () => {
+    let ls = localStorage.getItem("room_id");
+    let roomRef = db.collection("rooms").doc(ls);
+    let wordsRef = db.collection("words").doc("words");
+    let roomOneArray = [];
+    let roomTwoArray = [];
+    let roomThreeArray = [];
+    let roomFourArray = [];
+    let numbers = [];
+    let wordsForRoom = [];
+    let randomInt;
+
+    for (let i = 0; i < 130; i++) {
+      randomInt = Math.floor(Math.random() * 1089);
+
+      if (!numbers.includes(randomInt)) {
+        numbers.push(randomInt);
+      }
+
+      if (numbers.length >= 104) break;
+    }
+
+    wordsRef
+      .get()
+      .then((doc) => {
+        let wordBank = doc.data().words;
+
+        numbers.forEach((number, index) => {
+          wordsForRoom.push(wordBank[number]);
+        });
+
+        roomOneArray = wordsForRoom.slice(0, 26);
+        roomTwoArray = wordsForRoom.slice(26, 52);
+        roomThreeArray = wordsForRoom.slice(52, 78);
+        roomFourArray = wordsForRoom.slice(78, 104);
+      })
+      .then(() => {
+        updateDefaultLists(
+          roomRef,
+          roomOneArray,
+          roomTwoArray,
+          roomThreeArray,
+          roomFourArray
+        );
+      });
+  };
+
+  const updateDefaultLists = (roomRef, one, two, three, four) => {
+    let list_one = {
+      0: one,
+    };
+
+    let list_two = {
+      0: two,
+    };
+
+    let list_three = {
+      0: three,
+    };
+
+    let list_four = {
+      0: four,
+    };
+
+    return roomRef.update({
+      list_one,
+      list_two,
+      list_three,
+      list_four,
+    });
   };
 
   const removeUser = (e) => {
