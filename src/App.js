@@ -1,12 +1,10 @@
 import firebase from "firebase/app";
 import "firebase/auth";
-import "./Nav.css";
 import IndexPage from "./IndexPage";
 import "firebase/auth";
 import "firebase/firestore";
 import React from "react";
 import Rooms from "./Rooms";
-import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 import "firebaseui/dist/firebaseui.css";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 

@@ -1,27 +1,23 @@
 import firebase from "firebase/app";
-import "./Nav.css";
 import "firebase/firestore";
 import { useEffect, useState } from "react";
 import React from "react";
 import RoomLI from "./RoomLI";
 import CurrentRoom from "./CurrentRoom";
-import { wait } from "@testing-library/react";
+
 function Rooms() {
   const db = firebase.firestore();
-  const auth = firebase.auth();
 
   const [roomName, setRoomName] = useState("");
   const [roomCount, setRoomCount] = useState("");
   const [displayName, setdisplayName] = useState("");
   const [roomID, setroomID] = useState("");
   const [userID, setuserID] = useState("");
-  const [isAuth, setIsAuth] = useState();
   const [inRoom, setinRoom] = useState(false);
   const [data, setData] = useState();
   const [waitingRoom, setwaitingRoom] = useState(false);
-  const [loadWaitingRoom, setloadWaitingRoom] = useState(false);
   const [currentRoomName, setcurrentRoomName] = useState("");
-  const [favoriteLetter, setFavoriteLetter] = useState("");
+  const [password, setPassword] = useState("");
 
   //auth
   useEffect(() => {
@@ -43,10 +39,9 @@ function Rooms() {
   // so when you render the waiting room- the list of rooms is still updating
   // causing a no big issue error, but leaking memory and slowing appliaction
   // figure out a way to fix
+  // somehow tear down waititng room
 
   useEffect(() => {
-    console.log(localStorage.getItem("room_id") !== "");
-
     if (
       localStorage.getItem("room_id") &&
       localStorage.getItem("room_id") !== ""
@@ -73,39 +68,6 @@ function Rooms() {
     }, 1000);
   }, [roomID]);
 
-  //game start trigger
-  /*   useEffect(() => {
-    if (inRoom) {
-      db.collection("rooms")
-        .doc(roomID)
-        .onSnapshot((snapshot) => {
-          let data = snapshot.data();
-          let users = data.users;
-          let activeCount = data.active_count;
-          let totalCount = data.total_count;
-          let letters = [];
-          console.log(`data`, data);
-
-          console.log("CHANGED NOWS");
-          for (const prop in users) {
-            if (users[prop].favorite_letter !== "") {
-              letters.push(users[prop].favorite_letter);
-              console.log(letters);
-              console.log(letters.length);
-            }
-          }
-          console.log(letters.length);
-          console.log(totalCount);
-          console.log(letters.length === totalCount);
-
-          if (activeCount === totalCount && letters.length === totalCount) {
-            alert("Game Started");
-            localStorage.setItem("game_start", true);
-          }
-        });
-    }
-  }, [inRoom]); */
-
   const createRoom = () => {
     if (typeof roomCount === "number" && roomCount < 40 && roomCount > 1) {
       db.collection("rooms").add({
@@ -118,6 +80,7 @@ function Rooms() {
         list_four: [],
         users: {},
         poems: [],
+        password: password,
       });
     } else {
       alert("Must Enter Number Over 1 and Less than 40");
@@ -155,7 +118,23 @@ function Rooms() {
       poem: "",
     };
 
-    watchForCount(id, userInfo);
+    checkPassword(id, userInfo);
+  };
+
+  const checkPassword = (id, userInfo) => {
+    let answer = prompt("password please");
+
+    let roomRef = db.collection("rooms").doc(id);
+
+    roomRef.get().then((doc) => {
+      let DBpassword = doc.data().password;
+
+      if (DBpassword === answer) {
+        watchForCount(id, userInfo);
+      } else {
+        alert("Wrong Password");
+      }
+    });
   };
 
   const watchForCount = (id, userInfo) => {
@@ -229,7 +208,6 @@ function Rooms() {
 
   const selectAFavoriteLetter = (id) => {
     let answer = prompt("what your fav letter?");
-    let room = db.collection("rooms").doc(id);
     console.log(`room id`, id);
     //update to regex checking a-z eventually
     if (answer.length < 2 && typeof answer == "string") {
@@ -241,25 +219,14 @@ function Rooms() {
     setinRoom(true);
   };
 
-  //the way we prevent someone from being in more than one room at a time
-  //when the user clicks any join button we first need to see if there is already a room id set
-  //if there is - remove them from the users array and decrease active count of room
-
-  //NOT WORKING
-  //NOT WORKING- DOESNT FILTER OUT CERTAIN INSTANCES
-  //HAVE TO TEST
   const removeUser = (e) => {
     let LSroomId = localStorage.getItem("room_id");
     let userArray = [];
     let activeCount;
     let users;
 
-    console.log("clicked");
-
     if (LSroomId) {
       if (LSroomId !== "" && e.target.id !== LSroomId) {
-        //also put a check for if the id of the button matches user id
-        //if it does- do nothing
         db.collection("rooms")
           .doc(LSroomId)
           .get()
@@ -271,14 +238,7 @@ function Rooms() {
             }
           })
           .then(() => {
-            db.collection("rooms")
-              .doc(LSroomId)
-              .update({
-                users: userArray.filter((post) => post.uid !== userID),
-              })
-              .catch(function (error) {
-                console.error("Error removing document: ", error);
-              });
+            userDeleted(LSroomId, userArray);
           })
           .then(() => {
             decreaseCount(activeCount);
@@ -293,6 +253,17 @@ function Rooms() {
           });
       }
     }
+  };
+
+  const userDeleted = (roomID, userArray) => {
+    const roomRef = db.collection("rooms").doc(roomID);
+    roomRef
+      .update({
+        users: userArray.filter((post) => post.uid !== userID),
+      })
+      .catch(function (error) {
+        console.error("Error removing document: ", error);
+      });
   };
 
   const decreaseCount = (activeCount) => {
@@ -377,6 +348,13 @@ function Rooms() {
             id='room-count'
             placeholder='Room Count'
             onChange={(e) => setRoomCount(parseInt(e.target.value))}
+            required
+          />
+          <input
+            type='password'
+            id='password'
+            placeholder='Room Password'
+            onChange={(e) => setPassword(e.target.value)}
             required
           />
           <button onClick={createRoom} className='creater btn create-room'>

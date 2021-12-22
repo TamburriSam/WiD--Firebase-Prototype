@@ -1,8 +1,8 @@
 import firebase from "firebase/app";
-import "./Nav.css";
 import "firebase/firestore";
 import { useEffect, useState } from "react";
 import TextField from "@mui/material/TextField";
+import Game1 from "./Game1";
 import React from "react";
 import Rooms from "./Rooms";
 import { isCompositeComponent } from "react-dom/test-utils";
@@ -49,11 +49,15 @@ function CurrentRoom({ name, favorite_letter, removeUser }) {
           console.log(totalCount);
           console.log(letters.length === totalCount);
 
-          //might want to change to only the fist conditionial
-          //something is happening with mobile entry of that letter
-          if (activeCount === totalCount) {
-            alert("Game Started");
-            localStorage.setItem("game_start", true);
+          let gs = localStorage.getItem("game_start");
+
+          if (activeCount === totalCount && Boolean(gs) !== true) {
+            setTimeout(() => {
+              alert("game start");
+              setgameStart(true);
+              window.location.reload(true);
+              localStorage.setItem("game_start", true);
+            }, 5000);
           }
         });
     }
@@ -77,10 +81,6 @@ function CurrentRoom({ name, favorite_letter, removeUser }) {
     }
   }, [roomLoad]);
 
-  //END HERE
-  // THERES SOMETHING WRONG WITH WHEN THE NEW USER LIST OBJECT GETS PUSHED TO DB IT IS NAMING IT ZERO- SO WE HAVE AN EMPTY OBJECT AND THEN OTHER OBJECTS> SO WE CANT MAP THRU IT
-
-  //this will be to load the user list
   useEffect(() => {
     if (users) {
       console.log(nodes);
@@ -91,6 +91,12 @@ function CurrentRoom({ name, favorite_letter, removeUser }) {
       });
     }
   }, [users]);
+
+  let gs = localStorage.getItem("game_start");
+
+  if (gs) {
+    return <Game1 />;
+  }
 
   if (isLoading) {
     return <div className='App'>Loading...</div>;

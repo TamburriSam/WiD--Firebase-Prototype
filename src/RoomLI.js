@@ -1,5 +1,4 @@
 import firebase from "firebase/app";
-import "./Nav.css";
 import "firebase/firestore";
 import { useEffect, useState } from "react";
 import TextField from "@mui/material/TextField";
