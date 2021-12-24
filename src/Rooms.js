@@ -19,7 +19,7 @@ function Rooms() {
   const [currentRoomName, setcurrentRoomName] = useState("");
   const [password, setPassword] = useState("");
 
-  //auth
+  //mount
   useEffect(() => {
     //get the username from LS and set it to a state instead of this
     const LSuserName = localStorage.getItem("username");
@@ -28,6 +28,7 @@ function Rooms() {
     if (LSuserName) {
       setdisplayName(LSuserName);
       setuserID(LSid);
+      roomFullDisableBtn();
     } else {
       console.log("not working");
     }
@@ -354,6 +355,25 @@ function Rooms() {
     localStorage.removeItem("room");
   };
 
+  const roomFullDisableBtn = () => {
+    let LSroomId = localStorage.getItem("room_id");
+    if (!LSroomId) {
+      db.collection("rooms")
+        .get()
+        .then((querySnapshot) => {
+          querySnapshot.forEach((doc) => {
+            //if ls room id not found
+            if (doc.data().active_count === doc.data().total_count) {
+              document.getElementById(doc.id).disabled = true;
+              document.getElementById(doc.id).innerHTML = "In Session";
+            }
+          });
+        });
+    } else {
+      return false;
+    }
+  };
+
   const startCountdown = (seconds) => {
     let counter = seconds;
 
@@ -405,7 +425,7 @@ function Rooms() {
           <br />
           <br />
         </div>
-        <button onClick={removeUser}>Test</button>
+        <button onClick={roomFullDisableBtn}>Test</button>
         <br />
         <div id='create-room'>
           <input
