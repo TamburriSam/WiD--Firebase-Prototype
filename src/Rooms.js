@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import React from "react";
 import RoomLI from "./RoomLI";
 import CurrentRoom from "./CurrentRoom";
+import "./index.css";
 
 function Rooms() {
   const db = firebase.firestore();
@@ -69,7 +70,12 @@ function Rooms() {
     }, 1000);
   }, [roomID]);
 
-  const createRoom = () => {
+  const displayCreateBtns = () => {
+    document.getElementById("create-room").style.display = "block";
+  };
+
+  const createRoom = (e) => {
+    e.preventDefault();
     if (typeof roomCount === "number" && roomCount < 40 && roomCount > 1) {
       db.collection("rooms").add({
         name: roomName,
@@ -83,6 +89,7 @@ function Rooms() {
         poems: [],
         password: password,
       });
+      document.getElementById("create-room").style.display = "none";
     } else {
       alert("Must Enter Number Over 1 and Less than 40");
     }
@@ -200,8 +207,9 @@ function Rooms() {
         }
         if (userProfile.favorite_letter == "") {
           console.log("favorite letter not found");
-          selectAFavoriteLetter(id);
-          localStorage.setItem("waiting", true);
+          setwaitingRoom(true);
+          /*           selectAFavoriteLetter(id);
+           */ localStorage.setItem("waiting", true);
         }
         console.log(`user profile`, userProfile);
       });
@@ -417,7 +425,11 @@ function Rooms() {
           <br />
           <br />
 
-          <button className='btn' id='createNewRoom'>
+          <button
+            className='btn'
+            id='createNewRoom'
+            onClick={displayCreateBtns}
+          >
             Create New Room
           </button>
           <br />
@@ -427,7 +439,7 @@ function Rooms() {
         </div>
         <button onClick={roomFullDisableBtn}>Test</button>
         <br />
-        <div id='create-room'>
+        <form id='create-room' onSubmit={(e) => createRoom(e)}>
           <input
             type='text'
             id='room-name'
@@ -449,10 +461,14 @@ function Rooms() {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-          <button onClick={createRoom} className='creater btn create-room'>
+          <button
+            type='submit'
+            value='Create Room'
+            className='creater btn create-room'
+          >
             Create Room
           </button>
-        </div>
+        </form>
         <table className='table1 centered'>
           <thead>
             <tr>
