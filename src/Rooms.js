@@ -87,7 +87,7 @@ function Rooms() {
         list_four: [],
         users: {},
         poems: [],
-        password: password,
+        password,
       });
       document.getElementById("create-room").style.display = "none";
     } else {
@@ -111,6 +111,14 @@ function Rooms() {
       name: displayName,
       favorite_letter: "",
       uid: currentUser,
+      rooms_joined: id,
+      user_name: screenName,
+    };
+
+    const userInfoTest = {
+      name: displayName,
+      favorite_letter: "",
+      uid: currentUser,
       flag: parseInt(0),
       rooms_joined: id,
       user_name: screenName,
@@ -127,6 +135,11 @@ function Rooms() {
     };
 
     checkPassword(id, userInfo);
+    testUpdate(currentUser, userInfoTest);
+  };
+
+  const testUpdate = (currentUser, userInfoTest) => {
+    db.collection("users").doc(currentUser).set(userInfoTest);
   };
 
   const checkPassword = (id, userInfo) => {
@@ -320,6 +333,15 @@ function Rooms() {
           })
           .then(() => {
             userDeleted(LSroomId, userArray);
+
+            var jobskill_query = db
+              .collection("users")
+              .where("uid", "==", userID);
+            jobskill_query.get().then(function (querySnapshot) {
+              querySnapshot.forEach(function (doc) {
+                doc.ref.delete();
+              });
+            });
           })
           .then(() => {
             decreaseCount(activeCount);
@@ -407,7 +429,6 @@ function Rooms() {
     return (
       <CurrentRoom
         name={localStorage.getItem("room")}
-        favorite_letter={localStorage.getItem("favorite_letter")}
         removeUser={removeUser}
       />
     );
