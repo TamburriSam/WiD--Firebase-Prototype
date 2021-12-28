@@ -2,20 +2,28 @@ import { alpha } from "@mui/material";
 import { useEffect, useState } from "react";
 import firebase from "firebase/app";
 import "firebase/firestore";
+import RoomLI from "./RoomLI";
+import Game2 from "./Game2.js";
 
 function Game1() {
   const db = firebase.firestore();
 
   const [roomID, setroomID] = useState("");
   const [userID, setuserID] = useState("");
+  const [g2Start, setG2Start] = useState(false);
 
   useEffect(() => {
     let LSroomId = localStorage.getItem("room_id");
     let LSuserId = localStorage.getItem("user_id");
+    let LSg1Start = localStorage.getItem("g1");
 
-    setroomID(LSroomId);
-    setuserID(LSuserId);
-    populateAlphabet();
+    if (LSg1Start) {
+      setG2Start(true);
+    } else {
+      setroomID(LSroomId);
+      setuserID(LSuserId);
+      populateAlphabet();
+    }
   }, []);
 
   const shuffle = (array) => {
@@ -46,27 +54,89 @@ function Game1() {
     console.log(shuffledAlpha.length);
 
     alphabet.map((letter) => {
-      html += `<li><input type="text" data-id="${count}" class="input-cell" </input><span class="placeholder">${letter}</span> </li>`;
+      html += `<li><input type="text" data-id="${count}" class="input-cell"> </input><span class="placeholder">${letter}</span> </li>`;
       count++;
     });
     listofInp.innerHTML = html;
-    buttonContainer.innerHTML = `<button data-id="next-1"class="next" id="${roomID}">Continue</button>`;
-    console.log(shuffledAlpha);
+  };
+
+  const allEntered = (e) => {
+    e.preventDefault();
+    let inputList = document.querySelectorAll(".input-cell");
+
+    let enteredWords = [];
+
+    inputList.forEach((cell) => {
+      if (cell.value !== "") {
+        enteredWords.push(cell);
+      }
+    });
+
+    if (enteredWords.length == 26) {
+      updateUserInputList();
+    } else {
+      alert("all cells must be entered");
+    }
   };
 
   const updateUserInputList = () => {
-    let userRef = db.collection("rooms").doc(roomID);
-    let users = "";
+    let userRef = db.collection("users").doc(userID);
+    let inputList = document.querySelectorAll(".input-cell");
+    let game_one_list = [];
+
+    inputList.forEach((cell) => {
+      game_one_list.push(cell.value);
+    });
+
+    userRef.update({
+      list_one_input: game_one_list,
+    });
+
+    updateUserListToMainRoom(game_one_list);
+
+    console.log(game_one_list);
   };
+
+  const updateUserListToMainRoom = (list) => {
+    let roomRef = db.collection("rooms").doc(roomID);
+    let randomInt = Math.floor(Math.random() * 200);
+    let list_one;
+
+    //overwriting entire document
+    list_one = {
+      [randomInt]: {
+        0: userID,
+        1: list,
+      },
+    };
+
+    return roomRef
+      .set(
+        {
+          list_one,
+        },
+        { merge: true }
+      )
+      .then(() => {
+        localStorage.setItem("g1", true);
+        setG2Start(true);
+      });
+  };
+
+  if (g2Start) {
+    return <Game2 />;
+  }
 
   return (
     <div>
-      <button onClick={updateUserInputList}>Test</button>
-      <ul id='input-list'>
-        <li>hi</li>
-      </ul>
+      <h1>Game One</h1>
+      <form onSubmit={(e) => allEntered(e)}>
+        <ul id='input-list'></ul>
 
-      <div id='button-container'></div>
+        <button type='submit' value={roomID}>
+          Continue
+        </button>
+      </form>
     </div>
   );
 }
