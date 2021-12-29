@@ -45,6 +45,11 @@ function CurrentRoom({ name, favorite_letter, removeUser }) {
       setroomLoad(true);
       setinRoom(true);
     }
+
+    return () => {
+      isLoading(true);
+      console.log("unmounting component");
+    };
   }, []);
 
   useEffect(() => {
@@ -117,6 +122,11 @@ function CurrentRoom({ name, favorite_letter, removeUser }) {
 
   let gs = localStorage.getItem("game_start");
 
+  const testClear = () => {
+    localStorage.clear();
+    window.location.reload(true);
+  };
+
   if (gs) {
     return <Game1 />;
   }
@@ -127,6 +137,8 @@ function CurrentRoom({ name, favorite_letter, removeUser }) {
 
   return (
     <div>
+      <button onClick={testClear}>clear</button>
+
       <button onClick={(e) => removeUser(e)}>Leave Room</button>
       <h1 className='waiting'>Waiting</h1>
       <h1>You're in room {name}</h1>

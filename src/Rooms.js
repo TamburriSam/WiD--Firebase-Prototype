@@ -19,6 +19,7 @@ function Rooms() {
   const [waitingRoom, setwaitingRoom] = useState(false);
   const [currentRoomName, setcurrentRoomName] = useState("");
   const [password, setPassword] = useState("");
+  const [roomLI, setroomLI] = useState(true);
 
   //mount
   useEffect(() => {
@@ -119,18 +120,16 @@ function Rooms() {
       name: displayName,
       favorite_letter: "",
       uid: currentUser,
-      flag: parseInt(0),
       rooms_joined: id,
       user_name: screenName,
       list_one_input: [],
       list_two_input: [],
       list_three_input: [],
-      recipients: [],
       list_four_input: [],
-      list_one_received: [],
-      list_two_received: [],
-      list_three_received: [],
-      list_four_received: [],
+      t1: false,
+      t2: false,
+      t3: false,
+      t4: false,
       poem: "",
     };
 
@@ -221,6 +220,7 @@ function Rooms() {
         if (userProfile.favorite_letter == "") {
           console.log("favorite letter not found");
           setwaitingRoom(true);
+          setroomLI(false);
           /*           selectAFavoriteLetter(id);
            */ localStorage.setItem("waiting", true);
         }
@@ -422,11 +422,17 @@ function Rooms() {
     }, 1000);
   };
 
+  const testClear = () => {
+    localStorage.clear();
+    window.location.reload(true);
+  };
+
   //lets do a conditional render
   //if the waititng room is set to true
   //display a new component "waiting room" with the room info and participants in room
   if (waitingRoom) {
-    return (
+    /*     setroomLI(false);
+     */ return (
       <CurrentRoom
         name={localStorage.getItem("room")}
         removeUser={removeUser}
@@ -504,8 +510,12 @@ function Rooms() {
           </tbody>
         </table>
       </div>
-
-      <RoomLI data={data} createNewProfile={createNewProfile} />
+      <button onClick={testClear}>clear</button>
+      {roomLI ? (
+        <RoomLI data={data} createNewProfile={createNewProfile} />
+      ) : null}
+      {/*       <RoomLI data={data} createNewProfile={createNewProfile} />
+       */}{" "}
     </div>
   );
 }

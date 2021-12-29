@@ -12,6 +12,11 @@ function RoomLI({ createNewProfile, data, props }) {
 
   useEffect(() => {
     getData();
+
+    return () => {
+      setLoading(true);
+      console.log("unmounting component");
+    };
   }, []);
 
   const getData = () => {

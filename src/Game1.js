@@ -123,6 +123,15 @@ function Game1() {
       });
   };
 
+  const updateFinishedGameTick = () => {
+    db.collection("users").doc(userID).update({ t1: true });
+  };
+
+  const testClear = () => {
+    localStorage.clear();
+    window.location.reload(true);
+  };
+
   if (g2Start) {
     return <Game2 />;
   }
@@ -137,6 +146,7 @@ function Game1() {
           Continue
         </button>
       </form>
+      <button onClick={testClear}>clear</button>
     </div>
   );
 }

@@ -18,6 +18,7 @@ const Game2 = () => {
 
     setroomID(LSroomId);
     setuserID(LSuserId);
+
     createCells();
   }, []);
 
@@ -31,14 +32,8 @@ const Game2 = () => {
     inputList.innerHTML = html;
   };
 
-  const selectAList = () => {
-    let roomRef = db.collection("rooms").doc(roomID);
-
-    let query = db.collection("rooms");
+  const defaultList = () => {
     let list = [];
-
-    let listForRoom = [];
-
     let defaultList = [];
 
     db.collection("rooms")
@@ -49,26 +44,76 @@ const Game2 = () => {
       })
       .then(() => {
         list.forEach((user) => {
-          console.log(user);
           defaultList = user[0];
-          for (const prop in user) {
-            if (user[prop][0] !== userID) {
-              listForRoom.push(user[prop][1]);
-            }
+          console.log(defaultList);
+        });
+      });
+  };
+
+  //to be used on mount
+  const areThereLists = () => {
+    let arr = [];
+    db.collection("users")
+      .get()
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          arr.push(doc);
+        });
+      })
+      .then(() => {
+        arr.length > 1 ? selectAList() : defaultList();
+      });
+  };
+
+  const selectAList = () => {
+    let personSelected, personSelectedListOne, personSelectedUID;
+
+    let haventBeenUsedLists = [];
+
+    db.collection("users")
+      .get()
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          let ids = doc.data().uid;
+          let t1 = doc.data().t1;
+
+          if (ids !== userID && t1 == false) {
+            haventBeenUsedLists.push(doc.data());
           }
         });
+      })
+      .then(() => {
+        console.log(`havent been used`, haventBeenUsedLists);
+        let random = Math.floor(Math.random() * haventBeenUsedLists.length);
 
-        console.log(defaultList);
-        listForRoom.shift();
-        console.log(listForRoom);
+        personSelected = haventBeenUsedLists[random];
+        personSelectedListOne = personSelected.list_one_input;
+        personSelectedUID = personSelected.uid;
+
+        console.log(
+          `person selected`,
+          personSelected,
+          personSelectedListOne,
+          personSelectedUID
+        );
+      })
+      .then(() => {
+        /*         updateUsersTurn(personSelectedUID)
+         */
       });
+  };
+
+  const updateUsersTurn = (id) => {
+    return db.collection("users").doc(id).update({
+      t1: true,
+    });
   };
 
   return (
     <div>
       <h1>Game Two</h1>
       <p>{userID}</p>
-      <button onClick={selectAList}>test</button>
+      <button onClick={areThereLists}>test</button>
       <form>
         <div>
           <ul id='received_word_list'></ul>
