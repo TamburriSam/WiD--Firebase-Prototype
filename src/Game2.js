@@ -10,26 +10,62 @@ const Game2 = () => {
   const [roomID, setroomID] = useState("");
   const [userID, setuserID] = useState("");
   const [g3Start, setG3Start] = useState(false);
+  const [listForRoom, setListForRoom] = useState([]);
+  const [what, setWhat] = useState(false);
 
   useEffect(() => {
     let LSroomId = localStorage.getItem("room_id");
     let LSuserId = localStorage.getItem("user_id");
     let LSg1Start = localStorage.getItem("g1");
 
+    listInLS();
+
     setroomID(LSroomId);
     setuserID(LSuserId);
-
     createCells();
   }, []);
+
+  useEffect(() => {
+    userListFromDB();
+  }, [listForRoom]);
 
   const createCells = () => {
     let inputList = document.getElementById("input-list");
 
     let html;
     for (let i = 0; i < 26; i++) {
-      html += `<li><input></input></li>`;
+      html += `<li><input class="input-cell"></input></li>`;
     }
     inputList.innerHTML = html;
+  };
+
+  const userListFromDB = () => {
+    let received_list = document.getElementById("received_word_list");
+    const LS_ITEM_list_one = localStorage
+      .getItem("list_one_received")
+      .split(",");
+
+    let html;
+
+    LS_ITEM_list_one.map((item) => {
+      html += `<li class="list_item">${item}</li>`;
+    });
+
+    received_list.innerHTML = html;
+
+    console.log(listForRoom);
+  };
+
+  const listInLS = () => {
+    const LS_ITEM_list_one = localStorage.getItem("list_one_received");
+
+    if (LS_ITEM_list_one) {
+      setListForRoom(LS_ITEM_list_one.split(","));
+      setWhat(true);
+      console.log(`list for room`, listForRoom);
+    } else {
+      areThereLists();
+    }
   };
 
   const defaultList = () => {
@@ -45,6 +81,7 @@ const Game2 = () => {
       .then(() => {
         list.forEach((user) => {
           defaultList = user[0];
+          setListForRoom(defaultList);
           console.log(defaultList);
         });
       });
@@ -98,8 +135,9 @@ const Game2 = () => {
         );
       })
       .then(() => {
-        /*         updateUsersTurn(personSelectedUID)
-         */
+        localStorage.setItem("list_one_received", personSelectedListOne);
+        setListForRoom(personSelectedListOne);
+        updateUsersTurn(personSelectedUID);
       });
   };
 
@@ -109,25 +147,42 @@ const Game2 = () => {
     });
   };
 
+  const magnifyWords = (e) => {
+    let inputCells = document.querySelectorAll("input-cell");
+
+    inputCells.forEach((cell) => {
+      cell.addEventListener("click", () => {
+        console.log(e.target);
+      });
+    });
+  };
+
+  const test = () => {
+    console.log(listForRoom);
+  };
+
   return (
     <div>
       <h1>Game Two</h1>
       <p>{userID}</p>
-      <button onClick={areThereLists}>test</button>
-      <form>
+      <button onClick={test}>test</button>
+      <div
+        id='list_container'
+        style={{ display: "flex", justifyContent: "space-around" }}
+      >
         <div>
           <ul id='received_word_list'></ul>
         </div>
-      </form>
 
-      <form>
-        <label>User Input List</label>
-        <ul id='input-list'></ul>
+        <form>
+          <label>User Input List</label>
+          <ul id='input-list'></ul>
 
-        <button type='submit' value={roomID}>
-          Continue
-        </button>
-      </form>
+          <button type='submit' value={roomID}>
+            Continue
+          </button>
+        </form>
+      </div>
     </div>
   );
 };
