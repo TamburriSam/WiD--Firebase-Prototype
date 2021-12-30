@@ -109,7 +109,7 @@ const Game2 = () => {
         });
       })
       .then(() => {
-        arr.length > 10 ? selectAList() : defaultList();
+        arr.length > 2 ? selectAList() : defaultList();
       });
   };
 
