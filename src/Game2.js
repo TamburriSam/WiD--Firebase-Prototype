@@ -44,15 +44,15 @@ const Game2 = () => {
   const userListFromDB = () => {
     let received_list = document.getElementById("received_word_list");
     let LS_ITEM_list_one = localStorage.getItem("list_one_received");
-    LS_ITEM_list_one = LS_ITEM_list_one.split(",");
+    /*   LS_ITEM_list_one = LS_ITEM_list_one.split(","); */
 
     let html;
 
-    LS_ITEM_list_one.map((item) => {
+    /*    LS_ITEM_list_one.map((item) => {
       html += `<li class="list_item">${item}</li>`;
     });
 
-    received_list.innerHTML = html;
+    received_list.innerHTML = html; */
 
     console.log(listForRoom);
   };
@@ -95,11 +95,21 @@ const Game2 = () => {
       .get()
       .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
-          arr.push(doc);
+          let rooms_joined = doc.data().rooms_joined;
+
+          if (rooms_joined == roomID) {
+            arr.push(doc);
+            console.log(doc.data().rooms_joined);
+          }
+
+          //HERE IS THE ANSWER
+          //ITS HERE
+          //ITS HERE
+          console.log(arr.length);
         });
       })
       .then(() => {
-        arr.length > 1 ? selectAList() : defaultList();
+        arr.length > 10 ? selectAList() : defaultList();
       });
   };
 
@@ -108,14 +118,33 @@ const Game2 = () => {
 
     let haventBeenUsedLists = [];
 
+    let roomUID = "";
+
+    db.collection("rooms")
+      .doc(roomID)
+      .get()
+      .then((doc) => {
+        roomUID = doc.id;
+      });
+
     db.collection("users")
       .get()
       .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
           let ids = doc.data().uid;
           let t1 = doc.data().t1;
+          let rooms_joined = doc.data().rooms_joined;
 
-          if (ids !== userID && t1 == false) {
+          console.log(rooms_joined === roomUID);
+
+          console.log(`room uid`, roomUID);
+
+          //needs a conditional for if theres only one person in the room - so that way its not necessarily basing
+
+          ///ALSO NEED ROOM IDS TO MATCH
+          //THIS IS IN THE GENERAL USERS DB SO IF THERES MORE THAN ONE CLASS AT A TIME- IT WILL PULL FROM OTHER DBS- NEED TO MAKE SURE ROOM_JOINED ID IS ALSO THE SAME! EASY FIX.
+
+          if (ids !== userID && t1 == false && rooms_joined === roomUID) {
             haventBeenUsedLists.push(doc.data());
           }
         });
@@ -138,7 +167,7 @@ const Game2 = () => {
       .then(() => {
         localStorage.setItem("list_one_received", personSelectedListOne);
         setListForRoom(personSelectedListOne);
-        /*         updateUsersTurn(personSelectedUID);
+        /*        updateUsersTurn(personSelectedUID);
          */
       })
       .then(() => {
