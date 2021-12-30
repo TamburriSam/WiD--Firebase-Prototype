@@ -1,4 +1,3 @@
-import { alpha } from "@mui/material";
 import { useEffect, useState } from "react";
 import firebase from "firebase/app";
 import "firebase/firestore";
@@ -26,6 +25,9 @@ const Game2 = () => {
   }, []);
 
   useEffect(() => {
+    console.log("done");
+    console.log("line 29");
+    console.log(listForRoom);
     userListFromDB();
   }, [listForRoom]);
 
@@ -41,9 +43,8 @@ const Game2 = () => {
 
   const userListFromDB = () => {
     let received_list = document.getElementById("received_word_list");
-    const LS_ITEM_list_one = localStorage
-      .getItem("list_one_received")
-      .split(",");
+    let LS_ITEM_list_one = localStorage.getItem("list_one_received");
+    LS_ITEM_list_one = LS_ITEM_list_one.split(",");
 
     let html;
 
@@ -61,7 +62,7 @@ const Game2 = () => {
 
     if (LS_ITEM_list_one) {
       setListForRoom(LS_ITEM_list_one.split(","));
-      setWhat(true);
+      console.log("line 64");
       console.log(`list for room`, listForRoom);
     } else {
       areThereLists();
@@ -137,6 +138,10 @@ const Game2 = () => {
       .then(() => {
         localStorage.setItem("list_one_received", personSelectedListOne);
         setListForRoom(personSelectedListOne);
+        /*         updateUsersTurn(personSelectedUID);
+         */
+      })
+      .then(() => {
         updateUsersTurn(personSelectedUID);
       });
   };
