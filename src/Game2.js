@@ -73,8 +73,10 @@ const Game2 = () => {
     let list = [];
     let defaultList = [];
 
+    let room_id = localStorage.getItem("room_id");
+
     db.collection("rooms")
-      .doc(roomID)
+      .doc(room_id)
       .get()
       .then((doc) => {
         list.push(doc.data().list_one);
