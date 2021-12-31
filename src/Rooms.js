@@ -20,6 +20,7 @@ function Rooms() {
   const [currentRoomName, setcurrentRoomName] = useState("");
   const [password, setPassword] = useState("");
   const [roomLI, setroomLI] = useState(true);
+  const [isLoading, setLoading] = useState(false);
 
   //mount
   useEffect(() => {
@@ -438,6 +439,10 @@ function Rooms() {
         removeUser={removeUser}
       />
     );
+  }
+
+  if (isLoading) {
+    return <div className='App'>Loading...</div>;
   }
 
   return (

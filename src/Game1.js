@@ -11,6 +11,7 @@ function Game1() {
   const [roomID, setroomID] = useState("");
   const [userID, setuserID] = useState("");
   const [g2Start, setG2Start] = useState(false);
+  const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
     let LSroomId = localStorage.getItem("room_id");
@@ -131,6 +132,10 @@ function Game1() {
     localStorage.clear();
     window.location.reload(true);
   };
+
+  if (isLoading) {
+    return <div className='App'>Loading...</div>;
+  }
 
   if (g2Start) {
     return <Game2 />;

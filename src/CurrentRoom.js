@@ -45,11 +45,6 @@ function CurrentRoom({ name, favorite_letter, removeUser }) {
       setroomLoad(true);
       setinRoom(true);
     }
-
-    return () => {
-      isLoading(true);
-      console.log("unmounting component");
-    };
   }, []);
 
   useEffect(() => {
