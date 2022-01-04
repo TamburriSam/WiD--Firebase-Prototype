@@ -439,6 +439,7 @@ function Rooms() {
 
   return (
     <div className='background'>
+      <h1>hi</h1>
       {/*     <Nav name={`Hello ${displayName}`} /> */}
       <div className='liveRoom'>
         <div id='active-container'>
@@ -496,7 +497,7 @@ function Rooms() {
         <table className='table1 centered'>
           <thead>
             <tr>
-              <th>Grcccoup Name</th>
+              <th>Groddup Name</th>
               <th>Members Active</th>
               <th></th>
             </tr>
