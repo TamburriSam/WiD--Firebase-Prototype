@@ -99,7 +99,8 @@ function Game1() {
   };
 
   const updateUserListToMainRoom = (list) => {
-    let roomRef = db.collection("rooms").doc(roomID);
+    let roomUID = localStorage.getItem("room_id");
+    let roomRef = db.collection("rooms").doc(roomUID);
     let randomInt = Math.floor(Math.random() * 200);
     let list_one;
 

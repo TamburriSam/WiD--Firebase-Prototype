@@ -405,24 +405,6 @@ function Rooms() {
     }
   };
 
-  const startCountdown = (seconds) => {
-    let counter = seconds;
-
-    const interval = setInterval(() => {
-      counter--;
-
-      document.querySelector(
-        "#waiting"
-      ).innerHTML = `Game Starting in ${counter} seconds`;
-
-      if (counter < 1) {
-        clearInterval(interval);
-        console.log("Ding!");
-        window.location = "game1.html";
-      }
-    }, 1000);
-  };
-
   const testClear = () => {
     localStorage.clear();
     window.location.reload(true);
@@ -432,8 +414,7 @@ function Rooms() {
   //if the waititng room is set to true
   //display a new component "waiting room" with the room info and participants in room
   if (waitingRoom) {
-    /*     setroomLI(false);
-     */ return (
+    return (
       <CurrentRoom
         name={localStorage.getItem("room")}
         removeUser={removeUser}
@@ -447,7 +428,6 @@ function Rooms() {
 
   return (
     <div className='background'>
-      {/*     <Nav name={`Hello ${displayName}`} /> */}
       <div className='liveRoom'>
         <div id='active-container'>
           <h1>Active Rooms</h1>
@@ -469,7 +449,7 @@ function Rooms() {
           <br />
           <br />
         </div>
-        <button onClick={roomFullDisableBtn}>Test</button>
+
         <br />
         <form id='create-room' onSubmit={(e) => createRoom(e)}>
           <input

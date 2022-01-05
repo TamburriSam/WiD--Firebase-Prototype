@@ -443,7 +443,7 @@ function Rooms() {
       {/*     <Nav name={`Hello ${displayName}`} /> */}
       <div className='liveRoom'>
         <div id='active-container'>
-          <h1>Active Rooms</h1>
+          <h1>Active Rsooms</h1>
           <br></br>
           <p>Username: {displayName}</p>
           <p>Unique User Id: {userID}</p>

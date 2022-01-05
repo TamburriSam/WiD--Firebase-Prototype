@@ -124,9 +124,7 @@ function CurrentRoom({ name, favorite_letter, removeUser }) {
 
   if (gs) {
     return <Game1 />;
-  }
-
-  if (isLoading) {
+  } else if (isLoading) {
     return <div className='App'>Loading...</div>;
   }
 
@@ -136,6 +134,7 @@ function CurrentRoom({ name, favorite_letter, removeUser }) {
 
       <button onClick={(e) => removeUser(e)}>Leave Room</button>
       <h1 className='waiting'>Waiting</h1>
+
       <h1>You're in room {name}</h1>
       <h2>Your favorite letter : {favoriteLetter}</h2>
       <h3>Users in room: </h3>

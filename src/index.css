@@ -76,3 +76,7 @@ body {
 #create-room {
   display: none;
 }
+
+.crossed-word {
+  color: red;
+}
