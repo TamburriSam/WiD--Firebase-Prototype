@@ -81,69 +81,77 @@ const Game4 = () => {
   };
 
   const selectAList = () => {
-    let personSelected, personSelectedListThree, personSelectedUID;
+    let soloLS = localStorage.getItem("solo");
 
-    let haventBeenUsedLists = [];
+    if (soloLS) {
+      defaultList();
+    } else {
+      let personSelected, personSelectedListThree, personSelectedUID;
 
-    let roomUID = localStorage.getItem("room_id");
-    let userUID = localStorage.getItem("user_id");
+      let haventBeenUsedLists = [];
 
-    console.log(`USER ID`, userUID);
+      let roomUID = localStorage.getItem("room_id");
+      let userUID = localStorage.getItem("user_id");
 
-    db.collection("users")
-      .get()
-      .then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-          let ids = doc.data().uid;
-          let t3 = doc.data().t3;
-          let rooms_joined = doc.data().rooms_joined;
-          let list_three_input = doc.data().list_three_input;
-          let listlength = list_three_input.length;
-          console.log(listlength);
+      console.log(`USER ID`, userUID);
 
-          console.log(rooms_joined === roomUID);
+      db.collection("users")
+        .get()
+        .then((querySnapshot) => {
+          querySnapshot.forEach((doc) => {
+            let ids = doc.data().uid;
+            let t3 = doc.data().t3;
+            let rooms_joined = doc.data().rooms_joined;
+            let list_three_input = doc.data().list_three_input;
+            let listlength = list_three_input.length;
+            console.log(listlength);
 
-          if (ids !== userUID && t3 == false && rooms_joined === roomUID) {
-            haventBeenUsedLists.push(doc.data());
-            console.log(haventBeenUsedLists);
-          } else {
-            return false;
-          }
+            console.log(rooms_joined === roomUID);
+
+            if (ids !== userUID && t3 == false && rooms_joined === roomUID) {
+              haventBeenUsedLists.push(doc.data());
+              console.log(haventBeenUsedLists);
+            } else {
+              return false;
+            }
+          });
+        })
+        .then(() => {
+          haventBeenUsedLists.map((item) => {
+            let list_three = item.list_three_input;
+
+            if (list_three.length == 26) {
+              console.log(`havent been used`, haventBeenUsedLists);
+              let random = Math.floor(
+                Math.random() * haventBeenUsedLists.length
+              );
+
+              personSelected = haventBeenUsedLists[random];
+              personSelectedListThree = personSelected.list_three_input;
+              personSelectedUID = personSelected.uid;
+
+              console.log(
+                `person selected`,
+                personSelected,
+                personSelectedListThree,
+                personSelectedUID
+              );
+
+              localStorage.setItem(
+                "list_three_received",
+                personSelectedListThree
+              );
+              console.log("person selected", personSelectedListThree);
+              displayListFromDB(personSelectedListThree);
+            } else {
+              defaultList();
+            }
+          });
+        })
+        .then(() => {
+          updateUsersTurn(personSelectedUID);
         });
-      })
-      .then(() => {
-        haventBeenUsedLists.map((item) => {
-          let list_three = item.list_three_input;
-
-          if (list_three.length == 26) {
-            console.log(`havent been used`, haventBeenUsedLists);
-            let random = Math.floor(Math.random() * haventBeenUsedLists.length);
-
-            personSelected = haventBeenUsedLists[random];
-            personSelectedListThree = personSelected.list_three_input;
-            personSelectedUID = personSelected.uid;
-
-            console.log(
-              `person selected`,
-              personSelected,
-              personSelectedListThree,
-              personSelectedUID
-            );
-
-            localStorage.setItem(
-              "list_three_received",
-              personSelectedListThree
-            );
-            console.log("person selected", personSelectedListThree);
-            displayListFromDB(personSelectedListThree);
-          } else {
-            defaultList();
-          }
-        });
-      })
-      .then(() => {
-        updateUsersTurn(personSelectedUID);
-      });
+    }
   };
 
   const defaultList = () => {

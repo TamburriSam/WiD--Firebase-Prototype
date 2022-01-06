@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import TextField from "@mui/material/TextField";
 import React from "react";
 
-function RoomLI({ createNewProfile, data, props }) {
+function RoomLI({ createNewProfile, data, props, roomFullDisableBtn }) {
   const db = firebase.firestore();
 
   const [nodes, setNodes] = useState({});

@@ -81,7 +81,9 @@ function Game1() {
   };
 
   const updateUserInputList = () => {
-    let userRef = db.collection("users").doc(userID);
+    let userUID = localStorage.getItem("user_id");
+
+    let userRef = db.collection("users").doc(userUID);
     let inputList = document.querySelectorAll(".input-cell");
     let game_one_list = [];
 
@@ -122,6 +124,9 @@ function Game1() {
       .then(() => {
         localStorage.setItem("g1", true);
         setG2Start(true);
+      })
+      .catch((err) => {
+        console.log(err);
       });
   };
 

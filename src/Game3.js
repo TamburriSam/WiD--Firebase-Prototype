@@ -84,71 +84,79 @@ const Game3 = () => {
   };
 
   const selectAList = () => {
-    let personSelected, personSelectedListTwo, personSelectedUID;
+    let soloLS = localStorage.getItem("solo");
 
-    let haventBeenUsedLists = [];
+    if (soloLS) {
+      defaultList();
+    } else {
+      let personSelected, personSelectedListTwo, personSelectedUID;
 
-    let roomUID = localStorage.getItem("room_id");
-    let userUID = localStorage.getItem("user_id");
+      let haventBeenUsedLists = [];
 
-    console.log(`USER ID`, userUID);
+      let roomUID = localStorage.getItem("room_id");
+      let userUID = localStorage.getItem("user_id");
 
-    db.collection("users")
-      .get()
-      .then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-          let ids = doc.data().uid;
-          let t2 = doc.data().t2;
-          let rooms_joined = doc.data().rooms_joined;
-          let list_two_input = doc.data().list_two_input;
-          let listlength = list_two_input.length;
-          console.log(listlength);
+      console.log(`USER ID`, userUID);
 
-          console.log(rooms_joined === roomUID);
+      db.collection("users")
+        .get()
+        .then((querySnapshot) => {
+          querySnapshot.forEach((doc) => {
+            let ids = doc.data().uid;
+            let t2 = doc.data().t2;
+            let rooms_joined = doc.data().rooms_joined;
+            let list_two_input = doc.data().list_two_input;
+            let listlength = list_two_input.length;
+            console.log(listlength);
 
-          console.log(list_two_input);
+            console.log(rooms_joined === roomUID);
 
-          console.log(list_two_input.length === 26);
-          console.log(list_two_input.length);
+            console.log(list_two_input);
 
-          if (ids !== userUID && t2 == false && rooms_joined === roomUID) {
-            haventBeenUsedLists.push(doc.data());
-            console.log(haventBeenUsedLists);
-          } else {
-            return false;
-          }
+            console.log(list_two_input.length === 26);
+            console.log(list_two_input.length);
+
+            if (ids !== userUID && t2 == false && rooms_joined === roomUID) {
+              haventBeenUsedLists.push(doc.data());
+              console.log(haventBeenUsedLists);
+            } else {
+              return false;
+            }
+          });
+        })
+        .then(() => {
+          haventBeenUsedLists.map((item) => {
+            let list_two = item.list_two_input;
+
+            if (list_two.length == 26) {
+              console.log(`havent been used`, haventBeenUsedLists);
+              let random = Math.floor(
+                Math.random() * haventBeenUsedLists.length
+              );
+
+              personSelected = haventBeenUsedLists[random];
+              personSelectedListTwo = personSelected.list_two_input;
+              personSelectedUID = personSelected.uid;
+
+              console.log(
+                `person selected`,
+                personSelected,
+                personSelectedListTwo,
+                personSelectedUID
+              );
+
+              localStorage.setItem("list_two_received", personSelectedListTwo);
+              console.log("person selected", personSelectedListTwo);
+              displayListFromDB(personSelectedListTwo);
+            } else {
+              defaultList();
+            }
+          });
+        })
+        .then(() => {
+          updateUsersTurn(personSelectedUID);
         });
-      })
-      .then(() => {
-        haventBeenUsedLists.map((item) => {
-          let list_two = item.list_two_input;
-
-          if (list_two.length == 26) {
-            console.log(`havent been used`, haventBeenUsedLists);
-            let random = Math.floor(Math.random() * haventBeenUsedLists.length);
-
-            personSelected = haventBeenUsedLists[random];
-            personSelectedListTwo = personSelected.list_two_input;
-            personSelectedUID = personSelected.uid;
-
-            console.log(
-              `person selected`,
-              personSelected,
-              personSelectedListTwo,
-              personSelectedUID
-            );
-
-            localStorage.setItem("list_two_received", personSelectedListTwo);
-            console.log("person selected", personSelectedListTwo);
-            displayListFromDB(personSelectedListTwo);
-          } else {
-            defaultList();
-          }
-        });
-      })
-      .then(() => {
-        updateUsersTurn(personSelectedUID);
-      });
+    }
   };
 
   const defaultList = () => {

@@ -22,6 +22,7 @@ function Rooms() {
   const [password, setPassword] = useState("");
   const [roomLI, setroomLI] = useState(true);
   const [isLoading, setLoading] = useState(false);
+  const [solo, setSolo] = useState(false);
 
   //mount
   useEffect(() => {
@@ -91,6 +92,7 @@ function Rooms() {
         users: {},
         poems: [],
         password,
+        display: true,
       });
       document.getElementById("create-room").style.display = "none";
       roomFullDisableBtn();
@@ -412,6 +414,11 @@ function Rooms() {
     window.location.reload(true);
   };
 
+  const soloFunc = () => {
+    setSolo(true);
+    roomFullDisableBtn();
+  };
+
   //lets do a conditional render
   //if the waititng room is set to true
   //display a new component "waiting room" with the room info and participants in room
@@ -422,6 +429,10 @@ function Rooms() {
         removeUser={removeUser}
       />
     );
+  }
+
+  if (solo) {
+    return <SoloMode />;
   }
 
   if (isLoading) {
@@ -453,7 +464,7 @@ function Rooms() {
         </div>
 
         <br />
-        <button>Solo mode</button>
+        <button onClick={soloFunc}>Solo mode</button>
         <form id='create-room' onSubmit={(e) => createRoom(e)}>
           <input
             type='text'
@@ -500,7 +511,11 @@ function Rooms() {
       </div>
       <button onClick={testClear}>clear</button>
       {roomLI ? (
-        <RoomLI data={data} createNewProfile={createNewProfile} />
+        <RoomLI
+          data={data}
+          createNewProfile={createNewProfile}
+          roomFullDisableBtn={roomFullDisableBtn}
+        />
       ) : null}
       {/*       <RoomLI data={data} createNewProfile={createNewProfile} />
        */}{" "}

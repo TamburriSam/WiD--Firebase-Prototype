@@ -10,6 +10,7 @@ const LiveRoom = () => {
   const [nodes, setNodes] = useState({});
   const [isLoading, setLoading] = useState(true);
   const [message, setMessage] = useState("");
+  const [userName, setUserName] = useState(localStorage.getItem("username"));
 
   useEffect(() => {
     getData();
@@ -17,6 +18,7 @@ const LiveRoom = () => {
 
   const getData = () => {
     let roomID = localStorage.getItem("room_id");
+    let isSolo = localStorage.getItem("solo");
 
     db.collection("rooms").onSnapshot((snapshot) => {
       snapshot.forEach((doc) => {
@@ -40,13 +42,18 @@ const LiveRoom = () => {
   const SubmitMessage = (e) => {
     e.preventDefault();
     let roomID = localStorage.getItem("room_id");
+    let LSusername = localStorage.getItem("username");
 
     console.log(message);
     console.log(roomID);
 
     db.collection("rooms")
       .doc(roomID)
-      .update({ poems: firebase.firestore.FieldValue.arrayUnion(message) });
+      .update({
+        poems: firebase.firestore.FieldValue.arrayUnion(
+          `${LSusername}: ${message}`
+        ),
+      });
   };
 
   if (isLoading) {
@@ -56,9 +63,9 @@ const LiveRoom = () => {
   return (
     <div>
       {nodes.map((node, index) => {
-        return <li key={index.toString()}> {node} </li>;
+        return <li key={index.toString()}>{node}</li>;
       })}
-      <h1>dd</h1>
+
       <form onSubmit={(e) => SubmitMessage(e)}>
         <input onChange={(e) => setMessage(e.target.value)} type='text' />
         <button>Send Message</button>

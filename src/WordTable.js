@@ -14,6 +14,7 @@ const Wordtable = () => {
   const [nodes, setNodes] = useState({});
   const [isLoading, setLoading] = useState(true);
   const [liveRoom, setLiveRoom] = useState(false);
+  const [soloLive, setSoloLive] = useState(false);
 
   let list1, list2, list3, list4;
 
@@ -131,14 +132,24 @@ const Wordtable = () => {
   };
 
   const nextPage = () => {
-    let essay = document.getElementById("essay");
+    const LSsolo = localStorage.getItem("solo");
 
-    localStorage.setItem("poem", essay.value);
-    setLiveRoom(true);
+    if (LSsolo) {
+      setSoloLive(true);
+    } else {
+      let essay = document.getElementById("essay");
+
+      localStorage.setItem("poem", essay.value);
+      setLiveRoom(true);
+    }
   };
 
   if (liveRoom) {
     return <LiveRoom />;
+  }
+
+  if (soloLive) {
+    return <h1>Solo Works</h1>;
   }
 
   if (isLoading) {
