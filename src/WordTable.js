@@ -5,17 +5,26 @@ import TextField from "@mui/material/TextField";
 import React from "react";
 import "./index.css";
 import { jsPDF } from "jspdf";
+import { CopyToClipboard } from "react-copy-to-clipboard";
+import LiveRoom from "./LiveRoom";
 
 const Wordtable = () => {
   const db = firebase.firestore();
 
   const [nodes, setNodes] = useState({});
   const [isLoading, setLoading] = useState(true);
+  const [liveRoom, setLiveRoom] = useState(false);
 
   let list1, list2, list3, list4;
 
   useEffect(() => {
-    getData();
+    let LSPoem = localStorage.getItem("poem");
+
+    if (LSPoem) {
+      setLiveRoom(true);
+    } else {
+      getData();
+    }
   }, []);
 
   const populate = (htmlList, dbList) => {
@@ -121,6 +130,17 @@ const Wordtable = () => {
     doc.save("Your List.pdf");
   };
 
+  const nextPage = () => {
+    let essay = document.getElementById("essay");
+
+    localStorage.setItem("poem", essay.value);
+    setLiveRoom(true);
+  };
+
+  if (liveRoom) {
+    return <LiveRoom />;
+  }
+
   if (isLoading) {
     return <div className='App'>Loading...</div>;
   }
@@ -168,6 +188,7 @@ const Wordtable = () => {
       <input id='essay' />
       <button onClick={printEssay}>Print Essay</button>
       <button onClick={printLists}>Print Lists</button>
+      <button onClick={nextPage}>Next</button>
 
       <div id='word-count-box'>Count: </div>
     </div>
