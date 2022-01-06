@@ -5,6 +5,7 @@ import React from "react";
 import RoomLI from "./RoomLI";
 import CurrentRoom from "./CurrentRoom";
 import "./index.css";
+import SoloMode from "./SoloMode";
 
 function Rooms() {
   const db = firebase.firestore();
@@ -92,6 +93,7 @@ function Rooms() {
         password,
       });
       document.getElementById("create-room").style.display = "none";
+      roomFullDisableBtn();
     } else {
       alert("Must Enter Number Over 1 and Less than 40");
     }
@@ -451,6 +453,7 @@ function Rooms() {
         </div>
 
         <br />
+        <button>Solo mode</button>
         <form id='create-room' onSubmit={(e) => createRoom(e)}>
           <input
             type='text'
