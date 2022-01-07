@@ -15,6 +15,7 @@ const Wordtable = () => {
   const [isLoading, setLoading] = useState(true);
   const [liveRoom, setLiveRoom] = useState(false);
   const [soloLive, setSoloLive] = useState(false);
+  const [list, setList] = useState([]);
 
   let list1, list2, list3, list4;
 
@@ -28,29 +29,6 @@ const Wordtable = () => {
     }
   }, []);
 
-  const populate = (htmlList, dbList) => {
-    let user_id = localStorage.getItem("user_id");
-
-    var userRef = db.collection("users").doc(user_id);
-
-    return db
-      .runTransaction((transaction) => {
-        return transaction.get(userRef).then((doc) => {
-          let html = "";
-          dbList.forEach((word) => {
-            html += `<tr><td class="listItems"><input class="word-check" type="checkbox">${word}</td></tr>`;
-          });
-          htmlList.innerHTML = html;
-        });
-      })
-      .then(() => {
-        crossedOffWord();
-      })
-      .catch((error) => {
-        console.log("Transaction failed: ", error);
-      });
-  };
-
   const getData = () => {
     let user_id = localStorage.getItem("user_id");
     let allInputs = [];
@@ -60,9 +38,6 @@ const Wordtable = () => {
       .get()
       .then((doc) => {
         let firstCol = document.getElementById("tbody1");
-        let secondCol = document.getElementById("tbody2");
-        let thirdCol = document.getElementById("tbody3");
-        let fourthCol = document.getElementById("tbody4");
 
         list1 = doc.data().list_one_input;
         list2 = doc.data().list_two_input;
@@ -70,11 +45,35 @@ const Wordtable = () => {
         list4 = doc.data().list_four_input;
 
         allInputs = [list1, list2, list3, list4];
-        allInputs = allInputs.flat();
-        populate(firstCol, list1);
-        populate(secondCol, list2);
-        populate(thirdCol, list3);
-        populate(fourthCol, list4);
+
+        setList(allInputs);
+
+        let testList = [];
+
+        for (let i = 0; i < 26; i++) {
+          allInputs.forEach((input) => {
+            testList.push(input[i]);
+          });
+        }
+
+        const result = [];
+
+        for (let i = 0; i < testList.length; i += 4) {
+          const chunk = testList.slice(i, i + 4);
+          result.push(chunk);
+        }
+
+        console.log(result);
+
+        let html = "";
+        result.map((item) => {
+          html += `<tr><td class="listItems"><input class="word-check" type="checkbox">${item.join(
+            " "
+          )}</td></tr>`;
+        });
+        firstCol.innerHTML = html;
+
+        crossedOffWord();
       });
   };
 
@@ -105,9 +104,9 @@ const Wordtable = () => {
 
     let crossedWords = strikethroughs.length;
 
-    return (document.querySelector(
-      "#word-count-box"
-    ).innerHTML = `${crossedWords} /104 words used`);
+    return (document.querySelector("#word-count-box").innerHTML = `${
+      crossedWords + 1
+    } /26 rows used`);
   };
 
   const printEssay = () => {
@@ -119,14 +118,13 @@ const Wordtable = () => {
   };
 
   const printLists = () => {
-    //doesnt work
     const doc = new jsPDF();
 
     doc.text("Word Into Idea - Your Words", 70, 20);
-    doc.text(list1, 20, 50);
-    doc.text(list2, 70, 50);
-    doc.text(list3, 120, 50);
-    doc.text(list4, 170, 50);
+    doc.text(list[0], 30, 50);
+    doc.text(list[1], 80, 50);
+    doc.text(list[2], 130, 50);
+    doc.text(list[3], 180, 50);
 
     doc.save("Your List.pdf");
   };

@@ -152,7 +152,6 @@ function Game1() {
       <h1>Game One</h1>
       <form onSubmit={(e) => allEntered(e)}>
         <ul id='input-list'></ul>
-
         <button type='submit' value={roomID}>
           Continue
         </button>

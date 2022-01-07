@@ -24,6 +24,10 @@ function Rooms() {
   const [isLoading, setLoading] = useState(false);
   const [solo, setSolo] = useState(false);
 
+  let toy = "butt";
+
+  const [thing, setThing] = useState("thing");
+
   //mount
   useEffect(() => {
     //get the username from LS and set it to a state instead of this
@@ -38,14 +42,6 @@ function Rooms() {
       console.log("not working");
     }
   }, []);
-
-  //MEMORY LEAK
-  //MEMORY LEAK
-  //MEMORY LEAK
-  // so when you render the waiting room- the list of rooms is still updating
-  // causing a no big issue error, but leaking memory and slowing appliaction
-  // figure out a way to fix
-  // somehow tear down waititng room
 
   useEffect(() => {
     if (
@@ -439,6 +435,26 @@ function Rooms() {
     return <div className='App'>Loading...</div>;
   }
 
+  //tthis model is how youre going to return the component instead of a new page
+  switch (thing) {
+    case "wow":
+      toy = "hi";
+      // you can put other codes here as well.
+      break;
+    case "duh":
+      toy = "duh";
+      break;
+    // you can put other codes here as well.
+    case "fudge":
+      toy = "fudge";
+      break;
+    // you can put other codes here as well.
+    default:
+      toy = "Welcome Guest";
+      break;
+    // you can put other codes here as well.
+  }
+
   return (
     <div className='background'>
       <div className='liveRoom'>
@@ -517,8 +533,12 @@ function Rooms() {
           roomFullDisableBtn={roomFullDisableBtn}
         />
       ) : null}
-      {/*       <RoomLI data={data} createNewProfile={createNewProfile} />
-       */}{" "}
+      <button onClick={() => setThing("wow")}>w</button>
+      <button onClick={() => setThing("duh")}>d</button>
+      <button onClick={() => setThing("fudge")}>f</button>
+
+      {toy}
+      {thing}
     </div>
   );
 }
