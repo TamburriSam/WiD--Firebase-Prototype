@@ -30,13 +30,16 @@ const Game4 = () => {
 
     setroomID(LSroomId);
     setuserID(LSuserId);
-    createCells();
+
+    setTimeout(() => {
+      createCells();
+    }, 1);
   }, []);
 
   const createCells = () => {
     let inputList = document.getElementById("input-list");
 
-    let html;
+    let html = "";
     for (let i = 0; i < 26; i++) {
       html += `<li><input class="input-cell"></input></li>`;
     }
@@ -48,7 +51,9 @@ const Game4 = () => {
     const LS_ITEM_list_three = localStorage.getItem("list_three_received");
 
     if (LS_ITEM_list_three) {
-      displayListFromDB(LS_ITEM_list_three);
+      setTimeout(() => {
+        displayListFromDB(LS_ITEM_list_three);
+      }, 1);
     } else {
       areThereLists();
     }
@@ -181,7 +186,7 @@ const Game4 = () => {
   const displayListFromDB = (list) => {
     let received_list = document.getElementById("received_word_list");
 
-    let html;
+    let html = "";
 
     if (typeof list === "string") {
       list = list.split(",");

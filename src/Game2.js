@@ -3,6 +3,7 @@ import firebase from "firebase/app";
 import "firebase/firestore";
 import RoomLI from "./RoomLI";
 import Game3 from "./Game3";
+import { create } from "@mui/material/styles/createTransitions";
 
 const Game2 = () => {
   const db = firebase.firestore();
@@ -33,13 +34,16 @@ const Game2 = () => {
 
     setroomID(LSroomId);
     setuserID(LSuserId);
-    createCells();
+
+    setTimeout(() => {
+      createCells();
+    }, 1);
   }, []);
 
   const createCells = () => {
     let inputList = document.getElementById("input-list");
 
-    let html;
+    let html = "";
     for (let i = 0; i < 26; i++) {
       html += `<li><input class="input-cell"></input></li>`;
     }
@@ -51,7 +55,10 @@ const Game2 = () => {
     const LS_ITEM_list_two = localStorage.getItem("list_two_received");
 
     if (LS_ITEM_list_one) {
-      displayListFromDB(LS_ITEM_list_one);
+      setTimeout(() => {
+        displayListFromDB(LS_ITEM_list_one);
+        console.log(LS_ITEM_list_one);
+      }, 1);
     } else {
       areThereLists();
     }
@@ -185,7 +192,7 @@ const Game2 = () => {
   const displayListFromDB = (list) => {
     let received_list = document.getElementById("received_word_list");
 
-    let html;
+    let html = "";
 
     if (typeof list === "string") {
       list = list.split(",");
