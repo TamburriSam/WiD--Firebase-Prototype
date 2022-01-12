@@ -45,6 +45,7 @@ const SoloMode = () => {
         list_four_input: [],
         active_count: 1,
         total_count: 1,
+        is_solo: true,
       })
       .then(() => {
         db.collection("users")

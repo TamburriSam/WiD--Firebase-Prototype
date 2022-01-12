@@ -8,6 +8,7 @@ import Rooms from "./Rooms";
 import "./index.css";
 import { useEffect, useState } from "react";
 import uniqid from "uniqid";
+import Button from "@mui/material/Button";
 
 function IndexPage(props) {
   const [inputField, setinputField] = useState("Enter a Screen Name");
@@ -55,22 +56,35 @@ function IndexPage(props) {
         <div id='sign-inContainer'>
           <div id='sign-inForm'>
             <h2 id='title'>
-              <img id='logo-alone' src={logoStandAlone} alt='logo' />
+              <div id='logo-container'>
+                <img id='logo-alone' src={logoStandAlone} alt='logo' />
+              </div>
             </h2>
-            <form onSubmit={submitForm}>
-              <label>
-                Enter Username
-                <input
-                  type='text'
-                  placeholder={inputField}
-                  onChange={handleChange}
-                />
-              </label>
-              <input type='submit' value='Submit' />
-            </form>
 
             <br />
           </div>
+          <form id='userName-box' onSubmit={submitForm}>
+            <div id='labelAndInput'>
+              <label>Enter Username: </label>
+              <input
+                type='text'
+                placeholder={inputField}
+                onChange={handleChange}
+              />
+            </div>
+            {/* <input id='startBtn' type='submit' value='Start' /> */}
+
+            <div id='startBtn-container'>
+              <Button
+                variant='contained'
+                size='medium'
+                type='submit'
+                id='startBtn'
+              >
+                Start
+              </Button>
+            </div>
+          </form>
         </div>
       </div>
 
@@ -79,7 +93,7 @@ function IndexPage(props) {
           <div id='logoContainer'>
             <img className='logo' src={white_logo_dark_bg} alt='' />
           </div>
-          <div id='#blurbContainer'>
+          <div id='blurbContainer'>
             <img className='blurb' src={blurb} alt='' />
           </div>
         </div>

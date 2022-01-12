@@ -78,7 +78,7 @@ function CurrentRoom({ name, favorite_letter, removeUser }) {
             setTimeout(() => {
               alert("game start");
               setgameStart(true);
-              window.location.reload(true);
+              /*   window.location.reload(true); */
               localStorage.setItem("game_start", true);
             }, 5000);
           }
@@ -122,9 +122,15 @@ function CurrentRoom({ name, favorite_letter, removeUser }) {
     window.location.reload(true);
   };
 
+  if (gameStart) {
+    return <Game1 />;
+  }
+
   if (gs) {
     return <Game1 />;
-  } else if (isLoading) {
+  }
+
+  if (isLoading) {
     return <div className='App'>Loading...</div>;
   }
 

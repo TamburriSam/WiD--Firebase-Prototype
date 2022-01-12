@@ -1,0 +1,36 @@
+form {
+}
+
+#liveRoom {
+  margin: auto;
+  width: 90vw;
+  border: 2px solid black;
+  position: relative;
+  padding: 15px;
+}
+
+#table1 {
+  padding: 10px;
+  margin: auto;
+  width: 90vw;
+}
+
+/* HEADING */
+.members-active {
+  text-align: center;
+  position: relative;
+  right: 33px;
+}
+
+/* Dynamic Cells */
+
+.group-name {
+  text-align: center;
+  position: relative;
+}
+
+.group-count {
+  text-align: center;
+  position: relative;
+  right: 33px;
+}

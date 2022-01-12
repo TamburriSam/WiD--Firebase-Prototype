@@ -3,8 +3,16 @@ import "firebase/firestore";
 import { useEffect, useState } from "react";
 import TextField from "@mui/material/TextField";
 import React from "react";
-
-function RoomLI({ createNewProfile, data, props, roomFullDisableBtn }) {
+import "./CSSRoomLI.css";
+import Button from "@mui/material/Button";
+function RoomLI({
+  soloFunc,
+  displayCreateBtns,
+  createNewProfile,
+  data,
+  props,
+  roomFullDisableBtn,
+}) {
   const db = firebase.firestore();
 
   const [nodes, setNodes] = useState({});
@@ -21,6 +29,7 @@ function RoomLI({ createNewProfile, data, props, roomFullDisableBtn }) {
 
   const getData = () => {
     db.collection("rooms").onSnapshot((snapshot) => {
+      /* roomFullDisableBtn(); */
       setNodes(snapshot.docs);
       setLoading(false);
     });
@@ -31,25 +40,38 @@ function RoomLI({ createNewProfile, data, props, roomFullDisableBtn }) {
   }
 
   return (
-    <div>
-      <table>
+    <div id='liveRoom'>
+      <h1>Active Rooms</h1>
+      <Button variant='outlined' onClick={soloFunc}>
+        Solo Mode
+      </Button>
+      <table id='table1'>
+        <thead>
+          <tr id='table-heading'>
+            <th className='group-title'>Group Name</th>
+            <th className='members-active'>Members Active</th>
+          </tr>
+        </thead>
+
         {nodes.map((node, index) => {
           return (
             <thead key={index.toString()}>
               <tr>
-                <td>{node.data().name}</td>
-                <td>
+                <td className='group-name'>{node.data().name}</td>
+                <td className='group-count'>
                   {node.data().active_count} / {node.data().total_count} Active
                 </td>
-                <td>
-                  <button
+                <td className='join-btn'>
+                  <Button
+                    variant='outlined'
+                    size='small'
                     data-id='btn'
                     id={node.id}
                     onClick={(e) => createNewProfile(e)}
                     className='btn room-select'
                   >
                     Join
-                  </button>
+                  </Button>
                 </td>
               </tr>
             </thead>

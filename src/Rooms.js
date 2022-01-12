@@ -4,8 +4,15 @@ import { useEffect, useState } from "react";
 import React from "react";
 import RoomLI from "./RoomLI";
 import CurrentRoom from "./CurrentRoom";
-import "./index.css";
+import TextField from "@mui/material/TextField";
+import secondaryLogo from "./logos/whiteTextLogoOnly.png";
+import ghIcon from "./logos/ghicon.png";
 import SoloMode from "./SoloMode";
+import Game1 from "./Game1";
+import Wordtable from "./WordTable";
+import Nav from "./Nav";
+import Button from "@mui/material/Button";
+import "./Nav.css";
 
 function Rooms() {
   const db = firebase.firestore();
@@ -23,21 +30,23 @@ function Rooms() {
   const [roomLI, setroomLI] = useState(true);
   const [isLoading, setLoading] = useState(false);
   const [solo, setSolo] = useState(false);
-
-  let toy = "butt";
-
-  const [thing, setThing] = useState("thing");
+  const [show, setShow] = useState("");
 
   //mount
   useEffect(() => {
     //get the username from LS and set it to a state instead of this
     const LSuserName = localStorage.getItem("username");
     const LSid = localStorage.getItem("user_id");
+    const LSwaiting = localStorage.getItem("waiting");
+    const LSsolo = localStorage.getItem("solo");
+
+    if (LSwaiting || LSsolo) {
+      setroomLI(false);
+    }
 
     if (LSuserName) {
       setdisplayName(LSuserName);
       setuserID(LSid);
-      roomFullDisableBtn();
     } else {
       console.log("not working");
     }
@@ -77,21 +86,22 @@ function Rooms() {
   const createRoom = (e) => {
     e.preventDefault();
     if (typeof roomCount === "number" && roomCount < 40 && roomCount > 1) {
-      db.collection("rooms").add({
-        name: roomName,
-        total_count: parseInt(roomCount),
-        active_count: 0,
-        list_one: [],
-        list_two: [],
-        list_three: [],
-        list_four: [],
-        users: {},
-        poems: [],
-        password,
-        display: true,
-      });
+      db.collection("rooms")
+        .add({
+          name: roomName,
+          total_count: parseInt(roomCount),
+          active_count: 0,
+          list_one: [],
+          list_two: [],
+          list_three: [],
+          list_four: [],
+          users: {},
+          poems: [],
+          password,
+          display: true,
+        })
+        .then(() => {});
       document.getElementById("create-room").style.display = "none";
-      roomFullDisableBtn();
     } else {
       alert("Must Enter Number Over 1 and Less than 40");
     }
@@ -394,10 +404,15 @@ function Rooms() {
         .then((querySnapshot) => {
           querySnapshot.forEach((doc) => {
             //if ls room id not found
-            if (doc.data().active_count === doc.data().total_count) {
-              document.getElementById(doc.id).disabled = true;
-              document.getElementById(doc.id).innerHTML = "In Session";
-            }
+
+            //TRY SETTIMEOUT
+
+            setTimeout(() => {
+              if (doc.data().active_count === doc.data().total_count) {
+                document.getElementById(doc.id).disabled = true;
+                document.getElementById(doc.id).innerHTML = "In Session";
+              }
+            }, 10);
           });
         });
     } else {
@@ -412,133 +427,111 @@ function Rooms() {
 
   const soloFunc = () => {
     setSolo(true);
-    roomFullDisableBtn();
   };
-
-  //lets do a conditional render
-  //if the waititng room is set to true
-  //display a new component "waiting room" with the room info and participants in room
-  if (waitingRoom) {
-    return (
-      <CurrentRoom
-        name={localStorage.getItem("room")}
-        removeUser={removeUser}
-      />
-    );
-  }
-
-  if (solo) {
-    return <SoloMode />;
-  }
 
   if (isLoading) {
     return <div className='App'>Loading...</div>;
   }
 
-  //tthis model is how youre going to return the component instead of a new page
-  switch (thing) {
-    case "wow":
-      toy = "hi";
-      // you can put other codes here as well.
-      break;
-    case "duh":
-      toy = "duh";
-      break;
-    // you can put other codes here as well.
-    case "fudge":
-      toy = "fudge";
-      break;
-    // you can put other codes here as well.
-    default:
-      toy = "Welcome Guest";
-      break;
-    // you can put other codes here as well.
+  let content = null;
+  if (waitingRoom) {
+    content = (
+      <CurrentRoom
+        name={localStorage.getItem("room")}
+        removeUser={removeUser}
+      />
+    );
+  } else if (solo) {
+    content = <SoloMode />;
+  } else if (roomLI) {
+    content = (
+      <RoomLI
+        data={data}
+        createNewProfile={createNewProfile}
+        roomFullDisableBtn={roomFullDisableBtn}
+        soloFunc={soloFunc}
+        displayCreateBtns={displayCreateBtns}
+      />
+    );
   }
 
   return (
     <div className='background'>
+      <Nav />
       <div className='liveRoom'>
         <div id='active-container'>
-          <h1>Active Rooms</h1>
           <br></br>
           <p>Username: {displayName}</p>
           <p>Unique User Id: {userID}</p>
-          <br />
-          <br />
-
-          <button
+          <Button
+            variant='outlined'
             className='btn'
             id='createNewRoom'
             onClick={displayCreateBtns}
           >
             Create New Room
-          </button>
-          <br />
-
-          <br />
-          <br />
+          </Button>
         </div>
 
-        <br />
-        <button onClick={soloFunc}>Solo mode</button>
         <form id='create-room' onSubmit={(e) => createRoom(e)}>
-          <input
+          <TextField
+            label='Room Name'
+            size='small'
             type='text'
             id='room-name'
             onChange={(e) => setRoomName(e.target.value)}
             placeholder='Room Name'
             required
           />
-          <input
-            type='text'
+
+          <TextField
+            label='Room Count'
+            size='small'
+            type='number'
             id='room-count'
             placeholder='Room Count'
             onChange={(e) => setRoomCount(parseInt(e.target.value))}
             required
           />
-          <input
+          <TextField
+            label='Password'
+            size='small'
             type='password'
             id='password'
             placeholder='Room Password'
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-          <button
+          <Button
             type='submit'
             value='Create Room'
+            variant='outlined'
+            size='small'
             className='creater btn create-room'
           >
             Create Room
-          </button>
+          </Button>
         </form>
-        <table className='table1 centered'>
-          <thead>
-            <tr>
-              <th>Group Name</th>
-              <th>Members Active</th>
-              <th></th>
-            </tr>
-          </thead>
-
-          <tbody className='tbody1'>
-            <tr></tr>
-          </tbody>
-        </table>
       </div>
-      <button onClick={testClear}>clear</button>
-      {roomLI ? (
+      <Button onClick={testClear}>clear</Button>
+      {/*  {roomLI ? (
         <RoomLI
           data={data}
           createNewProfile={createNewProfile}
           roomFullDisableBtn={roomFullDisableBtn}
+          soloFunc={soloFunc}
+          displayCreateBtns={displayCreateBtns}
         />
-      ) : null}
-      <button onClick={() => setThing("wow")}>w</button>
-      <button onClick={() => setThing("duh")}>d</button>
-      <button onClick={() => setThing("fudge")}>f</button>
+      ) : null} */}
+      <div style={{ border: "2px solid black" }}>{content}</div>
 
-      {toy}
-      {thing}
+      <div id='logoBox'>
+        <img id='secondaryLogo2' src={secondaryLogo} alt='' />
+      </div>
+      <footer>
+        <img className='gitHub' src={ghIcon} alt='' />
+        <span class='footer-text'>Created by Sam Tamburri </span>
+      </footer>
     </div>
   );
 }

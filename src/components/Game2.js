@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import firebase from "firebase/app";
 import "firebase/firestore";
-import RoomLI from "./RoomLI";
+import RoomLI from "../RoomLI";
 
 const Game2 = () => {
   const db = firebase.firestore();

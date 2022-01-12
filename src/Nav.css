@@ -1,0 +1,57 @@
+/* Main Top Bar Nav */
+#roomNav {
+  background-color: black;
+  height: 53px;
+  display: flex;
+
+  justify-content: center;
+  position: relative;
+}
+
+#secondaryLogo {
+  width: 200px;
+}
+
+#secondaryLogo2 {
+  background-color: black;
+}
+
+#main-logo-container {
+  display: flex;
+}
+
+#mainLogo {
+  width: 44px;
+  position: relative;
+  top: 7px;
+  left: -12px;
+}
+
+/* Footer WID Logo */
+#logoBox {
+  position: fixed;
+  left: 0px;
+  display: grid;
+
+  bottom: 0;
+  right: 0;
+  width: 200px;
+}
+
+/* Github Icon and Text */
+footer {
+  display: flex;
+  right: 0;
+  padding: 4px;
+  position: absolute;
+  background-color: orange;
+  bottom: 0;
+  font-size: 10px;
+}
+.gitHub {
+  height: 10px;
+  position: relative;
+  width: 10px;
+  top: 1px;
+  right: 2px;
+}
