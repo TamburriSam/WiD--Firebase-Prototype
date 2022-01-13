@@ -3,6 +3,8 @@ import firebase from "firebase/app";
 import "firebase/firestore";
 import RoomLI from "./RoomLI";
 import Wordtable from "./WordTable";
+import "./Game.css";
+import Button from "@mui/material/Button";
 
 const Game4 = () => {
   const db = firebase.firestore();
@@ -15,6 +17,7 @@ const Game4 = () => {
   useEffect(() => {
     let LSroomId = localStorage.getItem("room_id");
     let LSuserId = localStorage.getItem("user_id");
+    let token = localStorage.getItem("g4");
 
     /*  localStorage.setItem("g2", true); */
 
@@ -24,16 +27,18 @@ const Game4 = () => {
       setfp(true);
     }
 
-    console.log("mounted");
+    if (!token) {
+      console.log("mounted");
 
-    isThereAListInLS();
+      isThereAListInLS();
 
-    setroomID(LSroomId);
-    setuserID(LSuserId);
+      setroomID(LSroomId);
+      setuserID(LSuserId);
 
-    setTimeout(() => {
-      createCells();
-    }, 1);
+      setTimeout(() => {
+        createCells();
+      }, 1);
+    }
   }, []);
 
   const createCells = () => {
@@ -193,7 +198,7 @@ const Game4 = () => {
     }
 
     list.map((item) => {
-      html += `<li class="list_item">${item}</li>`;
+      html += `<li class="list_item">${item}</li><hr>`;
     });
 
     received_list.innerHTML = html;
@@ -288,26 +293,26 @@ const Game4 = () => {
   };
 
   return (
-    <div>
-      <h1>Game Four</h1>
+    <div id='game2'>
+      <h1>Game Two</h1>
       <p>{userID}</p>
-      <button onClick={test}>test</button>
-      <div
-        id='list_container'
-        style={{ display: "flex", justifyContent: "space-around" }}
-      >
+      <div id='list_container'>
+        <ul id='received_word_list'></ul>
+
         <div>
-          <ul id='received_word_list'></ul>
-        </div>
-
-        <form onSubmit={(e) => allEntered(e)}>
-          <label>User Input List</label>
           <ul id='input-list'></ul>
-
-          <button type='submit' value={roomID}>
-            Continue
-          </button>
-        </form>
+        </div>
+      </div>
+      <div className='second-button-container'>
+        <Button
+          variant='outlined'
+          id='continueBtn'
+          type='submit'
+          value={roomID}
+          onClick={(e) => allEntered(e)}
+        >
+          Continue
+        </Button>
       </div>
     </div>
   );

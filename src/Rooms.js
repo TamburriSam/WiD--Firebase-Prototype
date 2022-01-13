@@ -13,6 +13,7 @@ import Wordtable from "./WordTable";
 import Nav from "./Nav";
 import Button from "@mui/material/Button";
 import "./Nav.css";
+import background from "./logos/green3.jpg";
 
 function Rooms() {
   const db = firebase.firestore();
@@ -232,24 +233,10 @@ function Rooms() {
           console.log("favorite letter not found");
           setwaitingRoom(true);
           setroomLI(false);
-          /*           selectAFavoriteLetter(id);
-           */ localStorage.setItem("waiting", true);
+          localStorage.setItem("waiting", true);
         }
         console.log(`user profile`, userProfile);
       });
-  };
-
-  const selectAFavoriteLetter = (id) => {
-    let answer = prompt("what your fav letter?");
-    console.log(`room id`, id);
-    //update to regex checking a-z eventually
-    if (answer.length < 2 && typeof answer == "string") {
-      console.log(`fav letter`, answer);
-      localStorage.setItem("favorite_letter", answer);
-    }
-
-    setwaitingRoom(true);
-    setinRoom(true);
   };
 
   const randomWordsFromDB = () => {
@@ -329,9 +316,10 @@ function Rooms() {
     let userArray = [];
     let activeCount;
     let users;
+    let LSsolo = localStorage.getItem("solo");
 
     if (LSroomId) {
-      if (LSroomId !== "" && e.target.id !== LSroomId) {
+      if (LSroomId !== "" && e.target.id !== LSroomId && !LSsolo) {
         db.collection("rooms")
           .doc(LSroomId)
           .get()
@@ -458,63 +446,57 @@ function Rooms() {
   return (
     <div className='background'>
       <Nav />
+      <div id='overlay'></div>
+
       <div className='liveRoom'>
-        <div id='active-container'>
-          <br></br>
-          <p>Username: {displayName}</p>
-          <p>Unique User Id: {userID}</p>
-          <Button
-            variant='outlined'
-            className='btn'
-            id='createNewRoom'
-            onClick={displayCreateBtns}
-          >
-            Create New Room
-          </Button>
-        </div>
+        <div
+          id='active-container'
+          style={{ backgroundImage: `url(${background})` }}
+        >
+          <form id='create-room' onSubmit={(e) => createRoom(e)}>
+            <TextField
+              label='Room Name'
+              size='small'
+              type='text'
+              id='room-name'
+              onChange={(e) => setRoomName(e.target.value)}
+              placeholder='Room Name'
+              required
+            />
 
-        <form id='create-room' onSubmit={(e) => createRoom(e)}>
-          <TextField
-            label='Room Name'
-            size='small'
-            type='text'
-            id='room-name'
-            onChange={(e) => setRoomName(e.target.value)}
-            placeholder='Room Name'
-            required
-          />
+            <TextField
+              label='Room Count'
+              size='small'
+              type='number'
+              id='room-count'
+              placeholder='Room Count'
+              onChange={(e) => setRoomCount(parseInt(e.target.value))}
+              required
+            />
+            <TextField
+              label='Password'
+              size='small'
+              type='password'
+              id='password'
+              placeholder='Room Password'
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+            <Button
+              type='submit'
+              value='Create Room'
+              variant='outlined'
+              size='small'
+              className='creater btn create-room'
+            >
+              Create Room
+            </Button>
+          </form>
 
-          <TextField
-            label='Room Count'
-            size='small'
-            type='number'
-            id='room-count'
-            placeholder='Room Count'
-            onChange={(e) => setRoomCount(parseInt(e.target.value))}
-            required
-          />
-          <TextField
-            label='Password'
-            size='small'
-            type='password'
-            id='password'
-            placeholder='Room Password'
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-          <Button
-            type='submit'
-            value='Create Room'
-            variant='outlined'
-            size='small'
-            className='creater btn create-room'
-          >
-            Create Room
+          <Button id='clearBtn' onClick={testClear}>
+            clear
           </Button>
-        </form>
-      </div>
-      <Button onClick={testClear}>clear</Button>
-      {/*  {roomLI ? (
+          {/*  {roomLI ? (
         <RoomLI
           data={data}
           createNewProfile={createNewProfile}
@@ -523,8 +505,9 @@ function Rooms() {
           displayCreateBtns={displayCreateBtns}
         />
       ) : null} */}
-      <div style={{ border: "2px solid black" }}>{content}</div>
-
+          <div>{content}</div>
+        </div>
+      </div>
       <div id='logoBox'>
         <img id='secondaryLogo2' src={secondaryLogo} alt='' />
       </div>

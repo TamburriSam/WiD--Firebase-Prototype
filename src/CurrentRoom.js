@@ -6,6 +6,8 @@ import Game1 from "./Game1";
 import React from "react";
 import Rooms from "./Rooms";
 import { isCompositeComponent } from "react-dom/test-utils";
+import "./CSSRoomLI.css";
+import FavoriteLetter from "./FavoriteLetter";
 
 function CurrentRoom({ name, favorite_letter, removeUser }) {
   const db = firebase.firestore();
@@ -18,9 +20,10 @@ function CurrentRoom({ name, favorite_letter, removeUser }) {
   const [gameStart, setgameStart] = useState(false);
   const [inRoom, setinRoom] = useState(false);
   const [favoriteLetter, setfavoriteLetter] = useState("");
+  const [showLetter, setShowLetter] = useState("false");
 
   const selectAFavoriteLetter = (id) => {
-    let answer = prompt("what your fav letter?");
+    /*  let answer = prompt("what your fav letter?");
     console.log(`room id`, id);
     //update to regex checking a-z eventually
     if (answer.length < 2 && typeof answer == "string") {
@@ -29,10 +32,31 @@ function CurrentRoom({ name, favorite_letter, removeUser }) {
       setroomLoad(true);
       setinRoom(true);
       setfavoriteLetter(answer);
-    }
+    } */
+
+    setroomLoad(true);
+    setShowLetter(true);
 
     /*  setwaitingRoom(true);
     setinRoom(true); */
+  };
+
+  const setFavLetterChange = (e) => {
+    setfavoriteLetter(e.target.value);
+  };
+
+  const handleLetterChange = () => {
+    if (favoriteLetter.length < 2 && typeof favoriteLetter == "string") {
+      console.log(`fav letter`, favoriteLetter);
+      localStorage.setItem("favorite_letter", favoriteLetter);
+      setroomLoad(true);
+      setinRoom(true);
+      setfavoriteLetter(favoriteLetter);
+      setShowLetter(false);
+    }
+    setinRoom(true);
+    console.log("f");
+    console.log(showLetter);
   };
 
   useEffect(() => {
@@ -42,6 +66,8 @@ function CurrentRoom({ name, favorite_letter, removeUser }) {
     if (!lsitem) {
       selectAFavoriteLetter();
     } else {
+      setShowLetter(false);
+
       setroomLoad(true);
       setinRoom(true);
     }
@@ -134,15 +160,27 @@ function CurrentRoom({ name, favorite_letter, removeUser }) {
     return <div className='App'>Loading...</div>;
   }
 
+  if (showLetter) {
+    console.log("ok");
+    return (
+      <FavoriteLetter
+        showLetter={showLetter}
+        handleLetterChange={handleLetterChange}
+        favoriteLetter={favoriteLetter}
+        setFavLetterChange={setFavLetterChange}
+      />
+    );
+  }
+
   return (
-    <div>
+    <div id='current-room'>
       <button onClick={testClear}>clear</button>
 
       <button onClick={(e) => removeUser(e)}>Leave Room</button>
       <h1 className='waiting'>Waiting</h1>
 
       <h1>You're in room {name}</h1>
-      <h2>Your favorite letter : {favoriteLetter}</h2>
+      <h2>Your favorite letter : {localStorage.getItem("favorite_letter")}</h2>
       <h3>Users in room: </h3>
       {console.log(users)}
       <table>

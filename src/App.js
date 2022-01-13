@@ -7,6 +7,7 @@ import React from "react";
 import Rooms from "./Rooms";
 import "firebaseui/dist/firebaseui.css";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
+import background1 from "./logos/green3.jpg";
 
 function App() {
   const firebaseConfig = {
@@ -25,7 +26,7 @@ function App() {
   }
 
   return (
-    <div>
+    <div /* style={{ backgroundImage: `url(${background1})` }} */>
       <BrowserRouter>
         <div>
           <Switch>

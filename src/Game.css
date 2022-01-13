@@ -1,0 +1,182 @@
+/* Create Room Btn */
+
+#createNewRoom {
+  display: block;
+  display: block;
+  background-color: #101a19cf !important;
+  color: white;
+  border: 3px solid white;
+  border-radius: 5px;
+  width: 110px !important;
+  line-height: 2.6;
+  cursor: pointer;
+  width: 150px !important;
+  right: 10px;
+  position: absolute;
+}
+#createNewRoom:hover {
+  background-color: white !important;
+  color: black;
+  border: black 3px solid;
+}
+
+/* Solo Btn */
+#solobtn {
+  display: block;
+  background-color: #101a19cf !important;
+  color: white;
+  border: 3px solid white;
+  border-radius: 5px;
+  width: 110px !important;
+  line-height: 2.6;
+  cursor: pointer;
+}
+#solobtn:hover {
+  background-color: white !important;
+  color: black;
+  border: black 3px solid;
+}
+
+#clearBtn {
+  position: absolute;
+  bottom: 50px;
+  border: 1px solid cyan;
+}
+
+/* Game 1 */
+#list-container {
+  display: flex;
+  position: relative;
+  justify-content: space-around;
+  width: 90vw;
+  flex-direction: row-reverse;
+  height: fit-content;
+  padding-top: 45px;
+  margin: auto;
+}
+#input-form {
+  width: 30vw !important;
+
+  height: 620px;
+  border: 2px solid #399e3c56;
+  background: white;
+  box-shadow: 1px 1px 0px #999, 2px 2px 0px #999, 3px 3px 0px #999,
+    4px 4px 0px #999, 5px 5px 0px #999, 6px 6px 0px #999 !important;
+  position: absolute;
+  top: 25px;
+}
+
+#input-list1 {
+  width: 200px;
+}
+
+.input-cell {
+  height: 22px !important;
+  width: 390px;
+  font-size: 12px !important;
+  letter-spacing: 2px;
+  text-decoration: none;
+  /* border-bottom: none; */
+  border: none;
+  border-bottom: 1px solid grey;
+  /* border-top: none; */
+  font-size: 17px !important;
+  font-family: "Montserrat", sans-serif !important;
+  text-align: center;
+  margin: unset !important;
+  outline: none;
+}
+.input-cell::placeholder {
+  text-align: left !important;
+  font-weight: bold;
+  color: black;
+  font-size: 14px;
+}
+
+#button-container {
+  position: relative;
+
+  bottom: -12px;
+}
+
+.placeholder {
+  position: absolute;
+  left: 15px;
+  font-family: "Montserrat", sans-serif !important;
+  font-weight: bold;
+}
+
+/* Continue Button */
+
+#button-container {
+  position: absolute;
+  bottom: 170px;
+  width: 100vw;
+  height: 5vh;
+
+  text-align: center;
+}
+
+#continueBtn {
+  position: relative;
+  background-color: rgb(255, 255, 255);
+}
+
+/* Game2 */
+#game2 {
+  position: relative;
+  z-index: 2;
+}
+
+#inputForm {
+}
+
+#list_container {
+  display: flex;
+
+  position: relative;
+  justify-content: space-around;
+  width: 90vw;
+
+  height: fit-content;
+  padding-top: 45px;
+  margin: auto;
+}
+
+#received_word_list {
+  border: 2px solid #399e3c56;
+  text-align: center;
+  background-color: white;
+  width: 30vw;
+  box-shadow: 1px 1px 0px #999, 2px 2px 0px #999, 3px 3px 0px #999,
+    4px 4px 0px #999, 5px 5px 0px #999, 6px 6px 0px #999 !important;
+  font-family: "Montserrat", sans-serif;
+  font-size: 12px;
+}
+
+#received_word_list li {
+  letter-spacing: 2px;
+  line-height: 21px;
+  font-size: 16px !important;
+}
+
+#input-list {
+  width: 30vw;
+  text-align: center;
+  background-color: white;
+
+  border: 2px solid #399e3c56;
+  box-shadow: 1px 1px 0px #999, 2px 2px 0px #999, 3px 3px 0px #999,
+    4px 4px 0px #999, 5px 5px 0px #999, 6px 6px 0px #999 !important;
+  font-family: "Montserrat", sans-serif;
+}
+
+.second-button-container {
+  width: 100vw;
+  position: relative;
+  z-index: 3;
+
+  position: absolute;
+  bottom: -50px;
+  text-align: center;
+}

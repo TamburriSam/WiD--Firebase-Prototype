@@ -1,0 +1,66 @@
+#MainDiv {
+  display: flex;
+  position: relative;
+  z-index: 3;
+}
+
+#table2 {
+  background-color: white;
+  width: 40vw;
+  height: fit-content;
+
+  padding: 10px;
+  background-color: white;
+  font-family: "Montserrat", sans-serif;
+  font-size: 12px;
+  z-index: 100;
+
+  background: white;
+  box-shadow: 1px 1px 0px #999, 2px 2px 0px #999, 3px 3px 0px #999,
+    4px 4px 0px #999, 5px 5px 0px #999, 6px 6px 0px #999 !important;
+  padding: 10px;
+  display: flex;
+  margin: auto;
+  top: 113px;
+  position: relative;
+  height: 500px;
+}
+
+#buttons {
+  display: flex;
+}
+
+.btn {
+  height: 50px;
+}
+
+#input_and_button_container {
+  display: flex;
+  flex-direction: column;
+}
+
+#table-tow-cols {
+  width: 500px;
+  position: fixed;
+  display: flex;
+  justify-content: space-between;
+  display: none !important;
+}
+
+.dynamic-items {
+  width: 100vw;
+  display: flex;
+}
+
+.item0 {
+  width: 50px;
+}
+.item1 {
+  width: 50px;
+}
+.item2 {
+  width: 50px;
+}
+.item3 {
+  width: 50px;
+}

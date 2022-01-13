@@ -7,6 +7,7 @@ import "./index.css";
 import { jsPDF } from "jspdf";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import LiveRoom from "./LiveRoom";
+import "./Wordtable.css";
 
 const Wordtable = () => {
   const db = firebase.firestore();
@@ -65,14 +66,35 @@ const Wordtable = () => {
 
         console.log(result);
 
+        let test = [];
         let html = "";
         result.map((item) => {
-          html += `<tr><td class="listItems"><input class="word-check" type="checkbox">${item.join(
-            " "
-          )}</td></tr>`;
-        });
-        firstCol.innerHTML = html;
+          for (let i = 0; i < item.length; i++) {
+            test.push(`<div class="item${i}">${item[i]}</div>`);
+          }
 
+          /*  html += `<tr><td class="listItems"><input class="word-check" type="checkbox"><div class="dynamic-items">${item.join(
+            " "
+          )}</div></td></tr>`; */
+        });
+
+        const result2 = [];
+
+        for (let i = 0; i < test.length; i += 4) {
+          const chunk = test.slice(i, i + 4);
+          result2.push(chunk);
+        }
+
+        console.log(result2);
+
+        result2.map((item) => {
+          html += `<tr><td class="listItems"><input class="word-check" type="checkbox"><div class="dynamic-items">${item.join(
+            " "
+          )}</div></td></tr>`;
+        });
+
+        firstCol.innerHTML = html;
+        console.log(test);
         crossedOffWord();
       });
   };
@@ -154,51 +176,35 @@ const Wordtable = () => {
     return <div className='App'>Loading...</div>;
   }
   return (
-    <div style={{ display: "flex" }}>
-      <table id='table1'>
+    <div id='MainDiv'>
+      <table id='table2'>
         <thead>
-          <tr>
-            <th className='col-title'>First Column</th>
+          <tr id='table-row-cols'>
+            <th className='col-title'>1st Column </th>
+            <th className='col-title'>2nd Column </th>
+            <th className='col-title'>3rd Column </th>
+            <th className='col-title'>4th Column </th>
           </tr>
         </thead>
 
         <tbody id='tbody1'></tbody>
       </table>
 
-      <table id='table2'>
-        <thead>
-          <tr>
-            <th className='col-title'>Second Column</th>
-          </tr>
-        </thead>
+      <div id='input_and_button_container'>
+        <input id='essay' />
 
-        <tbody id='tbody2'></tbody>
-      </table>
-
-      <table id='table3'>
-        <thead>
-          <tr>
-            <th className='col-title'>Third Column</th>
-          </tr>
-        </thead>
-
-        <tbody id='tbody3'></tbody>
-      </table>
-
-      <table id='table4'>
-        <thead>
-          <tr>
-            <th className='col-title'>Fourth Column</th>
-          </tr>
-        </thead>
-
-        <tbody id='tbody4'></tbody>
-      </table>
-      <input id='essay' />
-      <button onClick={printEssay}>Print Essay</button>
-      <button onClick={printLists}>Print Lists</button>
-      <button onClick={nextPage}>Next</button>
-
+        <div id='buttons'>
+          <button class='btn' onClick={printEssay}>
+            Print Essay
+          </button>
+          <button class='btn' onClick={printLists}>
+            Print Lists
+          </button>
+          <button class='btn' onClick={nextPage}>
+            Next
+          </button>
+        </div>
+      </div>
       <div id='word-count-box'>Count: </div>
     </div>
   );

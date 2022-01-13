@@ -4,6 +4,8 @@ import "firebase/firestore";
 import RoomLI from "./RoomLI";
 import Game3 from "./Game3";
 import { create } from "@mui/material/styles/createTransitions";
+import "./Game.css";
+import Button from "@mui/material/Button";
 
 const Game2 = () => {
   const db = firebase.firestore();
@@ -28,16 +30,20 @@ const Game2 = () => {
       setG3(true);
     }
 
+    let token = localStorage.getItem("g2");
+
     console.log("mounted");
 
-    isThereAListInLS();
+    if (!token) {
+      isThereAListInLS();
 
-    setroomID(LSroomId);
-    setuserID(LSuserId);
+      setroomID(LSroomId);
+      setuserID(LSuserId);
 
-    setTimeout(() => {
-      createCells();
-    }, 1);
+      setTimeout(() => {
+        createCells();
+      }, 1);
+    }
   }, []);
 
   const createCells = () => {
@@ -132,10 +138,13 @@ const Game2 = () => {
           });
         })
         .then(() => {
+          //the first part is good- the error is here
           haventBeenUsedLists.map((item) => {
             let list_one = item.list_one_input;
 
-            if (list_one.length == 26) {
+            console.log(list_one.length);
+
+            if (list_one.length === 26) {
               console.log(`havent been used`, haventBeenUsedLists);
               let random = Math.floor(
                 Math.random() * haventBeenUsedLists.length
@@ -199,7 +208,7 @@ const Game2 = () => {
     }
 
     list.map((item) => {
-      html += `<li class="list_item">${item}</li>`;
+      html += `<li class="list_item">${item}</li><hr>`;
     });
 
     received_list.innerHTML = html;
@@ -288,26 +297,26 @@ const Game2 = () => {
   }
 
   return (
-    <div>
+    <div id='game2'>
       <h1>Game Two</h1>
       <p>{userID}</p>
-      <button onClick={areThereLists}>test</button>
-      <div
-        id='list_container'
-        style={{ display: "flex", justifyContent: "space-around" }}
-      >
+      <div id='list_container'>
+        <ul id='received_word_list'></ul>
+
         <div>
-          <ul id='received_word_list'></ul>
-        </div>
-
-        <form onSubmit={(e) => allEntered(e)}>
-          <label>User Input List</label>
           <ul id='input-list'></ul>
-
-          <button type='submit' value={roomID}>
-            Continue
-          </button>
-        </form>
+        </div>
+      </div>
+      <div className='second-button-container'>
+        <Button
+          variant='outlined'
+          id='continueBtn'
+          type='submit'
+          value={roomID}
+          onClick={(e) => allEntered(e)}
+        >
+          Continue
+        </Button>
       </div>
     </div>
   );

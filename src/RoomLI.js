@@ -19,7 +19,11 @@ function RoomLI({
   const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
-    getData();
+    let game_start_token = localStorage.getItem("waiting");
+
+    if (!game_start_token) {
+      getData();
+    }
 
     return () => {
       setLoading(true);
@@ -41,26 +45,34 @@ function RoomLI({
 
   return (
     <div id='liveRoom'>
-      <h1>Active Rooms</h1>
-      <Button variant='outlined' onClick={soloFunc}>
+      <button id='solobtn' onClick={soloFunc}>
         Solo Mode
-      </Button>
+      </button>
+      <br></br>
+      <button className='btn' id='createNewRoom' onClick={displayCreateBtns}>
+        Create New Room
+      </button>
+      <h1 id='active-heading'>Active Rooms</h1>
+      <br></br>
+
       <table id='table1'>
         <thead>
           <tr id='table-heading'>
-            <th className='group-title'>Group Name</th>
-            <th className='members-active'>Members Active</th>
+            <th className='group-heading'>Group Name</th>
+            <th className='members-heading'>Members Active</th>
           </tr>
         </thead>
 
         {nodes.map((node, index) => {
           return (
             <thead key={index.toString()}>
-              <tr>
+              <tr id='table-row'>
                 <td className='group-name'>{node.data().name}</td>
+
                 <td className='group-count'>
                   {node.data().active_count} / {node.data().total_count} Active
                 </td>
+
                 <td className='join-btn'>
                   <Button
                     variant='outlined'

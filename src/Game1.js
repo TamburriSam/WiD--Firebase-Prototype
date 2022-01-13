@@ -4,6 +4,8 @@ import firebase from "firebase/app";
 import "firebase/firestore";
 import RoomLI from "./RoomLI";
 import Game2 from "./Game2.js";
+import "./Game.css";
+import Button from "@mui/material/Button";
 
 function Game1() {
   const db = firebase.firestore();
@@ -46,7 +48,7 @@ function Game1() {
 
   const populateAlphabet = () => {
     let alphabet = "abcdefghijklmnopqrstuvwxyz".toUpperCase().split("");
-    let listofInp = document.querySelector("#input-list");
+    let listofInp = document.querySelector("#input-list1");
     let buttonContainer = document.getElementById("button-container");
     let shuffledAlpha = shuffle(alphabet);
     let count = 0;
@@ -134,11 +136,6 @@ function Game1() {
     db.collection("users").doc(userID).update({ t1: true });
   };
 
-  const testClear = () => {
-    localStorage.clear();
-    window.location.reload(true);
-  };
-
   if (isLoading) {
     return <div className='App'>Loading...</div>;
   }
@@ -151,12 +148,23 @@ function Game1() {
     <div>
       <h1>Game One</h1>
       <form onSubmit={(e) => allEntered(e)}>
-        <ul id='input-list'></ul>
-        <button type='submit' value={roomID}>
-          Continue
-        </button>
+        <div id='list-container'>
+          <div id='input-form'>
+            <ul id='input-list1'></ul>
+          </div>
+        </div>
+        <div id='button-container'>
+          <Button
+            variant='outlined'
+            id='continueBtn'
+            color='success'
+            type='submit'
+            value={roomID}
+          >
+            Continue
+          </Button>
+        </div>
       </form>
-      <button onClick={testClear}>clear</button>
     </div>
   );
 }

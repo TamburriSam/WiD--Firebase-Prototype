@@ -2,13 +2,15 @@ import firebase from "firebase/app";
 import { useEffect } from "react";
 import CurrentRoom from "./CurrentRoom";
 import { useState } from "react";
+import FavoriteLetter from "./FavoriteLetter";
 
 const SoloMode = () => {
   const db = firebase.firestore();
   const [isLoading, setLoading] = useState(false);
   const [gameStart, setGameStart] = useState(false);
+  const [favoriteLetter, setfavoriteLetter] = useState("");
 
-  useEffect(() => {
+  /*   useEffect(() => {
     selectAFavoriteLetter();
   }, []);
 
@@ -22,7 +24,7 @@ const SoloMode = () => {
       localStorage.setItem("favorite_letter", answer);
       setSoloRoom();
     }
-  };
+  }; */
 
   const setSoloRoom = () => {
     let LSuserId = localStorage.getItem("user_id");
@@ -149,6 +151,19 @@ const SoloMode = () => {
     setGameStart(true);
   };
 
+  const setFavLetterChange = (e) => {
+    setfavoriteLetter(e.target.value);
+  };
+  const handleLetterChange = () => {
+    if (favoriteLetter.length < 2 && typeof favoriteLetter == "string") {
+      console.log(`fav letter`, favoriteLetter);
+      localStorage.setItem("favorite_letter", favoriteLetter);
+      setSoloRoom();
+      setfavoriteLetter(favoriteLetter);
+      setLoading(false);
+    }
+  };
+
   if (gameStart) {
     return <CurrentRoom />;
   }
@@ -157,7 +172,25 @@ const SoloMode = () => {
     return <div className='App'>Loading...</div>;
   }
 
-  return <div>hi</div>;
+  return (
+    <div id='fast-facts'>
+      <div id='blurb'></div>
+      <div id='notification'>
+        What's your favorite letter of the alphabet? Type it in the box.
+      </div>
+      <div id='inputContainer'>
+        <input
+          onChange={setFavLetterChange}
+          id='alphabetInput'
+          type='text'
+          placeholder='favorite letter'
+        />
+      </div>
+      <button id='letterSubmit' onClick={handleLetterChange}>
+        submit
+      </button>
+    </div>
+  );
 };
 
 export default SoloMode;

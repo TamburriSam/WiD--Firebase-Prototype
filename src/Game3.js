@@ -3,6 +3,7 @@ import firebase from "firebase/app";
 import "firebase/firestore";
 import RoomLI from "./RoomLI";
 import Game4 from "./Game4";
+import Button from "@mui/material/Button";
 
 const Game3 = () => {
   const db = firebase.firestore();
@@ -27,15 +28,18 @@ const Game3 = () => {
       setG4(true);
     }
 
+    let token = localStorage.getItem("g3");
     console.log("mounted");
 
-    isThereAListInLS();
+    if (!token) {
+      isThereAListInLS();
 
-    setroomID(LSroomId);
-    setuserID(LSuserId);
-    setTimeout(() => {
-      createCells();
-    }, 1);
+      setroomID(LSroomId);
+      setuserID(LSuserId);
+      setTimeout(() => {
+        createCells();
+      }, 1);
+    }
   }, []);
 
   const createCells = () => {
@@ -196,7 +200,7 @@ const Game3 = () => {
     }
 
     list.map((item) => {
-      html += `<li class="list_item">${item}</li>`;
+      html += `<li class="list_item">${item}</li><hr>`;
     });
 
     received_list.innerHTML = html;
@@ -279,26 +283,26 @@ const Game3 = () => {
   }
 
   return (
-    <div>
+    <div id='game2'>
       <h1>Game Three</h1>
       <p>{userID}</p>
-      <button onClick={areThereLists}>test</button>
-      <div
-        id='list_container'
-        style={{ display: "flex", justifyContent: "space-around" }}
-      >
+      <div id='list_container'>
+        <ul id='received_word_list'></ul>
+
         <div>
-          <ul id='received_word_list'></ul>
-        </div>
-
-        <form onSubmit={(e) => allEntered(e)}>
-          <label>User Input List</label>
           <ul id='input-list'></ul>
-
-          <button type='submit' value={roomID}>
-            Continue
-          </button>
-        </form>
+        </div>
+      </div>
+      <div className='second-button-container'>
+        <Button
+          variant='outlined'
+          id='continueBtn'
+          type='submit'
+          value={roomID}
+          onClick={(e) => allEntered(e)}
+        >
+          Continue
+        </Button>
       </div>
     </div>
   );
