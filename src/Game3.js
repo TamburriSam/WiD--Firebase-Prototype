@@ -4,6 +4,7 @@ import "firebase/firestore";
 import RoomLI from "./RoomLI";
 import Game4 from "./Game4";
 import Button from "@mui/material/Button";
+import MyTimer from "./MyTimer";
 
 const Game3 = () => {
   const db = firebase.firestore();
@@ -46,8 +47,11 @@ const Game3 = () => {
     let inputList = document.getElementById("input-list");
 
     let html = "";
+    let count = 0;
+
     for (let i = 0; i < 26; i++) {
-      html += `<li><input class="input-cell"></input></li>`;
+      html += `<li><input data-id="${count}" class="input-cell"></input></li><hr>`;
+      count++;
     }
     inputList.innerHTML = html;
   };
@@ -285,6 +289,9 @@ const Game3 = () => {
   return (
     <div id='game2'>
       <h1>Game Three</h1>
+      <div>
+        <MyTimer />
+      </div>
       <p>{userID}</p>
       <div id='list_container'>
         <ul id='received_word_list'></ul>

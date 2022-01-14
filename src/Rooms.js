@@ -41,7 +41,11 @@ function Rooms() {
     const LSwaiting = localStorage.getItem("waiting");
     const LSsolo = localStorage.getItem("solo");
 
-    if (LSwaiting || LSsolo) {
+    if (LSsolo) {
+      return <SoloMode />;
+    }
+
+    if (LSwaiting) {
       setroomLI(false);
     }
 
@@ -62,6 +66,14 @@ function Rooms() {
       setwaitingRoom(true);
     } else {
       setwaitingRoom(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    let LSoption = localStorage.getItem("option-solo");
+
+    if (LSoption) {
+      soloFunc();
     }
   }, []);
 

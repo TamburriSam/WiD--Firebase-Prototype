@@ -68,17 +68,18 @@
 
 #input-list1 {
   width: 200px;
+  color: #2f2f2f;
 }
 
 .input-cell {
   height: 22px !important;
-  width: 390px;
   font-size: 12px !important;
   letter-spacing: 2px;
   text-decoration: none;
   /* border-bottom: none; */
   border: none;
-  border-bottom: 1px solid grey;
+
+  color: grey;
   /* border-top: none; */
   font-size: 17px !important;
   font-family: "Montserrat", sans-serif !important;
@@ -91,6 +92,10 @@
   font-weight: bold;
   color: black;
   font-size: 14px;
+}
+
+#input-list1 hr {
+  width: 29vw;
 }
 
 #button-container {
@@ -109,11 +114,12 @@
 /* Continue Button */
 
 #button-container {
-  position: absolute;
-  bottom: 170px;
+  position: relative;
+  /* bottom: 170px; */
   width: 100vw;
-  height: 5vh;
+  top: 617px;
 
+  height: 10vh;
   text-align: center;
 }
 
@@ -179,4 +185,16 @@
   position: absolute;
   bottom: -50px;
   text-align: center;
+}
+
+.passed-words {
+}
+
+.selected-text {
+  font-size: 16px;
+  width: 90%;
+
+  margin: auto;
+  background-color: #399e3c9a;
+  border-radius: 5px;
 }

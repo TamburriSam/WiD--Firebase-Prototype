@@ -9,11 +9,13 @@ import "./index.css";
 import { useEffect, useState } from "react";
 import uniqid from "uniqid";
 import Button from "@mui/material/Button";
+import ModeSelection from "./ModeSelection";
 
 function IndexPage(props) {
   const [inputField, setinputField] = useState("Enter a Screen Name");
   const [nextPage, setnextPage] = useState(false);
   const [uniqueId, setuniqueId] = useState(uniqid());
+  const [showOption, setShowOption] = useState(false);
 
   const handleChange = (e) => {
     setinputField(e.target.value);
@@ -26,7 +28,8 @@ function IndexPage(props) {
     console.log(inputField);
     localStorage.setItem("username", inputField);
     localStorage.setItem("user_id", uniqueId);
-    setnextPage(true);
+    setShowOption(true);
+    /* setnextPage(true); */
     e.preventDefault();
   };
 
@@ -46,9 +49,10 @@ function IndexPage(props) {
     return <Rooms />;
   }
 
-  /*  const styled = (
-    <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />
-  ); */
+  if (showOption) {
+    return <ModeSelection />;
+  }
+
   return (
     <div id='indexBody'>
       <div id='overlay'></div>

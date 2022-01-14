@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import CurrentRoom from "./CurrentRoom";
 import { useState } from "react";
 import FavoriteLetter from "./FavoriteLetter";
+import "./CSSRoomLI.css";
 
 const SoloMode = () => {
   const db = firebase.firestore();
@@ -25,6 +26,10 @@ const SoloMode = () => {
       setSoloRoom();
     }
   }; */
+
+  useEffect(() => {
+    alert("mounted");
+  }, []);
 
   const setSoloRoom = () => {
     let LSuserId = localStorage.getItem("user_id");
@@ -143,13 +148,49 @@ const SoloMode = () => {
         list_four,
       })
       .then(() => {
-        startGame();
+        /* startGame(); */
+        waitingRoomShift();
       });
+  };
+
+  const startCountdown = (seconds) => {
+    let counter = seconds;
+
+    const interval = setInterval(() => {
+      counter--;
+
+      document.querySelector(
+        "#waiting"
+      ).innerHTML = `Game Starting in ${counter} seconds`;
+
+      if (counter < 1) {
+        clearInterval(interval);
+        console.log("Ding!");
+        setGameStart(true);
+        /*   window.location.reload(true); */
+        localStorage.setItem("game_start", true);
+      }
+    }, 1000);
+  };
+
+  const waitingRoomShift = () => {
+    document.getElementById("notification").innerHTML = "Your Favorite Letter";
+    document.getElementById("letterSubmit").style.display = "none";
+    document.getElementById("fast-facts").style.right = "164px";
+    document.getElementById("fast-facts").style.height = "71vh";
+    document.getElementById("fast-facts").style.width = "63vw";
+    document.getElementById("fast-facts").style.top = "87px";
+    document.getElementById("waiting").style.display = "block";
+    /*     document.getElementById("current-room").style.display = "block";
+    document.getElementById("current-room").style.bottom = "100px"; */
+    /* startCountdown(9); */
   };
 
   const startGame = () => {
     setGameStart(true);
   };
+
+  let content = null;
 
   const setFavLetterChange = (e) => {
     setfavoriteLetter(e.target.value);
@@ -161,6 +202,7 @@ const SoloMode = () => {
       setSoloRoom();
       setfavoriteLetter(favoriteLetter);
       setLoading(false);
+      content = <CurrentRoom />;
     }
   };
 
@@ -189,6 +231,11 @@ const SoloMode = () => {
       <button id='letterSubmit' onClick={handleLetterChange}>
         submit
       </button>
+      {/* <CurrentRoom /> */}
+      {content}
+      <div style={{ position: "relative", bottom: "400px" }} id='waiting'>
+        <p class='loading'>Waiting for users to join</p>
+      </div>
     </div>
   );
 };

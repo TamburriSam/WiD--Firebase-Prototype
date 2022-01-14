@@ -6,6 +6,7 @@ import RoomLI from "./RoomLI";
 import Game2 from "./Game2.js";
 import "./Game.css";
 import Button from "@mui/material/Button";
+import MyTimer from "./MyTimer";
 
 function Game1() {
   const db = firebase.firestore();
@@ -14,6 +15,8 @@ function Game1() {
   const [userID, setuserID] = useState("");
   const [g2Start, setG2Start] = useState(false);
   const [isLoading, setLoading] = useState(false);
+
+  let content = null;
 
   useEffect(() => {
     let LSroomId = localStorage.getItem("room_id");
@@ -57,7 +60,7 @@ function Game1() {
     console.log(shuffledAlpha.length);
 
     alphabet.map((letter) => {
-      html += `<li><input type="text" data-id="${count}" class="input-cell"> </input><span class="placeholder">${letter}</span> </li>`;
+      html += `<li><input type="text" data-id="${count}" class="input-cell"> </input><span class="placeholder">${letter}</span></li><hr>`;
       count++;
     });
     listofInp.innerHTML = html;
@@ -147,6 +150,9 @@ function Game1() {
   return (
     <div>
       <h1>Game One</h1>
+      <div>
+        <MyTimer />
+      </div>
       <form onSubmit={(e) => allEntered(e)}>
         <div id='list-container'>
           <div id='input-form'>
@@ -163,6 +169,9 @@ function Game1() {
           >
             Continue
           </Button>
+          <div id='timer' style={{ backgroundColor: "white" }}>
+            {content}
+          </div>
         </div>
       </form>
     </div>

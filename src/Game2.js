@@ -6,6 +6,7 @@ import Game3 from "./Game3";
 import { create } from "@mui/material/styles/createTransitions";
 import "./Game.css";
 import Button from "@mui/material/Button";
+import MyTimer from "./MyTimer";
 
 const Game2 = () => {
   const db = firebase.firestore();
@@ -36,7 +37,6 @@ const Game2 = () => {
 
     if (!token) {
       isThereAListInLS();
-
       setroomID(LSroomId);
       setuserID(LSuserId);
 
@@ -44,16 +44,25 @@ const Game2 = () => {
         createCells();
       }, 1);
     }
+    /* return () => {
+      window.removeEventListener("click", magnifyWords);
+    }; */
   }, []);
 
   const createCells = () => {
     let inputList = document.getElementById("input-list");
 
     let html = "";
+    let count = 0;
     for (let i = 0; i < 26; i++) {
-      html += `<li><input class="input-cell"></input></li>`;
+      console.log(i, count);
+
+      html += `<li><input data-id="${count}" class="input-cell"></input></li><hr>`;
+      count++;
     }
     inputList.innerHTML = html;
+    /*     magnifyWords();
+     */
   };
 
   const isThereAListInLS = () => {
@@ -208,7 +217,7 @@ const Game2 = () => {
     }
 
     list.map((item) => {
-      html += `<li class="list_item">${item}</li><hr>`;
+      html += `<li class="list_item passed-words">${item}</li><hr>`;
     });
 
     received_list.innerHTML = html;
@@ -292,6 +301,51 @@ const Game2 = () => {
       });
   };
 
+  /* const magnifyWords = (e) => {
+    document.body.addEventListener("focus", function (e) {
+      if (e.keyCode === "9") {
+        console.log(e.target.className);
+        let selected = document.querySelectorAll(".selected-text");
+        let currentNumber = e.target.dataset.id;
+        let passedWords = document.querySelectorAll(".passed-words");
+
+        if (e.target.className == "input-cell") {
+          passedWords[currentNumber].className = "passed-words selected-text";
+          for (let i = 0; i < selected.length; i++) {
+            selected[i].classList.remove("selected-text");
+            selected[i].className = "passed-words";
+          }
+        } else {
+          return false;
+        }
+
+             magnifyWordsWithTab(passedWords, currentNumber);
+         
+      }
+    });
+  }; */
+
+  /*   const magnifyWordsWithTab = (list, number) => {
+    document.addEventListener("keydown", function (e) {
+      if (e.keyCode == "9") {
+        console.log(e.target);
+        let number = parseInt(e.target.dataset.id) + 1;
+        if (e.target.className == "input-cell") {
+          list[number].className = "passed-words selected-text";
+          list.forEach((word, index) => {
+            if (word !== list[number]) {
+              word.classList.remove("selected-text");
+            } else {
+              return false;
+            }
+          });
+        } else {
+          return false;
+        }
+      }
+    });
+  }; */
+
   if (g3) {
     return <Game3 />;
   }
@@ -299,6 +353,9 @@ const Game2 = () => {
   return (
     <div id='game2'>
       <h1>Game Two</h1>
+      <div>
+        <MyTimer />
+      </div>
       <p>{userID}</p>
       <div id='list_container'>
         <ul id='received_word_list'></ul>

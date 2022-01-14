@@ -20,29 +20,47 @@ function CurrentRoom({ name, favorite_letter, removeUser }) {
   const [gameStart, setgameStart] = useState(false);
   const [inRoom, setinRoom] = useState(false);
   const [favoriteLetter, setfavoriteLetter] = useState("");
-  const [showLetter, setShowLetter] = useState("false");
+  const [showLetter, setShowLetter] = useState(false);
 
   const selectAFavoriteLetter = (id) => {
-    /*  let answer = prompt("what your fav letter?");
-    console.log(`room id`, id);
-    //update to regex checking a-z eventually
-    if (answer.length < 2 && typeof answer == "string") {
-      console.log(`fav letter`, answer);
-      localStorage.setItem("favorite_letter", answer);
-      setroomLoad(true);
-      setinRoom(true);
-      setfavoriteLetter(answer);
-    } */
-
     setroomLoad(true);
     setShowLetter(true);
-
-    /*  setwaitingRoom(true);
-    setinRoom(true); */
   };
 
   const setFavLetterChange = (e) => {
     setfavoriteLetter(e.target.value);
+  };
+
+  const waitingRoomShift = () => {
+    document.getElementById("notification").innerHTML = "Your Favorite Letter";
+    document.getElementById("letterSubmit").style.display = "none";
+    document.getElementById("fast-facts").style.right = "164px";
+    document.getElementById("fast-facts").style.height = "71vh";
+    document.getElementById("fast-facts").style.width = "63vw";
+    document.getElementById("fast-facts").style.top = "87px";
+    document.getElementById("waiting").style.display = "block";
+    document.getElementById("current-room").style.display = "block";
+    document.getElementById("current-room").style.bottom = "100px";
+  };
+
+  const startCountdown = (seconds) => {
+    let counter = seconds;
+
+    const interval = setInterval(() => {
+      counter--;
+
+      document.querySelector(
+        "#waiting"
+      ).innerHTML = `Game Starting in ${counter} seconds`;
+
+      if (counter < 1) {
+        clearInterval(interval);
+        console.log("Ding!");
+        setgameStart(true);
+        /*   window.location.reload(true); */
+        localStorage.setItem("game_start", true);
+      }
+    }, 1000);
   };
 
   const handleLetterChange = () => {
@@ -52,7 +70,8 @@ function CurrentRoom({ name, favorite_letter, removeUser }) {
       setroomLoad(true);
       setinRoom(true);
       setfavoriteLetter(favoriteLetter);
-      setShowLetter(false);
+      /*   setShowLetter(false); */
+      waitingRoomShift();
     }
     setinRoom(true);
     console.log("f");
@@ -101,12 +120,7 @@ function CurrentRoom({ name, favorite_letter, removeUser }) {
           let gs = localStorage.getItem("game_start");
 
           if (activeCount === totalCount && Boolean(gs) !== true) {
-            setTimeout(() => {
-              alert("game start");
-              setgameStart(true);
-              /*   window.location.reload(true); */
-              localStorage.setItem("game_start", true);
-            }, 5000);
+            startCountdown(9);
           }
         });
     }
@@ -160,9 +174,9 @@ function CurrentRoom({ name, favorite_letter, removeUser }) {
     return <div className='App'>Loading...</div>;
   }
 
+  let content = null;
   if (showLetter) {
-    console.log("ok");
-    return (
+    content = (
       <FavoriteLetter
         showLetter={showLetter}
         handleLetterChange={handleLetterChange}
@@ -172,30 +186,50 @@ function CurrentRoom({ name, favorite_letter, removeUser }) {
     );
   }
 
+  /*  if (showLetter) {
+    console.log("ok");
+    return (
+      <FavoriteLetter
+        showLetter={showLetter}
+        handleLetterChange={handleLetterChange}
+        favoriteLetter={favoriteLetter}
+        setFavLetterChange={setFavLetterChange}
+      />
+    );
+  } */
+
   return (
-    <div id='current-room'>
-      <button onClick={testClear}>clear</button>
+    <div>
+      <div>{content}</div>
 
-      <button onClick={(e) => removeUser(e)}>Leave Room</button>
-      <h1 className='waiting'>Waiting</h1>
+      {/* {content} */}
+      <div id='waiting'>
+        <p class='loading'>Waiting for users to join</p>
+      </div>
+      <div id='current-room'>
+        <button onClick={(e) => removeUser(e)}>Leave Room</button>
+        <h1 className='waiting'>Waiting</h1>
 
-      <h1>You're in room {name}</h1>
-      <h2>Your favorite letter : {localStorage.getItem("favorite_letter")}</h2>
-      <h3>Users in room: </h3>
-      {console.log(users)}
-      <table>
-        {nodes.map((node, index) => {
-          return (
-            <thead key={index.toString()}>
-              <tr>
-                <td>{node}</td>
+        <h1>You're in room {name}</h1>
+        <h2>
+          Your favorite letter : {localStorage.getItem("favorite_letter")}
+        </h2>
+        <h3>Users in room: </h3>
+        {console.log(users)}
+        <table>
+          {nodes.map((node, index) => {
+            return (
+              <thead key={index.toString()}>
+                <tr>
+                  <td>{node}</td>
 
-                <td></td>
-              </tr>
-            </thead>
-          );
-        })}
-      </table>
+                  <td></td>
+                </tr>
+              </thead>
+            );
+          })}
+        </table>
+      </div>
     </div>
   );
 }

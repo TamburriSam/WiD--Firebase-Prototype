@@ -46,7 +46,7 @@ footer {
   display: flex;
   right: 0;
   padding: 4px;
-  position: absolute;
+  position: fixed;
   background-color: white;
   border-radius: 2px;
   bottom: 0;
