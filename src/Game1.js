@@ -6,9 +6,9 @@ import RoomLI from "./RoomLI";
 import Game2 from "./Game2.js";
 import "./Game.css";
 import Button from "@mui/material/Button";
-import MyTimer from "./MyTimer";
+import { useTimer } from "react-timer-hook";
 
-function Game1() {
+function Game1({ expiryTimestamp }) {
   const db = firebase.firestore();
 
   const [roomID, setroomID] = useState("");
@@ -22,6 +22,9 @@ function Game1() {
     let LSroomId = localStorage.getItem("room_id");
     let LSuserId = localStorage.getItem("user_id");
     let LSg1Start = localStorage.getItem("g1");
+    const time = new Date();
+    time.setSeconds(time.getSeconds() + 360); // 10 minutes timer
+    restart(time, true);
 
     if (LSg1Start) {
       setG2Start(true);
@@ -47,6 +50,61 @@ function Game1() {
     }
 
     return array;
+  };
+
+  const {
+    seconds,
+    minutes,
+
+    start,
+    pause,
+    resume,
+    restart,
+  } = useTimer({
+    expiryTimestamp,
+    onExpire: () => {
+      console.warn("onExpire called");
+      console.log("ding");
+
+      isAllEntered();
+    },
+  });
+
+  const isAllEntered = (list) => {
+    let inputList = document.querySelectorAll(".input-cell");
+    let userRef = db.collection("users").doc(localStorage.getItem("user_id"));
+    let wordsRef = db.collection("words").doc("words");
+    let words = "";
+
+    wordsRef
+      .get()
+      .then((doc) => {
+        words = doc.data().words;
+      })
+      .then(() => {
+        inputList.forEach((word) => {
+          let randomInt = Math.floor(Math.random() * 900);
+          let allWords = [];
+
+          if (word.value == "") {
+            word.value = words[randomInt];
+          }
+        });
+      })
+      .then(() => {
+        inputList.forEach((word) => {
+          userRef.update({
+            list_one_input: firebase.firestore.FieldValue.arrayUnion(
+              word.value
+            ),
+          });
+        });
+      })
+      .then(() => {
+        setTimeout(() => {
+          setG2Start(true);
+        }, 4000);
+      });
   };
 
   const populateAlphabet = () => {
@@ -151,7 +209,20 @@ function Game1() {
     <div>
       <h1>Game One</h1>
       <div>
-        <MyTimer />
+        <div
+          style={{
+            textAlign: "center",
+            backgroundColor: "white",
+            position: "relative",
+            margin: "auto",
+            width: "15vw",
+            borderRadius: "3px",
+          }}
+        >
+          <div style={{ fontSize: "22px" }}>
+            <span>{minutes}</span>:<span>{seconds}</span>
+          </div>
+        </div>
       </div>
       <form onSubmit={(e) => allEntered(e)}>
         <div id='list-container'>

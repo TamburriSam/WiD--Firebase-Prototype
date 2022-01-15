@@ -32,28 +32,32 @@ const ModeSelection = ({ soloFunc }) => {
 
       <div id='options-container'>
         <div class='option' id='solo'>
-          <h1>Solo</h1>
-          <br></br>
-          <p>
-            To play by yourself, <br />
-            at your own pace, <br />
-            select this button:
-            <br />
+          <div>
+            <h1 class='mode-heading'>Solo</h1>
             <br></br>
-          </p>
-          <button onClick={() => setOption("solo")} id='mode-solo-btn'>
-            Solo
-          </button>
-          <p>
-            <br />
-            The game will set up as <br />
-            if there are others <br />
-            playing, but it's just you <br />
-            and the AI.
-          </p>
+            <br></br>
+            <p>
+              To play by yourself, <br />
+              at your own pace, <br />
+              select this button:
+              <br />
+              <br></br>
+            </p>
+            <button onClick={() => setOption("solo")} id='mode-solo-btn'>
+              Solo
+            </button>
+            <p>
+              <br />
+              The game will set up as <br />
+              if there are others <br />
+              playing, but it's just you <br />
+              and the AI.
+            </p>
+          </div>
         </div>
         <div class='option' id='group'>
-          <h1>Group</h1>
+          <h1 class='mode-heading'>Group</h1>
+          <br></br>
           <br></br>
           <p>
             To play in a group, <br />

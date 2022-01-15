@@ -19,6 +19,10 @@
   --main-font: "IBM Plex Mono", monospace !important;
 }
 
+.App {
+  background-color: white;
+}
+
 * {
   font-family: "IBM Plex Mono", monospace !important;
 }
@@ -88,10 +92,6 @@ body {
   display: none;
 }
 
-.crossed-word {
-  color: red;
-}
-
 #userName-box {
   text-align: center;
   /*  display: flex;
@@ -158,8 +158,8 @@ body {
   border: 1px solid white;
   color: white;
   padding: 10px;
-  height: 40vw;
-  width: 45vw;
+  height: 400px;
+  width: 400px;
 }
 
 #mode-solo-btn {
@@ -167,10 +167,15 @@ body {
   height: 38px;
   width: 85px;
   border: none;
+
   cursor: pointer;
   outline: none;
   border-radius: 5px;
   color: black;
+}
+
+.mode-heading {
+  text-decoration: underline;
 }
 
 #mode-group-btn {
@@ -185,6 +190,14 @@ body {
 }
 
 #mode-logo-container {
-  position: relative;
+  position: absolute;
+  width: 93vw;
+  bottom: 100px;
+  text-align: center;
   height: fit-content;
+}
+
+#mode-logo {
+  width: 100px;
+  position: inherit;
 }

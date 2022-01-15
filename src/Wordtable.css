@@ -1,66 +1,109 @@
 #MainDiv {
   display: flex;
   position: relative;
-  z-index: 3;
 }
 
 #table2 {
   background-color: white;
+  padding: 5px;
   width: 40vw;
-  height: fit-content;
+  border-radius: 10px;
+  position: absolute;
+  left: 40px;
+}
 
-  padding: 10px;
-  background-color: white;
-  font-family: "Montserrat", sans-serif;
-  font-size: 12px;
-  z-index: 100;
-
-  background: white;
-  box-shadow: 1px 1px 0px #999, 2px 2px 0px #999, 3px 3px 0px #999,
-    4px 4px 0px #999, 5px 5px 0px #999, 6px 6px 0px #999 !important;
-  padding: 10px;
+#thead-col {
   display: flex;
-  margin: auto;
-  top: 113px;
-  position: relative;
-  height: 500px;
+  height: 50px;
+  /* text-align: center; */
+  justify-content: space-evenly;
 }
 
 #buttons {
   display: flex;
 }
 
+.listItems {
+  color: green;
+  text-align: center;
+  position: relative;
+  left: 10px;
+  bottom: 7px;
+  display: flex;
+  justify-content: space-around;
+}
+.crossed-words {
+  color: red;
+  text-align: center;
+  position: relative;
+  left: 10px;
+  bottom: 7px;
+  display: flex;
+  justify-content: space-around;
+}
 .btn {
   height: 50px;
 }
 
 #input_and_button_container {
   display: flex;
+  text-align: center;
   flex-direction: column;
+  width: 50vw;
+  height: 40vh;
+  background-color: pink;
+  position: absolute;
+  right: 30px;
 }
 
-#table-tow-cols {
-  width: 500px;
-  position: fixed;
+#buttons {
+  width: 50vw;
+  display: flex;
+  /* text-align: center; */
+  justify-content: center;
+}
+
+#essay {
+  height: 300px;
+}
+
+.col-title {
+  padding: 5px;
+}
+
+#table-container {
+  max-width: 300px;
+}
+
+#table-row-cols {
+  width: 300px;
+  position: relative;
   display: flex;
   justify-content: space-between;
-  display: none !important;
+  /* display: none !important; */
 }
 
 .dynamic-items {
-  width: 100vw;
   display: flex;
 }
 
 .item0 {
-  width: 50px;
+  width: 100px;
 }
 .item1 {
-  width: 50px;
+  width: 100px;
 }
 .item2 {
-  width: 50px;
+  width: 100px;
 }
 .item3 {
-  width: 50px;
+  width: 100px;
+}
+
+#word-count-box {
+  /* position: absolute; */
+  height: 20px;
+  position: relative;
+  bottom: 12px;
+  text-align: center;
 }

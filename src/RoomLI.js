@@ -80,12 +80,13 @@ function RoomLI({
                     data-id='btn'
                     id={node.id}
                     onClick={(e) => createNewProfile(e)}
-                    className='btn room-select'
+                    className=' room-select'
                   >
                     Join
                   </Button>
                 </td>
               </tr>
+              <hr></hr>
             </thead>
           );
         })}

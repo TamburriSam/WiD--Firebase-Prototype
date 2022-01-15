@@ -55,19 +55,18 @@
   margin: auto;
 }
 #input-form {
-  width: 30vw !important;
-
-  height: 620px;
+  width: 50vw !important;
+  height: 632px;
   border: 2px solid #399e3c56;
   background: white;
   box-shadow: 1px 1px 0px #999, 2px 2px 0px #999, 3px 3px 0px #999,
     4px 4px 0px #999, 5px 5px 0px #999, 6px 6px 0px #999 !important;
-  position: absolute;
+  position: relative;
   top: 25px;
 }
 
 #input-list1 {
-  width: 200px;
+  width: 49vw;
   color: #2f2f2f;
 }
 
@@ -78,12 +77,14 @@
   text-decoration: none;
   /* border-bottom: none; */
   border: none;
-
-  color: grey;
+  position: relative;
+  width: 81%;
+  left: 74px;
+  color: black;
   /* border-top: none; */
   font-size: 17px !important;
   font-family: "Montserrat", sans-serif !important;
-  text-align: center;
+  /* text-align: center; */
   margin: unset !important;
   outline: none;
 }
@@ -94,8 +95,17 @@
   font-size: 14px;
 }
 
+.input-cell1 {
+  font-size: 17px !important;
+  font-family: "Montserrat", sans-serif !important;
+  text-align: center;
+  outline: none;
+  height: 21px;
+  border: none;
+}
+
 #input-list1 hr {
-  width: 29vw;
+  width: 49vw;
 }
 
 #button-container {
@@ -117,12 +127,10 @@
   position: relative;
   /* bottom: 170px; */
   width: 100vw;
-  top: 617px;
-
+  top: 60px;
   height: 10vh;
   text-align: center;
 }
-
 #continueBtn {
   position: relative;
   background-color: rgb(255, 255, 255);
@@ -153,6 +161,7 @@
   border: 2px solid #399e3c56;
   text-align: center;
   background-color: white;
+  height: 600px;
   width: 30vw;
   box-shadow: 1px 1px 0px #999, 2px 2px 0px #999, 3px 3px 0px #999,
     4px 4px 0px #999, 5px 5px 0px #999, 6px 6px 0px #999 !important;

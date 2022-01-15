@@ -28,6 +28,7 @@ function IndexPage(props) {
     console.log(inputField);
     localStorage.setItem("username", inputField);
     localStorage.setItem("user_id", uniqueId);
+
     setShowOption(true);
     /* setnextPage(true); */
     e.preventDefault();
@@ -74,6 +75,7 @@ function IndexPage(props) {
                 type='text'
                 placeholder={inputField}
                 onChange={handleChange}
+                required
               />
             </div>
             {/* <input id='startBtn' type='submit' value='Start' /> */}

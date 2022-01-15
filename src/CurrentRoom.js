@@ -80,16 +80,23 @@ function CurrentRoom({ name, favorite_letter, removeUser }) {
 
   useEffect(() => {
     const lsitem = localStorage.getItem("favorite_letter");
+    const optionLS = localStorage.getItem("option-solo");
     setroomID(localStorage.getItem("room_id"));
 
-    if (!lsitem) {
+    console.log(`option`, optionLS);
+
+    selectAFavoriteLetter();
+
+    /*   if (!lsitem ) {
+      console.log("letter found YAYAYAYAYAYA");
       selectAFavoriteLetter();
     } else {
+      console.log("NONONONOO");
       setShowLetter(false);
 
       setroomLoad(true);
       setinRoom(true);
-    }
+    } */
   }, []);
 
   useEffect(() => {

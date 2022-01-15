@@ -11,7 +11,7 @@ const SoloMode = () => {
   const [gameStart, setGameStart] = useState(false);
   const [favoriteLetter, setfavoriteLetter] = useState("");
 
-  /*   useEffect(() => {
+  /*  useEffect(() => {
     selectAFavoriteLetter();
   }, []);
 
@@ -28,7 +28,8 @@ const SoloMode = () => {
   }; */
 
   useEffect(() => {
-    alert("mounted");
+    if (localStorage.getItem("solo")) {
+    }
   }, []);
 
   const setSoloRoom = () => {
@@ -160,7 +161,7 @@ const SoloMode = () => {
       counter--;
 
       document.querySelector(
-        "#waiting"
+        "#waiting1"
       ).innerHTML = `Game Starting in ${counter} seconds`;
 
       if (counter < 1) {
@@ -180,9 +181,10 @@ const SoloMode = () => {
     document.getElementById("fast-facts").style.height = "71vh";
     document.getElementById("fast-facts").style.width = "63vw";
     document.getElementById("fast-facts").style.top = "87px";
-    document.getElementById("waiting").style.display = "block";
+    document.getElementById("waiting1").style.display = "block";
     /*     document.getElementById("current-room").style.display = "block";
     document.getElementById("current-room").style.bottom = "100px"; */
+    mockUsers();
     /* startCountdown(9); */
   };
 
@@ -204,6 +206,26 @@ const SoloMode = () => {
       setLoading(false);
       content = <CurrentRoom />;
     }
+  };
+
+  const mockUsers = () => {
+    let inputList = document.querySelector("#user-list");
+
+    let i = 1;
+
+    setInterval(() => {
+      if (i < 11) {
+        let randomInt = Math.floor(Math.random() * 19) + 1;
+        inputList.innerHTML += `<li class="profile-holder"> <img
+        class="profilepic"
+        src="logos/icons/${randomInt}.png"
+        alt=""
+      />Live Student ${i}</li>`;
+        i++;
+      } else {
+        return false;
+      }
+    }, 1000);
   };
 
   if (gameStart) {
@@ -233,8 +255,31 @@ const SoloMode = () => {
       </button>
       {/* <CurrentRoom /> */}
       {content}
-      <div style={{ position: "relative", bottom: "400px" }} id='waiting'>
-        <p class='loading'>Waiting for users to join</p>
+      <div id='waiting1'>
+        <p class='loading1'>Waiting for users to join</p>
+      </div>
+      <div className='mock-list' id='user-list'>
+        <h1>LOSER</h1>
+      </div>
+
+      <div class='user-box'>
+        {/*   <img class="redBtn" src="logos/red.png" alt="" />
+          <img class="yellowBtn" src="logos/yellow.png" alt="" />
+
+          <img class="greenBtn" src="logos/green.png" alt="" /> */}
+
+        <div id='friend-title'>
+          {/* <img class="friendlistlogo" src="logos/logoStandalone.png" alt="" /> */}
+
+          <div id='friendsOnline'>
+            <h5>Friends Online</h5>
+          </div>
+        </div>
+        <div id='connectedMockPic'>
+          {/* <img class="active-button" src="logos/GPCX4030.webp" alt="" /> */}
+          <span class='connected'>connected</span>
+        </div>
+        <ul id='mock-list'></ul>
       </div>
     </div>
   );

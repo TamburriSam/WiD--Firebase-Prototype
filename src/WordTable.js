@@ -8,6 +8,7 @@ import { jsPDF } from "jspdf";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import LiveRoom from "./LiveRoom";
 import "./Wordtable.css";
+import Button from "@mui/material/Button";
 
 const Wordtable = () => {
   const db = firebase.firestore();
@@ -88,9 +89,9 @@ const Wordtable = () => {
         console.log(result2);
 
         result2.map((item) => {
-          html += `<tr><td class="listItems"><input class="word-check" type="checkbox"><div class="dynamic-items">${item.join(
+          html += `<tr><td class="listItems"><input class="word-check" type="checkbox">${item.join(
             " "
-          )}</div></td></tr>`;
+          )}</td></tr>`;
         });
 
         firstCol.innerHTML = html;
@@ -178,20 +179,27 @@ const Wordtable = () => {
   return (
     <div id='MainDiv'>
       <table id='table2'>
-        <thead>
+        <thead id='thead-col'>
           <tr id='table-row-cols'>
-            <th className='col-title'>1st Column </th>
+            <th className='col-title'>
+              1st
+              <br /> Column
+            </th>
             <th className='col-title'>2nd Column </th>
             <th className='col-title'>3rd Column </th>
             <th className='col-title'>4th Column </th>
           </tr>
         </thead>
-
-        <tbody id='tbody1'></tbody>
+        <hr></hr>
+        <br></br>
+        <div id='word-count-box'>Count: </div>
+        <div id='table-container'>
+          <tbody id='tbody1'></tbody>
+        </div>
       </table>
 
       <div id='input_and_button_container'>
-        <input id='essay' />
+        <textarea placeholder='Start writing here...' id='essay' />
 
         <div id='buttons'>
           <button class='btn' onClick={printEssay}>
@@ -205,7 +213,6 @@ const Wordtable = () => {
           </button>
         </div>
       </div>
-      <div id='word-count-box'>Count: </div>
     </div>
   );
 };

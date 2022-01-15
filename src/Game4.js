@@ -5,9 +5,9 @@ import RoomLI from "./RoomLI";
 import Wordtable from "./WordTable";
 import "./Game.css";
 import Button from "@mui/material/Button";
-import MyTimer from "./MyTimer";
+import { useTimer } from "react-timer-hook";
 
-const Game4 = () => {
+const Game4 = ({ expiryTimestamp }) => {
   const db = firebase.firestore();
 
   const [roomID, setroomID] = useState("");
@@ -19,7 +19,9 @@ const Game4 = () => {
     let LSroomId = localStorage.getItem("room_id");
     let LSuserId = localStorage.getItem("user_id");
     let token = localStorage.getItem("g4");
-
+    const time = new Date();
+    time.setSeconds(time.getSeconds() + 360); // 10 minutes timer
+    restart(time, true);
     /*  localStorage.setItem("g2", true); */
 
     let g4LS = localStorage.getItem("g4");
@@ -42,13 +44,68 @@ const Game4 = () => {
     }
   }, []);
 
+  const {
+    seconds,
+    minutes,
+
+    start,
+    pause,
+    resume,
+    restart,
+  } = useTimer({
+    expiryTimestamp,
+    onExpire: () => {
+      console.warn("onExpire called");
+      console.log("ding");
+
+      isAllEntered();
+    },
+  });
+
+  const isAllEntered = (list) => {
+    let inputList = document.querySelectorAll(".input-cell1");
+    let userRef = db.collection("users").doc(localStorage.getItem("user_id"));
+    let wordsRef = db.collection("words").doc("words");
+    let words = "";
+
+    wordsRef
+      .get()
+      .then((doc) => {
+        words = doc.data().words;
+      })
+      .then(() => {
+        inputList.forEach((word) => {
+          let randomInt = Math.floor(Math.random() * 900);
+          let allWords = [];
+
+          if (word.value == "") {
+            word.value = words[randomInt];
+          }
+        });
+      })
+      .then(() => {
+        inputList.forEach((word) => {
+          userRef.update({
+            list_four_input: firebase.firestore.FieldValue.arrayUnion(
+              word.value
+            ),
+          });
+        });
+      })
+      .then(() => {
+        setTimeout(() => {
+          setfp(true);
+        }, 4000);
+      });
+  };
+
   const createCells = () => {
     let inputList = document.getElementById("input-list");
 
     let count = 0;
     let html = "";
     for (let i = 0; i < 26; i++) {
-      html += `<li><input data-id="${count}" class="input-cell"></input></li><hr>`;
+      html += `<li><input data-id="${count}" class="input-cell1"></input></li><hr>`;
       count++;
     }
     inputList.innerHTML = html;
@@ -215,7 +272,7 @@ const Game4 = () => {
 
   const allEntered = (e) => {
     e.preventDefault();
-    let inputList = document.querySelectorAll(".input-cell");
+    let inputList = document.querySelectorAll(".input-cell1");
 
     let enteredWords = [];
 
@@ -236,7 +293,7 @@ const Game4 = () => {
     let LSuserId = localStorage.getItem("user_id");
 
     let userRef = db.collection("users").doc(LSuserId);
-    let inputList = document.querySelectorAll(".input-cell");
+    let inputList = document.querySelectorAll(".input-cell1");
     let game_four_list = [];
 
     inputList.forEach((cell) => {
@@ -299,7 +356,22 @@ const Game4 = () => {
     <div id='game2'>
       <h1>Game Four</h1>
       <div>
-        <MyTimer />
+        <div>
+          <div
+            style={{
+              textAlign: "center",
+              backgroundColor: "white",
+              position: "relative",
+              margin: "auto",
+              width: "15vw",
+              borderRadius: "3px",
+            }}
+          >
+            <div style={{ fontSize: "22px" }}>
+              <span>{minutes}</span>:<span>{seconds}</span>
+            </div>
+          </div>
+        </div>
       </div>
       <p>{userID}</p>
       <div id='list_container'>

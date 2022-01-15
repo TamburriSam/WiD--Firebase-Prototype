@@ -6,9 +6,9 @@ import Game3 from "./Game3";
 import { create } from "@mui/material/styles/createTransitions";
 import "./Game.css";
 import Button from "@mui/material/Button";
-import MyTimer from "./MyTimer";
+import { useTimer } from "react-timer-hook";
 
-const Game2 = () => {
+const Game2 = ({ expiryTimestamp }) => {
   const db = firebase.firestore();
 
   const [roomID, setroomID] = useState("");
@@ -22,7 +22,9 @@ const Game2 = () => {
   useEffect(() => {
     let LSroomId = localStorage.getItem("room_id");
     let LSuserId = localStorage.getItem("user_id");
-
+    const time = new Date();
+    time.setSeconds(time.getSeconds() + 360); // 10 minutes timer
+    restart(time, true);
     /*  localStorage.setItem("g2", true); */
 
     let g2LS = localStorage.getItem("g2");
@@ -49,6 +51,61 @@ const Game2 = () => {
     }; */
   }, []);
 
+  const {
+    seconds,
+    minutes,
+
+    start,
+    pause,
+    resume,
+    restart,
+  } = useTimer({
+    expiryTimestamp,
+    onExpire: () => {
+      console.warn("onExpire called");
+      console.log("ding");
+
+      isAllEntered();
+    },
+  });
+
+  const isAllEntered = (list) => {
+    let inputList = document.querySelectorAll(".input-cell1");
+    let userRef = db.collection("users").doc(localStorage.getItem("user_id"));
+    let wordsRef = db.collection("words").doc("words");
+    let words = "";
+
+    wordsRef
+      .get()
+      .then((doc) => {
+        words = doc.data().words;
+      })
+      .then(() => {
+        inputList.forEach((word) => {
+          let randomInt = Math.floor(Math.random() * 900);
+          let allWords = [];
+
+          if (word.value == "") {
+            word.value = words[randomInt];
+          }
+        });
+      })
+      .then(() => {
+        inputList.forEach((word) => {
+          userRef.update({
+            list_two_input: firebase.firestore.FieldValue.arrayUnion(
+              word.value
+            ),
+          });
+        });
+      })
+      .then(() => {
+        setTimeout(() => {
+          setG3(true);
+        }, 4000);
+      });
+  };
+
   const createCells = () => {
     let inputList = document.getElementById("input-list");
 
@@ -57,7 +114,7 @@ const Game2 = () => {
     for (let i = 0; i < 26; i++) {
       console.log(i, count);
 
-      html += `<li><input data-id="${count}" class="input-cell"></input></li><hr>`;
+      html += `<li><input data-id="${count}" class="input-cell1"/></li><hr>`;
       count++;
     }
     inputList.innerHTML = html;
@@ -237,7 +294,7 @@ const Game2 = () => {
 
   const allEntered = (e) => {
     e.preventDefault();
-    let inputList = document.querySelectorAll(".input-cell");
+    let inputList = document.querySelectorAll(".input-cell1");
 
     let enteredWords = [];
 
@@ -258,7 +315,7 @@ const Game2 = () => {
     let LSuserId = localStorage.getItem("user_id");
 
     let userRef = db.collection("users").doc(LSuserId);
-    let inputList = document.querySelectorAll(".input-cell");
+    let inputList = document.querySelectorAll(".input-cell1");
     let game_two_list = [];
 
     inputList.forEach((cell) => {
@@ -354,15 +411,26 @@ const Game2 = () => {
     <div id='game2'>
       <h1>Game Two</h1>
       <div>
-        <MyTimer />
+        <div
+          style={{
+            textAlign: "center",
+            backgroundColor: "white",
+            position: "relative",
+            margin: "auto",
+            width: "15vw",
+            borderRadius: "3px",
+          }}
+        >
+          <div style={{ fontSize: "22px" }}>
+            <span>{minutes}</span>:<span>{seconds}</span>
+          </div>
+        </div>
       </div>
       <p>{userID}</p>
       <div id='list_container'>
         <ul id='received_word_list'></ul>
 
-        <div>
-          <ul id='input-list'></ul>
-        </div>
+        <ul id='input-list'></ul>
       </div>
       <div className='second-button-container'>
         <Button
@@ -370,6 +438,7 @@ const Game2 = () => {
           id='continueBtn'
           type='submit'
           value={roomID}
+          color='success'
           onClick={(e) => allEntered(e)}
         >
           Continue

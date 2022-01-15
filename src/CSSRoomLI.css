@@ -34,6 +34,17 @@ form {
   height: 50px;
 }
 
+.loading1 {
+  /* width: fit-content; */
+  width: 500px;
+  position: absolute;
+  left: -48px;
+  bottom: 88px;
+}
+.loading1:after {
+  content: ".";
+  animation: dots 1s steps(5, end) infinite;
+}
 /* Overlay */
 #overlay {
   position: fixed;
@@ -93,7 +104,7 @@ form {
   width: 10vw;
   position: absolute;
   right: 0;
-  display: none;
+  /* display: none; */
 }
 
 #room-name {
@@ -141,6 +152,18 @@ form {
   display: flex;
   justify-content: center;
   text-align: center;
+}
+
+#waiting1 {
+  /* position: relative; */
+  color: white;
+  z-index: 5;
+  position: absolute;
+  top: 67px;
+  left: 50px;
+  display: none;
+  width: 100vw;
+  font-size: 32px;
 }
 
 #waiting {
@@ -211,4 +234,64 @@ form {
   color: black !important;
   background-color: white;
   border: 1px solid black;
+}
+
+/* Mock List */
+.mock-list {
+  background-color: white;
+}
+
+.user-box {
+  background-color: rgb(240, 240, 240);
+  text-align: left;
+  font-family: "Bebas Neue", cursive;
+
+  position: absolute;
+  background: white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  max-height: 90vh;
+  top: 100px;
+  right: 20px;
+  /*   bottom: 40px;
+   */ /*   outline: solid 20px rgb(155, 155, 155);
+   */
+  display: none;
+  z-index: 50;
+  box-shadow: 1px 1px 0px #999, 2px 2px 0px #999, 3px 3px 0px #999,
+    4px 4px 0px #999, 5px 5px 0px #999, 6px 6px 0px #999 !important;
+  padding: 10px;
+}
+
+#friend-title {
+  width: 125px;
+  text-align: center;
+  display: flex;
+  border: 1px solid black;
+  border-radius: 5px;
+  height: 33px;
+  display: flex;
+  border: 1px solid #399e3c9a;
+}
+#friendsOnline {
+  font-size: 10px;
+}
+
+#friendsOnline h5 {
+  font-size: 10px;
+  margin-left: 3px;
+  bottom: 10px;
+  position: relative;
+  font-family: "IBM Plex Mono", monospace;
+}
+#user-list {
+  border: 1px solid #399e3c9a;
+  border-radius: 3px;
+  max-height: 80vh;
+  padding: 5px;
+  font-family: "Montserrat", sans-serif !important;
+  font-size: 10px;
+}
+
+#user-list li {
+  line-height: 1;
 }
