@@ -101,22 +101,28 @@ const Wordtable = () => {
   };
 
   const crossedOffWord = () => {
-    let counter = 0;
     let listItems = document.querySelectorAll(".listItems");
-
+    let crossed = document.querySelectorAll(".crossed-word");
     let checkboxes = document.querySelectorAll(".word-check");
+    let counter = 0;
 
     checkboxes.forEach((item, index) => {
       item.addEventListener("change", () => {
+        console.log(listItems.length);
+        console.log(crossed.length);
         console.log(counter++);
-        wordCounter();
-        if (item.className == "word-check" && item.checked) {
+        if (item.className === "word-check" && item.checked) {
+          console.log(item.className);
           listItems[index].classList.remove("listItems");
 
           listItems[index].classList.add("crossed-word");
+          wordCounter();
         } else {
+          console.log(item.className);
+
           listItems[index].classList.remove("crossed-word");
           listItems[index].classList.add("listItems");
+          wordCounter();
         }
       });
     });
@@ -127,9 +133,9 @@ const Wordtable = () => {
 
     let crossedWords = strikethroughs.length;
 
-    return (document.querySelector("#word-count-box").innerHTML = `${
-      crossedWords + 1
-    } /26 rows used`);
+    return (document.querySelector(
+      "#word-count-box"
+    ).innerHTML = `${crossedWords} /26 rows used`);
   };
 
   const printEssay = () => {
@@ -137,7 +143,7 @@ const Wordtable = () => {
     let essay = document.getElementById("essay");
 
     doc.text(essay.value, 10, 10);
-    doc.save("a4.pdf");
+    doc.save("Your Poem.pdf");
   };
 
   const printLists = () => {
@@ -177,40 +183,78 @@ const Wordtable = () => {
     return <div className='App'>Loading...</div>;
   }
   return (
-    <div id='MainDiv'>
-      <table id='table2'>
-        <thead id='thead-col'>
-          <tr id='table-row-cols'>
-            <th className='col-title'>
-              1st
-              <br /> Column
-            </th>
-            <th className='col-title'>2nd Column </th>
-            <th className='col-title'>3rd Column </th>
-            <th className='col-title'>4th Column </th>
-          </tr>
-        </thead>
-        <hr></hr>
+    <div>
+      <div
+        style={{
+          backgroundColor: "#e0ffe3",
+          position: "relative",
+          textAlign: "center",
+          margin: "auto",
+          border: "2px solid grey",
+          width: "95vw",
+          padding: "5px",
+          borderRadius: "5px",
+          marginBottom: "10px",
+          height: "161px",
+        }}
+        id='instruction-game'
+      >
+        Now for the creative part! Here are all your words, lined up in columns.
+        Read each row of four words across. Do you see any striking connections
+        and associations? Pick four or five rows that seem especially
+        interesting to you and copy those 16 or 20 words onto the blank panel on
+        the right.<br></br>
+        Now write a poem using those words.<br></br>
+        Pick another word from your lists to be the title. Then use the rest of
+        the words to write your poem.<br></br>
+        You can use as many other words as you like to make connections between
+        the ones you chose.<br></br> You can change the forms of any of your
+        words, make nouns plural, change the tense of the verbs.<br></br>The
+        main thing is, don't worry about making sense: make poetry instead!
         <br></br>
-        <div id='word-count-box'>Count: </div>
-        <div id='table-container'>
-          <tbody id='tbody1'></tbody>
-        </div>
-      </table>
+      </div>
 
-      <div id='input_and_button_container'>
-        <textarea placeholder='Start writing here...' id='essay' />
+      <div id='MainDiv'>
+        <table id='table2'>
+          <thead id='thead-col'>
+            <tr id='table-row-cols'>
+              <th className='col-title'>
+                1st
+                <br /> Column
+              </th>
+              <th className='col-title'>
+                2nd <br></br> Column{" "}
+              </th>
+              <th className='col-title'>
+                3rd <br></br> Column{" "}
+              </th>
+              <th className='col-title'>
+                4th<br></br> Column{" "}
+              </th>
+            </tr>
+          </thead>
+          <hr></hr>
+          <br></br>
+          <div id='word-count-box'>Count: </div>
+          <div id='table-container'>
+            <tbody id='tbody1'></tbody>
+          </div>
+        </table>
 
-        <div id='buttons'>
-          <button class='btn' onClick={printEssay}>
-            Print Essay
-          </button>
-          <button class='btn' onClick={printLists}>
-            Print Lists
-          </button>
-          <button class='btn' onClick={nextPage}>
-            Next
-          </button>
+        <div id='input_and_button_container'>
+          <textarea placeholder='Start writing here...' id='essay' />
+
+          <div id='buttons'>
+            <Button variant='contained' onClick={printEssay}>
+              Print Essay
+            </Button>
+            <Button variant='contained' onClick={printLists}>
+              Print Lists
+            </Button>
+            <Button variant='contained' color='success' onClick={nextPage}>
+              Next
+            </Button>
+          </div>
         </div>
       </div>
     </div>

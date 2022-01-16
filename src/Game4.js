@@ -19,9 +19,9 @@ const Game4 = ({ expiryTimestamp }) => {
     let LSroomId = localStorage.getItem("room_id");
     let LSuserId = localStorage.getItem("user_id");
     let token = localStorage.getItem("g4");
-    const time = new Date();
+    /*   const time = new Date();
     time.setSeconds(time.getSeconds() + 360); // 10 minutes timer
-    restart(time, true);
+    restart(time, true); */
     /*  localStorage.setItem("g2", true); */
 
     let g4LS = localStorage.getItem("g4");
@@ -173,8 +173,6 @@ const Game4 = ({ expiryTimestamp }) => {
             let t3 = doc.data().t3;
             let rooms_joined = doc.data().rooms_joined;
             let list_three_input = doc.data().list_three_input;
-            let listlength = list_three_input.length;
-            console.log(listlength);
 
             console.log(rooms_joined === roomUID);
 
@@ -356,6 +354,23 @@ const Game4 = ({ expiryTimestamp }) => {
     <div id='game2'>
       <h1>Game Four</h1>
       <div>
+        <div
+          style={{
+            backgroundColor: "#e0ffe3",
+            position: "relative",
+            textAlign: "center",
+            margin: "auto",
+            border: "2px solid grey",
+            width: "68vw",
+            padding: "5px",
+            borderRadius: "5px",
+            marginBottom: "10px",
+            height: "35px",
+          }}
+          id='instruction-game'
+        >
+          Now do the same thing one more time.<br></br>
+        </div>
         <div>
           <div
             style={{
@@ -365,6 +380,8 @@ const Game4 = ({ expiryTimestamp }) => {
               margin: "auto",
               width: "15vw",
               borderRadius: "3px",
+              position: "relative",
+              top: "21px",
             }}
           >
             <div style={{ fontSize: "22px" }}>
@@ -386,6 +403,7 @@ const Game4 = ({ expiryTimestamp }) => {
           variant='outlined'
           id='continueBtn'
           type='submit'
+          color='success'
           value={roomID}
           onClick={(e) => allEntered(e)}
         >

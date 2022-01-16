@@ -10,6 +10,7 @@
   border-radius: 10px;
   position: absolute;
   left: 40px;
+  font-family: "Montserrat", sans-serif !important;
 }
 
 #thead-col {
@@ -24,22 +25,21 @@
 }
 
 .listItems {
-  color: green;
   text-align: center;
   position: relative;
   left: 10px;
   bottom: 7px;
+  width: 36vw;
   display: flex;
   justify-content: space-around;
 }
-.crossed-words {
-  color: red;
+.crossed-word {
+  text-decoration: line-through;
   text-align: center;
   position: relative;
   left: 10px;
   bottom: 7px;
   display: flex;
-  justify-content: space-around;
 }
 .btn {
   height: 50px;
@@ -51,7 +51,7 @@
   flex-direction: column;
   width: 50vw;
   height: 40vh;
-  background-color: pink;
+
   position: absolute;
   right: 30px;
 }
@@ -64,7 +64,10 @@
 }
 
 #essay {
+  font-family: "Montserrat", sans-serif !important;
+  font-size: 14px;
   height: 300px;
+  padding: 10px;
 }
 
 .col-title {
@@ -76,7 +79,7 @@
 }
 
 #table-row-cols {
-  width: 300px;
+  width: 36vw;
   position: relative;
   display: flex;
   justify-content: space-between;
@@ -104,6 +107,12 @@
   /* position: absolute; */
   height: 20px;
   position: relative;
-  bottom: 12px;
+  border: 1px solid black;
+  width: 156px;
+  bottom: 14px;
+  border-radius: 5px;
+  /* margin-bottom: 10px; */
+  /* padding-bottom: 10px; */
+  margin: auto;
   text-align: center;
 }

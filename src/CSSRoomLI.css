@@ -35,11 +35,6 @@ form {
 }
 
 .loading1 {
-  /* width: fit-content; */
-  width: 500px;
-  position: absolute;
-  left: -48px;
-  bottom: 88px;
 }
 .loading1:after {
   content: ".";
@@ -155,15 +150,13 @@ form {
 }
 
 #waiting1 {
-  /* position: relative; */
   color: white;
-  z-index: 5;
+  font-size: 24px;
+  /* bottom: 88px; */
   position: absolute;
-  top: 67px;
-  left: 50px;
+  margin: auto;
+  top: -56px;
   display: none;
-  width: 100vw;
-  font-size: 32px;
 }
 
 #waiting {

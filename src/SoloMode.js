@@ -4,6 +4,8 @@ import CurrentRoom from "./CurrentRoom";
 import { useState } from "react";
 import FavoriteLetter from "./FavoriteLetter";
 import "./CSSRoomLI.css";
+import Typing from "react-typing-animation";
+import BarLoader from "react-spinners/ClipLoader";
 
 const SoloMode = () => {
   const db = firebase.firestore();
@@ -177,15 +179,15 @@ const SoloMode = () => {
   const waitingRoomShift = () => {
     document.getElementById("notification").innerHTML = "Your Favorite Letter";
     document.getElementById("letterSubmit").style.display = "none";
-    document.getElementById("fast-facts").style.right = "164px";
+    /*    document.getElementById("fast-facts").style.right = "164px";
     document.getElementById("fast-facts").style.height = "71vh";
-    document.getElementById("fast-facts").style.width = "63vw";
+    document.getElementById("fast-facts").style.width = "63vw"; */
     document.getElementById("fast-facts").style.top = "87px";
     document.getElementById("waiting1").style.display = "block";
     /*     document.getElementById("current-room").style.display = "block";
     document.getElementById("current-room").style.bottom = "100px"; */
-    mockUsers();
-    /* startCountdown(9); */
+    /* mockUsers(); */
+    startCountdown(9);
   };
 
   const startGame = () => {
@@ -208,7 +210,7 @@ const SoloMode = () => {
     }
   };
 
-  const mockUsers = () => {
+  /*  const mockUsers = () => {
     let inputList = document.querySelector("#user-list");
 
     let i = 1;
@@ -226,7 +228,7 @@ const SoloMode = () => {
         return false;
       }
     }, 1000);
-  };
+  }; */
 
   if (gameStart) {
     return <CurrentRoom />;
@@ -241,6 +243,19 @@ const SoloMode = () => {
       <div id='blurb'></div>
       <div id='notification'>
         What's your favorite letter of the alphabet? Type it in the box.
+        {/*    <Typing>
+          <div>
+            Here's a list of letters.<br></br>
+            <Typing.Delay ms={1000} />
+            Replace each letter with a word that you think you might like to
+            write with.<br></br>
+            <Typing.Delay ms={1000} />
+            The word can begin with the letter or not.<br></br>
+            <Typing.Delay ms={1000} />
+            Let your mind run free!<br></br>
+          </div>
+        </Typing>
+        <BarLoader color={"red"} size={150} /> */}
       </div>
       <div id='inputContainer'>
         <input
@@ -257,9 +272,6 @@ const SoloMode = () => {
       {content}
       <div id='waiting1'>
         <p class='loading1'>Waiting for users to join</p>
-      </div>
-      <div className='mock-list' id='user-list'>
-        <h1>LOSER</h1>
       </div>
 
       <div class='user-box'>

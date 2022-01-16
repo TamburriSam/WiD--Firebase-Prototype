@@ -350,12 +350,33 @@ const Game3 = ({ expiryTimestamp }) => {
       <div>
         <div
           style={{
+            backgroundColor: "#e0ffe3",
+            position: "relative",
+            textAlign: "center",
+            margin: "auto",
+            border: "2px solid grey",
+            width: "68vw",
+            padding: "5px",
+            borderRadius: "5px",
+            marginBottom: "10px",
+            height: "60px",
+          }}
+          id='instruction-game'
+        >
+          Here's another column.<br></br>
+          Do the same as you did in the previous step: create a column of words.
+          <br></br>
+        </div>
+        <div
+          style={{
             textAlign: "center",
             backgroundColor: "white",
             position: "relative",
             margin: "auto",
             width: "15vw",
             borderRadius: "3px",
+            position: "relative",
+            top: "21px",
           }}
         >
           <div style={{ fontSize: "22px" }}>

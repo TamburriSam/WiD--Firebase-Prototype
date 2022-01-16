@@ -46,12 +46,12 @@ function CurrentRoom({ name, favorite_letter, removeUser }) {
   const startCountdown = (seconds) => {
     let counter = seconds;
 
-    const interval = setInterval(() => {
+    const interval = setTimeout(() => {
       counter--;
 
-      document.querySelector(
+      /*    document.querySelector(
         "#waiting"
-      ).innerHTML = `Game Starting in ${counter} seconds`;
+      ).innerHTML = `Game Starting in ${counter} seconds`; */
 
       if (counter < 1) {
         clearInterval(interval);

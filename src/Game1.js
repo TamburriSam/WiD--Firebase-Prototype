@@ -7,7 +7,8 @@ import Game2 from "./Game2.js";
 import "./Game.css";
 import Button from "@mui/material/Button";
 import { useTimer } from "react-timer-hook";
-
+import Typing from "react-typing-animation";
+import Instruction from "./Instruction";
 function Game1({ expiryTimestamp }) {
   const db = firebase.firestore();
 
@@ -15,13 +16,15 @@ function Game1({ expiryTimestamp }) {
   const [userID, setuserID] = useState("");
   const [g2Start, setG2Start] = useState(false);
   const [isLoading, setLoading] = useState(false);
-
   let content = null;
+
+  let instruction = null;
 
   useEffect(() => {
     let LSroomId = localStorage.getItem("room_id");
     let LSuserId = localStorage.getItem("user_id");
     let LSg1Start = localStorage.getItem("g1");
+
     const time = new Date();
     time.setSeconds(time.getSeconds() + 360); // 10 minutes timer
     restart(time, true);
@@ -208,6 +211,28 @@ function Game1({ expiryTimestamp }) {
   return (
     <div>
       <h1>Game One</h1>
+
+      <div
+        style={{
+          backgroundColor: "#e0ffe3",
+          position: "relative",
+          textAlign: "center",
+          margin: "auto",
+          border: "2px solid grey",
+          width: "68vw",
+          padding: "5px",
+          borderRadius: "5px",
+          marginBottom: "10px",
+          height: "90px",
+        }}
+        id='instruction-game'
+      >
+        Here's a list of letters<br></br>
+        Replace each letter with a word that you think you might like to write
+        with.<br></br>
+        The word can begin with the letter or not.<br></br>
+        Let your mind run free!<br></br>
+      </div>
       <div>
         <div
           style={{

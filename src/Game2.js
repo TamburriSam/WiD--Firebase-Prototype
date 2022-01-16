@@ -18,13 +18,18 @@ const Game2 = ({ expiryTimestamp }) => {
   const [what, setWhat] = useState(false);
   const [g3, setG3] = useState(false);
   let [g2Start, setG2start] = useState(localStorage.getItem("g2"));
+  const [isPlaying, setIsPlaying] = useState("false");
+  const [num, setNum] = useState("");
+  const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
     let LSroomId = localStorage.getItem("room_id");
     let LSuserId = localStorage.getItem("user_id");
+
     const time = new Date();
     time.setSeconds(time.getSeconds() + 360); // 10 minutes timer
     restart(time, true);
+
     /*  localStorage.setItem("g2", true); */
 
     let g2LS = localStorage.getItem("g2");
@@ -36,7 +41,7 @@ const Game2 = ({ expiryTimestamp }) => {
     let token = localStorage.getItem("g2");
 
     console.log("mounted");
-
+    setLoading(false);
     if (!token) {
       isThereAListInLS();
       setroomID(LSroomId);
@@ -46,9 +51,6 @@ const Game2 = ({ expiryTimestamp }) => {
         createCells();
       }, 1);
     }
-    /* return () => {
-      window.removeEventListener("click", magnifyWords);
-    }; */
   }, []);
 
   const {
@@ -118,8 +120,7 @@ const Game2 = ({ expiryTimestamp }) => {
       count++;
     }
     inputList.innerHTML = html;
-    /*     magnifyWords();
-     */
+    /*  magnifyWords(); */
   };
 
   const isThereAListInLS = () => {
@@ -152,8 +153,6 @@ const Game2 = ({ expiryTimestamp }) => {
             arr.push(doc);
             console.log(doc.data().rooms_joined);
           }
-
-          console.log(`wanted arr`, arr);
         });
       })
       .then(() => {
@@ -185,15 +184,10 @@ const Game2 = ({ expiryTimestamp }) => {
             let t1 = doc.data().t1;
             let rooms_joined = doc.data().rooms_joined;
             let list_one_input = doc.data().list_one_input;
-            let listlength = list_one_input.length;
-            console.log(listlength);
 
             console.log(rooms_joined === roomUID);
 
             console.log(list_one_input);
-
-            console.log(list_one_input.length === 26);
-            console.log(list_one_input.length);
 
             if (ids !== userUID && t1 == false && rooms_joined === roomUID) {
               haventBeenUsedLists.push(doc.data());
@@ -354,57 +348,34 @@ const Game2 = ({ expiryTimestamp }) => {
       )
       .then(() => {
         localStorage.setItem("g2", true);
+        setLoading(true);
         setG3(true);
       });
   };
 
-  /* const magnifyWords = (e) => {
-    document.body.addEventListener("focus", function (e) {
-      if (e.keyCode === "9") {
-        console.log(e.target.className);
-        let selected = document.querySelectorAll(".selected-text");
-        let currentNumber = e.target.dataset.id;
-        let passedWords = document.querySelectorAll(".passed-words");
+  const magnifyWords = (e) => {
+    let selected = document.querySelectorAll(".selected-text");
+    let currentNumber = e.target.dataset.id;
+    let passedWords = document.querySelectorAll(".passed-words");
 
-        if (e.target.className == "input-cell") {
-          passedWords[currentNumber].className = "passed-words selected-text";
-          for (let i = 0; i < selected.length; i++) {
-            selected[i].classList.remove("selected-text");
-            selected[i].className = "passed-words";
-          }
-        } else {
-          return false;
-        }
-
-             magnifyWordsWithTab(passedWords, currentNumber);
-         
+    if (e.target.className === "input-cell1") {
+      setNum(currentNumber);
+      passedWords[currentNumber].className = "passed-words selected-text";
+      for (let i = 0; i < selected.length; i++) {
+        selected[i].classList.remove("selected-text");
+        return (selected[i].className = "list_item passed-words");
       }
-    });
-  }; */
-
-  /*   const magnifyWordsWithTab = (list, number) => {
-    document.addEventListener("keydown", function (e) {
-      if (e.keyCode == "9") {
-        console.log(e.target);
-        let number = parseInt(e.target.dataset.id) + 1;
-        if (e.target.className == "input-cell") {
-          list[number].className = "passed-words selected-text";
-          list.forEach((word, index) => {
-            if (word !== list[number]) {
-              word.classList.remove("selected-text");
-            } else {
-              return false;
-            }
-          });
-        } else {
-          return false;
-        }
-      }
-    });
-  }; */
+    } else {
+      return false;
+    }
+  };
 
   if (g3) {
     return <Game3 />;
+  }
+
+  if (isLoading) {
+    return <div className='App'>Loading...</div>;
   }
 
   return (
@@ -413,12 +384,35 @@ const Game2 = ({ expiryTimestamp }) => {
       <div>
         <div
           style={{
+            backgroundColor: "#e0ffe3",
+            position: "relative",
+            textAlign: "center",
+            margin: "auto",
+            border: "2px solid grey",
+            width: "68vw",
+            padding: "5px",
+            borderRadius: "5px",
+            marginBottom: "10px",
+            height: "120px",
+          }}
+          id='instruction-game'
+        >
+          You've received a paper with a random classmate's words.<br></br>
+          Here's someone else's list from the previous step.<br></br>
+          Look at the top word. Then, at the top of the blank column, write the
+          first word that comes into your head.<br></br>
+          Don't question whether the connection makes sense. Trust your intial
+          response!<br></br>Do the same for every word down the list.<br></br>
+        </div>
+        <div
+          style={{
             textAlign: "center",
             backgroundColor: "white",
             position: "relative",
             margin: "auto",
             width: "15vw",
             borderRadius: "3px",
+            top: "16px",
           }}
         >
           <div style={{ fontSize: "22px" }}>
@@ -427,7 +421,7 @@ const Game2 = ({ expiryTimestamp }) => {
         </div>
       </div>
       <p>{userID}</p>
-      <div id='list_container'>
+      <div style={{ position: "relative", bottom: "33px" }} id='list_container'>
         <ul id='received_word_list'></ul>
 
         <ul id='input-list'></ul>
