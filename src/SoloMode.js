@@ -13,22 +13,6 @@ const SoloMode = () => {
   const [gameStart, setGameStart] = useState(false);
   const [favoriteLetter, setfavoriteLetter] = useState("");
 
-  /*  useEffect(() => {
-    selectAFavoriteLetter();
-  }, []);
-
-  const selectAFavoriteLetter = (id) => {
-    setLoading(false);
-    let answer = prompt("what your fav letter?");
-    console.log(`room id`, id);
-    //update to regex checking a-z eventually
-    if (answer.length < 2 && typeof answer == "string") {
-      console.log(`fav letter`, answer);
-      localStorage.setItem("favorite_letter", answer);
-      setSoloRoom();
-    }
-  }; */
-
   useEffect(() => {
     if (localStorage.getItem("solo")) {
     }

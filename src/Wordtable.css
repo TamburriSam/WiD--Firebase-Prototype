@@ -7,8 +7,10 @@
   background-color: white;
   padding: 5px;
   width: 40vw;
-  border-radius: 10px;
+  border-radius: 5px;
+  border-collapse: unset;
   position: absolute;
+  border: 2px solid grey;
   left: 40px;
   font-family: "Montserrat", sans-serif !important;
 }
@@ -68,6 +70,8 @@
   font-size: 14px;
   height: 300px;
   padding: 10px;
+  border: 2px solid grey;
+  border-radius: 5px;
 }
 
 .col-title {

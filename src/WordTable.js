@@ -135,7 +135,7 @@ const Wordtable = () => {
 
     return (document.querySelector(
       "#word-count-box"
-    ).innerHTML = `${crossedWords} /26 rows used`);
+    ).innerHTML = `${crossedWords} / 26 rows used`);
   };
 
   const printEssay = () => {
@@ -235,7 +235,7 @@ const Wordtable = () => {
           </thead>
           <hr></hr>
           <br></br>
-          <div id='word-count-box'>Count: </div>
+          <div id='word-count-box'>Rows Used:</div>
           <div id='table-container'>
             <tbody id='tbody1'></tbody>
           </div>
