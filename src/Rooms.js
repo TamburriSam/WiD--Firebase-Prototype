@@ -166,7 +166,7 @@ function Rooms() {
   };
 
   const checkPassword = (id, userInfo) => {
-    let answer = prompt("password please");
+    let answer = prompt("Enter Password");
 
     let roomRef = db.collection("rooms").doc(id);
 
@@ -497,9 +497,10 @@ function Rooms() {
             <Button
               type='submit'
               value='Create Room'
-              variant='outlined'
+              variant='contained'
               size='small'
-              className='creater btn create-room'
+              id='create-final-btn'
+              className='creater create-room'
             >
               Create Room
             </Button>
@@ -525,7 +526,7 @@ function Rooms() {
       </div>
       <footer>
         <img className='gitHub' src={ghIcon} alt='' />
-        <span class='footer-text'>Created by Sam Tamburri </span>
+        <span className='footer-text'>Created by Sam Tamburri </span>
       </footer>
     </div>
   );

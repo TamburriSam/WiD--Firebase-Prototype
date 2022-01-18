@@ -1,6 +1,26 @@
+import { useEffect } from "react";
 import "./CSSRoomLI.css";
 
-const FavoriteLetter = ({ handleLetterChange, setFavLetterChange }) => {
+const FavoriteLetter = ({
+  handleLetterChange,
+  setFavLetterChange,
+  handleSoloLetterChange,
+}) => {
+  useEffect(() => {
+    const LSsolo = localStorage.getItem("solo");
+    const LSfavorite_letter = localStorage.getItem("favorite_letter");
+
+    if (LSsolo) {
+      console.log("yea found");
+      handleSoloLetterChange();
+      document.getElementById(
+        "inputContainer"
+      ).innerHTML = `<div>${LSfavorite_letter.toUpperCase()}</div>`;
+    }
+
+    document.getElementById("active-container").style.height = "100vh";
+  });
+
   return (
     <div id='fast-facts'>
       <div id='blurb'></div>

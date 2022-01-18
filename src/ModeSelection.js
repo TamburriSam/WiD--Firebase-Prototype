@@ -31,9 +31,9 @@ const ModeSelection = ({ soloFunc }) => {
       <h2 id='mode-title'>There are two ways to play this game</h2>
 
       <div id='options-container'>
-        <div class='option' id='solo'>
+        <div className='option' id='solo'>
           <div>
-            <h1 class='mode-heading'>Solo</h1>
+            <h1 className='mode-heading'>Solo</h1>
             <br></br>
             <br></br>
             <p>
@@ -55,8 +55,8 @@ const ModeSelection = ({ soloFunc }) => {
             </p>
           </div>
         </div>
-        <div class='option' id='group'>
-          <h1 class='mode-heading'>Group</h1>
+        <div className='option' id='group'>
+          <h1 className='mode-heading'>Group</h1>
           <br></br>
           <br></br>
           <p>

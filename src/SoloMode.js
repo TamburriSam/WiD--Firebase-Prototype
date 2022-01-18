@@ -6,14 +6,23 @@ import FavoriteLetter from "./FavoriteLetter";
 import "./CSSRoomLI.css";
 import Typing from "react-typing-animation";
 import BarLoader from "react-spinners/ClipLoader";
+import mainLogo from "./logos/whiteLogoStandalone.png";
 
 const SoloMode = () => {
   const db = firebase.firestore();
+  const [nodes, setNodes] = useState({});
   const [isLoading, setLoading] = useState(false);
   const [gameStart, setGameStart] = useState(false);
   const [favoriteLetter, setfavoriteLetter] = useState("");
 
   useEffect(() => {
+    let students = [];
+    for (let i = 0; i < 10; i++) {
+      students.push(`Live Student ${i}`);
+    }
+    console.log(students);
+
+    document.getElementById("active-container").style.height = "100vh";
     if (localStorage.getItem("solo")) {
     }
   }, []);
@@ -29,7 +38,7 @@ const SoloMode = () => {
       .set({
         favorite_letter: "k",
         uid: LSuserId,
-
+        mock_messages: [],
         /* ADDING USER ID AS ROOM NAME */
         rooms_joined: LSuserId,
         list_one_input: [],
@@ -54,6 +63,7 @@ const SoloMode = () => {
             list_two_input: [],
             list_three_input: [],
             recipients: [],
+            poems: mock_msgs,
             list_four_input: [],
             list_one_received: [],
             list_two_received: [],
@@ -62,6 +72,36 @@ const SoloMode = () => {
           });
       });
   };
+
+  let mock_msgs = [
+    `I spot the hills
+  with yellow balls in autumn. 
+  I light the prairie cornfields, 
+  Orange and tawny gold clusters, 
+  And I am called pumpkins. 
+  On the last of October,  
+  When dusk is fallen,  
+  Children join hands,  
+  And circle round me, 
+  Singing ghost songs, 
+  And love to the harvest moon;
+  I am a jack-o'-lantern, 
+  With terrible teeth, 
+  And the children know, 
+  I am fooling.`,
+    `White sheep, white sheep,
+  On a blue hill,
+  When the wind stops,
+  You all stand still.
+  When the wind blows,
+  You walk away slow.
+  White sheep, white sheep,
+  Where do you go?`,
+    `In winter I get up at night  
+  And dress by yellow candle-light.  
+  In summer, quite the other way,  
+  I have to go to bed by day.`,
+  ];
 
   const randomWordsFromDB = () => {
     let ls = localStorage.getItem("room_id");
@@ -136,7 +176,7 @@ const SoloMode = () => {
       })
       .then(() => {
         /* startGame(); */
-        waitingRoomShift();
+        /*  waitingRoomShift(); */
       });
   };
 
@@ -163,15 +203,16 @@ const SoloMode = () => {
   const waitingRoomShift = () => {
     document.getElementById("notification").innerHTML = "Your Favorite Letter";
     document.getElementById("letterSubmit").style.display = "none";
-    /*    document.getElementById("fast-facts").style.right = "164px";
-    document.getElementById("fast-facts").style.height = "71vh";
-    document.getElementById("fast-facts").style.width = "63vw"; */
+    document.getElementById("fast-facts").style.right = "164px";
+    /*  document.getElementById("fast-facts").style.height = "71vh";
+    document.getElementById("fast-facts").style.width = "63vw";  */
     document.getElementById("fast-facts").style.top = "87px";
+    document.getElementById("fast-facts").style.height = "70vh";
     document.getElementById("waiting1").style.display = "block";
     /*     document.getElementById("current-room").style.display = "block";
     document.getElementById("current-room").style.bottom = "100px"; */
     /* mockUsers(); */
-    startCountdown(9);
+    /* startCountdown(9); */
   };
 
   const startGame = () => {
@@ -190,7 +231,8 @@ const SoloMode = () => {
       setSoloRoom();
       setfavoriteLetter(favoriteLetter);
       setLoading(false);
-      content = <CurrentRoom />;
+      setGameStart(true);
+      /*  content = <CurrentRoom />; */
     }
   };
 
@@ -227,19 +269,6 @@ const SoloMode = () => {
       <div id='blurb'></div>
       <div id='notification'>
         What's your favorite letter of the alphabet? Type it in the box.
-        {/*    <Typing>
-          <div>
-            Here's a list of letters.<br></br>
-            <Typing.Delay ms={1000} />
-            Replace each letter with a word that you think you might like to
-            write with.<br></br>
-            <Typing.Delay ms={1000} />
-            The word can begin with the letter or not.<br></br>
-            <Typing.Delay ms={1000} />
-            Let your mind run free!<br></br>
-          </div>
-        </Typing>
-        <BarLoader color={"red"} size={150} /> */}
       </div>
       <div id='inputContainer'>
         <input
@@ -252,30 +281,10 @@ const SoloMode = () => {
       <button id='letterSubmit' onClick={handleLetterChange}>
         submit
       </button>
-      {/* <CurrentRoom /> */}
+
       {content}
       <div id='waiting1'>
-        <p class='loading1'>Waiting for users to join</p>
-      </div>
-
-      <div class='user-box'>
-        {/*   <img class="redBtn" src="logos/red.png" alt="" />
-          <img class="yellowBtn" src="logos/yellow.png" alt="" />
-
-          <img class="greenBtn" src="logos/green.png" alt="" /> */}
-
-        <div id='friend-title'>
-          {/* <img class="friendlistlogo" src="logos/logoStandalone.png" alt="" /> */}
-
-          <div id='friendsOnline'>
-            <h5>Friends Online</h5>
-          </div>
-        </div>
-        <div id='connectedMockPic'>
-          {/* <img class="active-button" src="logos/GPCX4030.webp" alt="" /> */}
-          <span class='connected'>connected</span>
-        </div>
-        <ul id='mock-list'></ul>
+        <p className='loading1'>Waiting for users to join</p>
       </div>
     </div>
   );

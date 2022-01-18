@@ -19,9 +19,9 @@ const Game4 = ({ expiryTimestamp }) => {
     let LSroomId = localStorage.getItem("room_id");
     let LSuserId = localStorage.getItem("user_id");
     let token = localStorage.getItem("g4");
-    /*   const time = new Date();
+    const time = new Date();
     time.setSeconds(time.getSeconds() + 360); // 10 minutes timer
-    restart(time, true); */
+    restart(time, true);
     /*  localStorage.setItem("g2", true); */
 
     let g4LS = localStorage.getItem("g4");
@@ -365,7 +365,7 @@ const Game4 = ({ expiryTimestamp }) => {
             padding: "5px",
             borderRadius: "5px",
             marginBottom: "10px",
-            height: "35px",
+            height: "fit-content",
           }}
           id='instruction-game'
         >
@@ -381,7 +381,7 @@ const Game4 = ({ expiryTimestamp }) => {
               width: "15vw",
               borderRadius: "3px",
               position: "relative",
-              top: "21px",
+              top: "13px",
             }}
           >
             <div style={{ fontSize: "22px" }}>
@@ -398,18 +398,19 @@ const Game4 = ({ expiryTimestamp }) => {
           <ul id='input-list'></ul>
         </div>
       </div>
-      <div className='second-button-container'>
+      <div className='overlay2'></div>
+
+      <form onSubmit={(e) => allEntered(e)} className='second-button-container'>
         <Button
           variant='outlined'
           id='continueBtn'
           type='submit'
-          color='success'
           value={roomID}
-          onClick={(e) => allEntered(e)}
+          color='success'
         >
           Continue
         </Button>
-      </div>
+      </form>
     </div>
   );
 };

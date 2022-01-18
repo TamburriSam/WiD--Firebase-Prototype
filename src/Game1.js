@@ -1,14 +1,11 @@
-import { alpha } from "@mui/material";
 import { useEffect, useState } from "react";
 import firebase from "firebase/app";
 import "firebase/firestore";
-import RoomLI from "./RoomLI";
 import Game2 from "./Game2.js";
 import "./Game.css";
 import Button from "@mui/material/Button";
 import { useTimer } from "react-timer-hook";
-import Typing from "react-typing-animation";
-import Instruction from "./Instruction";
+
 function Game1({ expiryTimestamp }) {
   const db = firebase.firestore();
 
@@ -223,7 +220,7 @@ function Game1({ expiryTimestamp }) {
           padding: "5px",
           borderRadius: "5px",
           marginBottom: "10px",
-          height: "90px",
+          height: "fit-content",
         }}
         id='instruction-game'
       >
@@ -242,6 +239,7 @@ function Game1({ expiryTimestamp }) {
             margin: "auto",
             width: "15vw",
             borderRadius: "3px",
+            top: "12px",
           }}
         >
           <div style={{ fontSize: "22px" }}>
@@ -255,6 +253,8 @@ function Game1({ expiryTimestamp }) {
             <ul id='input-list1'></ul>
           </div>
         </div>
+        <div className='overlay'></div>
+        <div className='overlay'></div>
         <div id='button-container'>
           <Button
             variant='outlined'

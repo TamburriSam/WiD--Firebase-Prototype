@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import uniqid from "uniqid";
 import Button from "@mui/material/Button";
 import ModeSelection from "./ModeSelection";
+import "./index.css";
 
 function IndexPage(props) {
   const [inputField, setinputField] = useState("Enter a Screen Name");
@@ -81,14 +82,15 @@ function IndexPage(props) {
             {/* <input id='startBtn' type='submit' value='Start' /> */}
 
             <div id='startBtn-container'>
-              <Button
+              <button
                 variant='contained'
                 size='medium'
                 type='submit'
                 id='startBtn'
+                className='startBtn'
               >
                 Start
-              </Button>
+              </button>
             </div>
           </form>
         </div>

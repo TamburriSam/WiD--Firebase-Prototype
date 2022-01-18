@@ -393,7 +393,7 @@ const Game2 = ({ expiryTimestamp }) => {
             padding: "5px",
             borderRadius: "5px",
             marginBottom: "10px",
-            height: "120px",
+            height: "fit-content",
           }}
           id='instruction-game'
         >
@@ -421,23 +421,24 @@ const Game2 = ({ expiryTimestamp }) => {
         </div>
       </div>
       <p>{userID}</p>
-      <div style={{ position: "relative", bottom: "33px" }} id='list_container'>
+      <div style={{ position: "relative" }} id='list_container'>
         <ul id='received_word_list'></ul>
 
         <ul id='input-list'></ul>
       </div>
-      <div className='second-button-container'>
+      <div className='overlay2'></div>
+
+      <form onSubmit={(e) => allEntered(e)} className='second-button-container'>
         <Button
           variant='outlined'
           id='continueBtn'
           type='submit'
           value={roomID}
           color='success'
-          onClick={(e) => allEntered(e)}
         >
           Continue
         </Button>
-      </div>
+      </form>
     </div>
   );
 };

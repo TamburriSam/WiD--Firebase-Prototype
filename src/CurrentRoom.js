@@ -1,16 +1,18 @@
 import firebase from "firebase/app";
 import "firebase/firestore";
 import { useEffect, useState } from "react";
-import TextField from "@mui/material/TextField";
 import Game1 from "./Game1";
 import React from "react";
-import Rooms from "./Rooms";
-import { isCompositeComponent } from "react-dom/test-utils";
 import "./CSSRoomLI.css";
 import FavoriteLetter from "./FavoriteLetter";
+import mainLogo from "./logos/whiteLogoStandalone.png";
+import { useTimer } from "react-timer-hook";
+import genUsername from "unique-username-generator";
 
-function CurrentRoom({ name, favorite_letter, removeUser }) {
+function CurrentRoom({ expiryTimestamp, name, favorite_letter, removeUser }) {
   const db = firebase.firestore();
+
+  const genUsername = require("unique-username-generator");
 
   const [nodes, setNodes] = useState({});
   const [isLoading, setLoading] = useState(true);
@@ -21,6 +23,7 @@ function CurrentRoom({ name, favorite_letter, removeUser }) {
   const [inRoom, setinRoom] = useState(false);
   const [favoriteLetter, setfavoriteLetter] = useState("");
   const [showLetter, setShowLetter] = useState(false);
+  const [numOfStudents, setNumOfStudents] = useState(9);
 
   const selectAFavoriteLetter = (id) => {
     setroomLoad(true);
@@ -40,63 +43,71 @@ function CurrentRoom({ name, favorite_letter, removeUser }) {
     document.getElementById("fast-facts").style.top = "87px";
     document.getElementById("waiting").style.display = "block";
     document.getElementById("current-room").style.display = "block";
-    document.getElementById("current-room").style.bottom = "100px";
+    document.getElementById("current-room").style.bottom = "185px";
   };
 
-  const startCountdown = (seconds) => {
-    let counter = seconds;
+  const {
+    seconds,
+    minutes,
 
-    const interval = setTimeout(() => {
-      counter--;
+    start,
+    pause,
+    resume,
+    restart,
+  } = useTimer({
+    expiryTimestamp,
+    onExpire: () => {
+      startCountdown();
+    },
+  });
 
-      /*    document.querySelector(
-        "#waiting"
-      ).innerHTML = `Game Starting in ${counter} seconds`; */
+  const startCountdown = () => {
+    setgameStart(true);
 
-      if (counter < 1) {
-        clearInterval(interval);
-        console.log("Ding!");
-        setgameStart(true);
-        /*   window.location.reload(true); */
-        localStorage.setItem("game_start", true);
-      }
-    }, 1000);
+    localStorage.setItem("game_start", true);
+  };
+
+  function mockUsers() {
+    let inputList = document.querySelector("#user-loading-list");
+    const username = genUsername.generateUsername();
+
+    console.log(username);
+
+    let userArr = [];
+
+    let html = "";
+
+    inputList.innerHTML += `- ${username}<br>`;
+  }
+
+  const handleSoloLetterChange = () => {
+    const LSfavorite_letter = localStorage.getItem("favorite_letter");
+
+    setroomLoad(true);
+
+    setfavoriteLetter(LSfavorite_letter);
+    mockUsers();
+    waitingRoomShift();
+
+    setinRoom(true);
   };
 
   const handleLetterChange = () => {
     if (favoriteLetter.length < 2 && typeof favoriteLetter == "string") {
-      console.log(`fav letter`, favoriteLetter);
       localStorage.setItem("favorite_letter", favoriteLetter);
       setroomLoad(true);
       setinRoom(true);
       setfavoriteLetter(favoriteLetter);
-      /*   setShowLetter(false); */
+
       waitingRoomShift();
     }
     setinRoom(true);
-    console.log("f");
-    console.log(showLetter);
   };
 
   useEffect(() => {
-    const lsitem = localStorage.getItem("favorite_letter");
-    const optionLS = localStorage.getItem("option-solo");
     setroomID(localStorage.getItem("room_id"));
 
-    console.log(`option`, optionLS);
-
     selectAFavoriteLetter();
-
-    /*   if (!lsitem ) {
-      console.log("letter found YAYAYAYAYAYA");
-      selectAFavoriteLetter();
-    } else {
-      console.log("NONONONOO");
-      setShowLetter(false);
-
-      setroomLoad(true);
-      setinRoom(true);
-    } */
   }, []);
 
   useEffect(() => {
@@ -110,24 +121,24 @@ function CurrentRoom({ name, favorite_letter, removeUser }) {
           let activeCount = data.active_count;
           let totalCount = data.total_count;
           let letters = [];
-          console.log(`data`, data);
 
           console.log("CHANGED NOWS");
           for (const prop in users) {
             if (users[prop].favorite_letter !== "") {
               letters.push(users[prop].favorite_letter);
-              console.log(letters);
-              console.log(letters.length);
             }
           }
-          console.log(letters.length);
-          console.log(totalCount);
-          console.log(letters.length === totalCount);
 
           let gs = localStorage.getItem("game_start");
 
           if (activeCount === totalCount && Boolean(gs) !== true) {
-            startCountdown(9);
+            document.querySelector(".loading-game-start").style.display =
+              "block";
+            document.querySelector(".loading").style.display = "none";
+
+            const time = new Date();
+            time.setSeconds(time.getSeconds() + 9); // 10 minutes timer
+            restart(time, true);
           }
         });
     }
@@ -159,15 +170,12 @@ function CurrentRoom({ name, favorite_letter, removeUser }) {
       nodes.map((node) => {
         console.log(node);
       });
+    } else {
+      console.log("no users");
     }
   }, [users]);
 
   let gs = localStorage.getItem("game_start");
-
-  const testClear = () => {
-    localStorage.clear();
-    window.location.reload(true);
-  };
 
   if (gameStart) {
     return <Game1 />;
@@ -186,6 +194,7 @@ function CurrentRoom({ name, favorite_letter, removeUser }) {
     content = (
       <FavoriteLetter
         showLetter={showLetter}
+        handleSoloLetterChange={handleSoloLetterChange}
         handleLetterChange={handleLetterChange}
         favoriteLetter={favoriteLetter}
         setFavLetterChange={setFavLetterChange}
@@ -193,49 +202,42 @@ function CurrentRoom({ name, favorite_letter, removeUser }) {
     );
   }
 
-  /*  if (showLetter) {
-    console.log("ok");
-    return (
-      <FavoriteLetter
-        showLetter={showLetter}
-        handleLetterChange={handleLetterChange}
-        favoriteLetter={favoriteLetter}
-        setFavLetterChange={setFavLetterChange}
-      />
-    );
-  } */
-
   return (
     <div>
       <div>{content}</div>
 
-      {/* {content} */}
       <div id='waiting'>
         <p class='loading'>Waiting for users to join</p>
+
+        <p class='loading-game-start'>Game Starting in {seconds}</p>
       </div>
+
       <div id='current-room'>
-        <button onClick={(e) => removeUser(e)}>Leave Room</button>
-        <h1 className='waiting'>Waiting</h1>
+        <button id='leave-room' onClick={(e) => removeUser(e)}>
+          Leave Room
+        </button>
+        <div>
+          <div id='user-loading-header'>
+            <img id='user-loading-logo' src={mainLogo} alt='' />
 
-        <h1>You're in room {name}</h1>
-        <h2>
-          Your favorite letter : {localStorage.getItem("favorite_letter")}
-        </h2>
-        <h3>Users in room: </h3>
-        {console.log(users)}
-        <table>
-          {nodes.map((node, index) => {
-            return (
-              <thead key={index.toString()}>
-                <tr>
-                  <td>{node}</td>
+            <h3 id='user-title'>User List</h3>
+          </div>
+          <div id='user-loading-list'>
+            <table>
+              {nodes.map((node, index) => {
+                return (
+                  <thead key={index.toString()}>
+                    <tr>
+                      <td>-{node}</td>
 
-                  <td></td>
-                </tr>
-              </thead>
-            );
-          })}
-        </table>
+                      <td></td>
+                    </tr>
+                  </thead>
+                );
+              })}
+            </table>
+          </div>
+        </div>
       </div>
     </div>
   );

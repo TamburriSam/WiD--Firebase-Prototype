@@ -22,6 +22,7 @@ const Wordtable = () => {
   let list1, list2, list3, list4;
 
   useEffect(() => {
+    document.getElementById("active-container").style.height = "100vh";
     let LSPoem = localStorage.getItem("poem");
 
     if (LSPoem) {
@@ -29,6 +30,16 @@ const Wordtable = () => {
     } else {
       getData();
     }
+  }, []);
+
+  useEffect(() => {
+    const onKeyUp = (e) => {
+      if (e.keyCode === 13) {
+        console.log("wahoo");
+      }
+    };
+    window.addEventListener("keyup", onKeyUp);
+    return () => window.removeEventListener("keyup", onKeyUp);
   }, []);
 
   const getData = () => {
@@ -73,10 +84,6 @@ const Wordtable = () => {
           for (let i = 0; i < item.length; i++) {
             test.push(`<div class="item${i}">${item[i]}</div>`);
           }
-
-          /*  html += `<tr><td class="listItems"><input class="word-check" type="checkbox"><div class="dynamic-items">${item.join(
-            " "
-          )}</div></td></tr>`; */
         });
 
         const result2 = [];
@@ -86,8 +93,6 @@ const Wordtable = () => {
           result2.push(chunk);
         }
 
-        console.log(result2);
-
         result2.map((item) => {
           html += `<tr><td class="listItems"><input class="word-check" type="checkbox">${item.join(
             " "
@@ -95,7 +100,7 @@ const Wordtable = () => {
         });
 
         firstCol.innerHTML = html;
-        console.log(test);
+
         crossedOffWord();
       });
   };
@@ -160,13 +165,12 @@ const Wordtable = () => {
 
   const nextPage = () => {
     const LSsolo = localStorage.getItem("solo");
+    let essay = document.getElementById("essay");
+    localStorage.setItem("poem", essay.value);
 
     if (LSsolo) {
       setSoloLive(true);
     } else {
-      let essay = document.getElementById("essay");
-
-      localStorage.setItem("poem", essay.value);
       setLiveRoom(true);
     }
   };
@@ -176,7 +180,7 @@ const Wordtable = () => {
   }
 
   if (soloLive) {
-    return <h1>Solo Works</h1>;
+    return <LiveRoom />;
   }
 
   if (isLoading) {
@@ -194,8 +198,9 @@ const Wordtable = () => {
           width: "95vw",
           padding: "5px",
           borderRadius: "5px",
-          marginBottom: "10px",
-          height: "161px",
+          marginBottom: "20px",
+          height: "fit-content",
+          top: "10px",
         }}
         id='instruction-game'
       >
@@ -245,14 +250,27 @@ const Wordtable = () => {
           <textarea placeholder='Start writing here...' id='essay' />
 
           <div id='buttons'>
-            <Button variant='contained' onClick={printEssay}>
-              Print Essay
+            <Button
+              class='word-table-btns'
+              variant='outlined'
+              onClick={printEssay}
+            >
+              Print Essay to PDF
             </Button>
-            <Button variant='contained' onClick={printLists}>
-              Print Lists
+            <Button
+              class='word-table-btns'
+              variant='outlined'
+              onClick={printLists}
+            >
+              Print Lists to PDF
             </Button>
-            <Button variant='contained' color='success' onClick={nextPage}>
-              Next
+            <Button
+              class='word-table-btns'
+              variant='outlined'
+              color='success'
+              onClick={nextPage}
+            >
+              Finish (Continue)
             </Button>
           </div>
         </div>

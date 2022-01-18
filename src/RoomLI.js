@@ -67,7 +67,9 @@ function RoomLI({
           return (
             <thead key={index.toString()}>
               <tr id='table-row'>
-                <td className='group-name'>{node.data().name}</td>
+                <td className='group-name'>
+                  {node.data().name ? node.data().name : "Solo Room"}
+                </td>
 
                 <td className='group-count'>
                   {node.data().active_count} / {node.data().total_count} Active
@@ -77,16 +79,21 @@ function RoomLI({
                   <Button
                     variant='outlined'
                     size='small'
+                    color='success'
                     data-id='btn'
                     id={node.id}
                     onClick={(e) => createNewProfile(e)}
                     className=' room-select'
+                    disabled={
+                      node.data().active_count === node.data().total_count
+                        ? true
+                        : false
+                    }
                   >
-                    Join
+                    {node.data().name ? "Join" : "Room Full"}
                   </Button>
                 </td>
               </tr>
-              <hr></hr>
             </thead>
           );
         })}

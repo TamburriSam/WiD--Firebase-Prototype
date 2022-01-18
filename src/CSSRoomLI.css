@@ -2,10 +2,9 @@ form {
 }
 
 #active-container {
-  border: 2px solid green;
-  height: 100vh;
+  /* height: 100vh; */
   background-size: cover;
-  background-repeat: no-repeat;
+  background-repeat: repeat;
   background-size: cover;
 }
 
@@ -40,6 +39,11 @@ form {
   content: ".";
   animation: dots 1s steps(5, end) infinite;
 }
+
+.loading-game-start {
+  display: none;
+}
+
 /* Overlay */
 #overlay {
   position: fixed;
@@ -98,8 +102,14 @@ form {
   background-color: white;
   width: 10vw;
   position: absolute;
-  right: 0;
-  /* display: none; */
+  border-radius: 5px;
+  padding: 20px;
+  right: 15px;
+  text-align: center;
+  bottom: 10px;
+  width: 20vw;
+  height: 500px;
+  display: none;
 }
 
 #room-name {
@@ -165,9 +175,9 @@ form {
   z-index: 5;
   position: absolute;
   top: 67px;
-  left: 50px;
   display: none;
-  width: 100vw;
+  left: 15px;
+  width: 90vw;
   font-size: 32px;
 }
 .loading:after {
@@ -205,6 +215,28 @@ form {
   font-size: 46px;
   position: relative;
   bottom: 126px;
+}
+
+.startBtn {
+  background-color: #000000f5;
+  border: 3px solid white !important;
+  color: white;
+  height: 60px;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  /* bottom: -95px; */
+  border-radius: 3px;
+  width: 100%;
+  font-family: "Montserrat", sans-serif !important;
+  font-size: 12px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.startBtn:hover {
+  color: black !important;
+  background-color: white;
+  border: 1px solid black;
 }
 
 #letterSubmit {
@@ -287,4 +319,56 @@ form {
 
 #user-list li {
   line-height: 1;
+}
+
+#user-loading-list thead {
+  text-align: center;
+}
+
+#user-loading-list {
+  border: 1px solid black;
+
+  border: 3px solid #399e3c9a;
+  text-align: center;
+  position: relative;
+  border-radius: 5px;
+  padding: 10px;
+  top: 10px;
+}
+#user-loading-list tr {
+  width: 10vw;
+}
+
+#user-title {
+  position: relative;
+  top: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+
+  border: 1px solid black;
+  background-color: #399e3c9a;
+}
+
+#user-loading-logo {
+  width: 50px;
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid grey;
+  background-color: #399e3c9a;
+  margin: auto;
+}
+
+#user-loading-header {
+  display: flex;
+  padding: 10px;
+  border-radius: 5px;
+  flex-direction: column;
+  border: 3px solid #399e3c9a;
+}
+
+#leave-room {
+  font-size: 9px;
+  position: absolute;
+  right: 2px;
+  top: 1px;
 }

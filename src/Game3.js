@@ -1,10 +1,8 @@
 import { useEffect, useState } from "react";
 import firebase from "firebase/app";
 import "firebase/firestore";
-import RoomLI from "./RoomLI";
 import Game4 from "./Game4";
 import Button from "@mui/material/Button";
-import MyTimer from "./MyTimer";
 import { useTimer } from "react-timer-hook";
 
 const Game3 = ({ expiryTimestamp }) => {
@@ -359,7 +357,7 @@ const Game3 = ({ expiryTimestamp }) => {
             padding: "5px",
             borderRadius: "5px",
             marginBottom: "10px",
-            height: "60px",
+            height: "fit-content",
           }}
           id='instruction-game'
         >
@@ -376,7 +374,7 @@ const Game3 = ({ expiryTimestamp }) => {
             width: "15vw",
             borderRadius: "3px",
             position: "relative",
-            top: "21px",
+            top: "12px",
           }}
         >
           <div style={{ fontSize: "22px" }}>
@@ -392,18 +390,19 @@ const Game3 = ({ expiryTimestamp }) => {
           <ul id='input-list'></ul>
         </div>
       </div>
-      <div className='second-button-container'>
+      <div className='overlay2'></div>
+
+      <form onSubmit={(e) => allEntered(e)} className='second-button-container'>
         <Button
           variant='outlined'
           id='continueBtn'
           type='submit'
-          color='success'
           value={roomID}
-          onClick={(e) => allEntered(e)}
+          color='success'
         >
           Continue
         </Button>
-      </div>
+      </form>
     </div>
   );
 };

@@ -8,9 +8,12 @@
   padding: 5px;
   width: 40vw;
   border-radius: 5px;
+  z-index: 100;
   border-collapse: unset;
   position: absolute;
-  border: 2px solid grey;
+
+  box-shadow: 1px 1px 0px #999, 2px 2px 0px #999, 3px 3px 0px #999,
+    4px 4px 0px #999, 5px 5px 0px #999, 6px 6px 0px #999 !important;
   left: 40px;
   font-family: "Montserrat", sans-serif !important;
 }
@@ -37,10 +40,11 @@
 }
 .crossed-word {
   text-decoration: line-through;
-  text-align: center;
+  width: 36vw;
   position: relative;
-  left: 10px;
+  text-align: center;
   bottom: 7px;
+  justify-content: space-around;
   display: flex;
 }
 .btn {
@@ -71,11 +75,15 @@
   height: 300px;
   padding: 10px;
   border: 2px solid grey;
+  outline: none;
   border-radius: 5px;
 }
 
 .col-title {
-  padding: 5px;
+  padding: 1px;
+  position: relative;
+  left: 10px;
+  width: 76px;
 }
 
 #table-container {
@@ -83,7 +91,7 @@
 }
 
 #table-row-cols {
-  width: 36vw;
+  width: 30vw;
   position: relative;
   display: flex;
   justify-content: space-between;
@@ -119,4 +127,32 @@
   /* padding-bottom: 10px; */
   margin: auto;
   text-align: center;
+}
+
+.word-table-btns {
+  background-color: #000000f5;
+  border: 3px solid white !important;
+  color: white;
+  height: 40px;
+  position: relative;
+  top: 10px;
+
+  /* bottom: -95px; */
+  border-radius: 3px;
+  width: fit-content;
+  font-family: "Montserrat", sans-serif !important;
+  font-size: 12px;
+  cursor: pointer;
+  transition: 0.3s;
+  margin-left: 15px;
+}
+.word-table-btns:hover {
+  transform: scale(1.1);
+  color: black !important;
+  background-color: white;
+  border: 1px solid black;
+}
+.word-table-btns:nth-child(3) {
+  width: 20vw;
+  display: block;
 }

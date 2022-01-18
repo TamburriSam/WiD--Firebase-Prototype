@@ -82,7 +82,7 @@ body {
   top: 22%;
   border: 2px solid black;
   width: 70%;
-  height: 400px;
+  height: 300px;
   background-color: white;
   z-index: 200;
   max-width: 300px;
@@ -122,9 +122,28 @@ body {
 
 /* Button */
 #startBtn-container {
-  padding: 10px;
-  position: relative;
-  top: 15px;
+}
+
+.startBtn {
+  background-color: #000000f5;
+  border: 3px solid white !important;
+  color: white;
+  height: 60px;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  /* bottom: -95px; */
+  border-radius: 3px;
+  width: 100%;
+  font-family: "Montserrat", sans-serif !important;
+  font-size: 12px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.startBtn:hover {
+  color: black !important;
+  background-color: white;
+  border: 1px solid black;
 }
 
 /* Mode Selection Component */
@@ -167,11 +186,19 @@ body {
   height: 38px;
   width: 85px;
   border: none;
+  font-size: 14px;
 
   cursor: pointer;
   outline: none;
   border-radius: 5px;
   color: black;
+  transition: 0.2s;
+}
+#mode-solo-btn:hover {
+  background-color: rgba(255, 65, 65, 0.849);
+  transform: scale(1.2);
+  color: white;
+  border: 1px solid black;
 }
 
 .mode-heading {
@@ -179,14 +206,22 @@ body {
 }
 
 #mode-group-btn {
-  background-color: rgba(65, 233, 255, 0.849);
+  background-color: rgba(65, 179, 255, 0.849);
   height: 38px;
   width: 85px;
   border: none;
   cursor: pointer;
+  font-size: 14px;
   outline: none;
   border-radius: 5px;
   color: black;
+  transition: 0.2s;
+}
+#mode-group-btn:hover {
+  background-color: rgba(65, 109, 255, 0.849);
+  transform: scale(1.2);
+  color: white;
+  border: 1px solid black;
 }
 
 #mode-logo-container {
@@ -200,4 +235,46 @@ body {
 #mode-logo {
   width: 100px;
   position: inherit;
+}
+
+#create-room {
+  /* margin: auto; */
+  display: none;
+  position: relative;
+  padding: 13px;
+  top: 19px;
+  background-color: white;
+  border-radius: 2px;
+  margin: auto;
+  text-align: center;
+  width: 95vw;
+}
+
+#create-final-btn {
+  background-color: #101a19cf !important;
+  color: white;
+  border: 3px solid white;
+  border-radius: 5px;
+  width: 110px !important;
+  margin-bottom: 10px;
+  top: 2px;
+  left: 5px;
+  cursor: pointer;
+  position: relative;
+}
+#create-final-btn:hover {
+  background-color: white !important;
+  color: black;
+}
+
+/* Query */
+
+@media only screen and (min-device-width: 375px) and (max-device-width: 812px) and (-webkit-min-device-pixel-ratio: 3) {
+  #mode-logo-container {
+    display: none;
+  }
+
+  .option {
+    height: 530px;
+  }
 }

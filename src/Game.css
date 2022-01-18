@@ -14,9 +14,12 @@
   width: 150px !important;
   right: 10px;
   position: absolute;
+  font-size: 12px;
+  transition: 0.2s;
 }
 #createNewRoom:hover {
   background-color: white !important;
+  transform: scale(1);
   color: black;
   border: black 3px solid;
 }
@@ -52,12 +55,13 @@
   width: 90vw;
   flex-direction: row-reverse;
   height: fit-content;
-  padding-top: 45px;
+  top: 30px;
   margin: auto;
 }
 #input-form {
   width: 50vw !important;
   height: 631px;
+  z-index: 100;
   border: 2px solid #399e3c56;
   background: white;
   box-shadow: 1px 1px 0px #999, 2px 2px 0px #999, 3px 3px 0px #999,
@@ -120,12 +124,6 @@
   width: 49vw;
 }
 
-#button-container {
-  position: relative;
-
-  bottom: -12px;
-}
-
 .placeholder {
   position: absolute;
   font-weight: bold;
@@ -139,13 +137,40 @@
 #button-container {
   position: relative;
   /* bottom: 170px; */
+  padding-top: 50px;
+  padding-bottom: 25px;
+
   width: 100vw;
-  top: 20px;
-  height: 10vh;
+  background-color: rgb(15, 15, 15);
+  background-image: url("./logos/green3.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+
   text-align: center;
+}
+.second-button-container {
+  width: 100vw;
+  position: relative;
+
+  padding-top: 50px;
+  padding-bottom: 25px;
+
+  position: absolute;
+  /*  bottom: -105px; */
+  text-align: center;
+  background-image: url("./logos/green3.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.second-button-container button {
+  z-index: 100;
+}
+#button-container button {
+  z-index: 100;
 }
 #continueBtn {
   position: relative;
+  z-index: 100;
   background-color: rgb(255, 255, 255);
 }
 
@@ -160,13 +185,13 @@
 
 #list_container {
   display: flex;
-
+  z-index: 100;
   position: relative;
   justify-content: space-around;
   width: 90vw;
 
   height: fit-content;
-  padding-top: 45px;
+  top: 20px;
   margin: auto;
 }
 
@@ -199,16 +224,6 @@
   font-family: "Montserrat", sans-serif;
 }
 
-.second-button-container {
-  width: 100vw;
-  position: relative;
-  z-index: 3;
-
-  position: absolute;
-  bottom: -50px;
-  text-align: center;
-}
-
 .passed-words {
 }
 
@@ -219,4 +234,32 @@
   margin: auto;
   background-color: #399e3c9a;
   border-radius: 5px;
+}
+
+.overlay {
+  position: absolute;
+  /* display: none; */
+  width: 100%;
+
+  top: 304px;
+  left: 0;
+  right: 0;
+  bottom: -158px;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 1;
+  cursor: pointer;
+}
+
+.overlay2 {
+  position: absolute;
+  /* display: none; */
+  width: 100%;
+  /* top: 304px; */
+  left: 0;
+  bottom: -112px;
+  height: 20vh;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.9);
+  z-index: 4;
+  cursor: pointer;
 }
