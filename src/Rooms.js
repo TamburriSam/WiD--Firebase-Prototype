@@ -506,9 +506,6 @@ function Rooms() {
             </Button>
           </form>
 
-          <Button id='clearBtn' onClick={testClear}>
-            clear
-          </Button>
           {/*  {roomLI ? (
         <RoomLI
           data={data}

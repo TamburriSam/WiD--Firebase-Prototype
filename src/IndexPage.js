@@ -1,6 +1,8 @@
 import firebase from "firebase/app";
 import logoStandAlone from "./logos/logoStandalone.png";
 import white_logo_dark_bg from "./logos/white_logo_dark_background.jpg";
+import white_logo_only from "./logos/whiteTextLogoOnly.png";
+
 import blurb from "./logos/blurb10.jpeg";
 import mobileLogo from "./logos/whiteLogoStandalone.png";
 import App from "./App.js";
@@ -60,38 +62,27 @@ function IndexPage(props) {
       <div id='overlay'></div>
       <div id='right-half'>
         <div id='sign-inContainer'>
-          <div id='sign-inForm'>
-            <h2 id='title'>
-              <div id='logo-container'>
-                <img id='logo-alone' src={logoStandAlone} alt='logo' />
-              </div>
-            </h2>
-
-            <br />
-          </div>
           <form id='userName-box' onSubmit={submitForm}>
-            <div id='labelAndInput'>
-              <label>Enter Username: </label>
-              <input
-                type='text'
-                placeholder={inputField}
-                onChange={handleChange}
-                required
-              />
+            <div id='logo-container-index'>
+              <img id='logo-alone' src={logoStandAlone} alt='logo' />
             </div>
-            {/* <input id='startBtn' type='submit' value='Start' /> */}
 
-            <div id='startBtn-container'>
-              <button
-                variant='contained'
-                size='medium'
-                type='submit'
-                id='startBtn'
-                className='startBtn'
-              >
-                Start
-              </button>
-            </div>
+            <label>Enter Username</label>
+            <input
+              type='text'
+              placeholder={inputField}
+              onChange={handleChange}
+              required
+            />
+            <button
+              variant='contained'
+              size='medium'
+              type='submit'
+              id='startBtn'
+              className='startBtn'
+            >
+              Start
+            </button>
           </form>
         </div>
       </div>

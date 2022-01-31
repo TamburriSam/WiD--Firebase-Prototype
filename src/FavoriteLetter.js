@@ -25,7 +25,7 @@ const FavoriteLetter = ({
     <div id='fast-facts'>
       <div id='blurb'></div>
       <div id='notification'>
-        What's your favorite letter of the alphabet? Type it in the box.
+        What's your favorite letter of the alphabet? Type it below.
       </div>
       <div id='inputContainer'>
         <input

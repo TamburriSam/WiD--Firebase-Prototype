@@ -23,7 +23,7 @@ function Game1({ expiryTimestamp }) {
     let LSg1Start = localStorage.getItem("g1");
 
     const time = new Date();
-    time.setSeconds(time.getSeconds() + 360); // 10 minutes timer
+    time.setSeconds(time.getSeconds() + 420); // 10 minutes timer
     restart(time, true);
 
     if (LSg1Start) {

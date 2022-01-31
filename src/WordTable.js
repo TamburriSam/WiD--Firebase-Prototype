@@ -121,6 +121,13 @@ const Wordtable = () => {
           listItems[index].classList.remove("listItems");
 
           listItems[index].classList.add("crossed-word");
+
+          console.log(listItems[index].childNodes[1]);
+
+          /*   listItems[
+            index
+          ].childNodes[1].innerHTML += `<input type="checkbox" />`; */
+
           wordCounter();
         } else {
           console.log(item.className);
@@ -196,9 +203,10 @@ const Wordtable = () => {
           margin: "auto",
           border: "2px solid grey",
           width: "95vw",
+          marginBottom: "50px",
           padding: "5px",
           borderRadius: "5px",
-          marginBottom: "20px",
+
           height: "fit-content",
           top: "10px",
         }}
@@ -207,8 +215,7 @@ const Wordtable = () => {
         Now for the creative part! Here are all your words, lined up in columns.
         Read each row of four words across. Do you see any striking connections
         and associations? Pick four or five rows that seem especially
-        interesting to you and copy those 16 or 20 words onto the blank panel on
-        the right.<br></br>
+        interesting to you.<br></br>
         Now write a poem using those words.<br></br>
         Pick another word from your lists to be the title. Then use the rest of
         the words to write your poem.<br></br>
@@ -255,7 +262,7 @@ const Wordtable = () => {
               variant='outlined'
               onClick={printEssay}
             >
-              Print Essay to PDF
+              Print Poem to PDF
             </Button>
             <Button
               class='word-table-btns'

@@ -90,7 +90,7 @@ function RoomLI({
                         : false
                     }
                   >
-                    {node.data().name ? "Join" : "Room Full"}
+                    {"Join"}
                   </Button>
                 </td>
               </tr>

@@ -27,7 +27,7 @@ const Game2 = ({ expiryTimestamp }) => {
     let LSuserId = localStorage.getItem("user_id");
 
     const time = new Date();
-    time.setSeconds(time.getSeconds() + 360); // 10 minutes timer
+    time.setSeconds(time.getSeconds() + 420); // 10 minutes timer
     restart(time, true);
 
     /*  localStorage.setItem("g2", true); */
@@ -389,7 +389,7 @@ const Game2 = ({ expiryTimestamp }) => {
             textAlign: "center",
             margin: "auto",
             border: "2px solid grey",
-            width: "68vw",
+            width: "80vw",
             padding: "5px",
             borderRadius: "5px",
             marginBottom: "10px",

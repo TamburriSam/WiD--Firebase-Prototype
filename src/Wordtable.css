@@ -39,7 +39,8 @@
   justify-content: space-around;
 }
 .crossed-word {
-  text-decoration: line-through;
+  background-color: yellow;
+  border-radius: 5px;
   width: 36vw;
   position: relative;
   text-align: center;

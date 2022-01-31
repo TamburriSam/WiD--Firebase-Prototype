@@ -8,9 +8,12 @@ import FavoriteLetter from "./FavoriteLetter";
 import mainLogo from "./logos/whiteLogoStandalone.png";
 import { useTimer } from "react-timer-hook";
 import genUsername from "unique-username-generator";
+import { lightBlue } from "@mui/material/colors";
 
 function CurrentRoom({ expiryTimestamp, name, favorite_letter, removeUser }) {
   const db = firebase.firestore();
+
+  var UsernameGenerator = require("username-generator");
 
   const genUsername = require("unique-username-generator");
 
@@ -24,6 +27,7 @@ function CurrentRoom({ expiryTimestamp, name, favorite_letter, removeUser }) {
   const [favoriteLetter, setfavoriteLetter] = useState("");
   const [showLetter, setShowLetter] = useState(false);
   const [numOfStudents, setNumOfStudents] = useState(9);
+  const [count, setCount] = useState(9);
 
   const selectAFavoriteLetter = (id) => {
     setroomLoad(true);
@@ -37,13 +41,13 @@ function CurrentRoom({ expiryTimestamp, name, favorite_letter, removeUser }) {
   const waitingRoomShift = () => {
     document.getElementById("notification").innerHTML = "Your Favorite Letter";
     document.getElementById("letterSubmit").style.display = "none";
-    document.getElementById("fast-facts").style.right = "164px";
-    document.getElementById("fast-facts").style.height = "71vh";
-    document.getElementById("fast-facts").style.width = "63vw";
-    document.getElementById("fast-facts").style.top = "87px";
+    document.getElementById("fast-facts").style.left = "10px";
+    document.getElementById("fast-facts").style.position = "absolute";
+
+    document.getElementById("fast-facts").style.top = "130px";
     document.getElementById("waiting").style.display = "block";
     document.getElementById("current-room").style.display = "block";
-    document.getElementById("current-room").style.bottom = "185px";
+    document.getElementById("current-room").style.top = "185px";
   };
 
   const {
@@ -71,13 +75,15 @@ function CurrentRoom({ expiryTimestamp, name, favorite_letter, removeUser }) {
     let inputList = document.querySelector("#user-loading-list");
     const username = genUsername.generateUsername();
 
-    console.log(username);
-
-    let userArr = [];
+    let userArray = [`Live Student 1`, "Live Student 2"];
 
     let html = "";
 
-    inputList.innerHTML += `- ${username}<br>`;
+    userArray.map((item) => {
+      html += `<li>${item}</li>`;
+
+      inputList.innerHTML += html;
+    });
   }
 
   const handleSoloLetterChange = () => {
@@ -86,10 +92,12 @@ function CurrentRoom({ expiryTimestamp, name, favorite_letter, removeUser }) {
     setroomLoad(true);
 
     setfavoriteLetter(LSfavorite_letter);
-    mockUsers();
+
     waitingRoomShift();
 
     setinRoom(true);
+
+    mockUsers();
   };
 
   const handleLetterChange = () => {
@@ -217,25 +225,13 @@ function CurrentRoom({ expiryTimestamp, name, favorite_letter, removeUser }) {
           Leave Room
         </button>
         <div>
-          <div id='user-loading-header'>
-            <img id='user-loading-logo' src={mainLogo} alt='' />
-
-            <h3 id='user-title'>User List</h3>
-          </div>
           <div id='user-loading-list'>
-            <table>
+            Users Online
+            <ul>
               {nodes.map((node, index) => {
-                return (
-                  <thead key={index.toString()}>
-                    <tr>
-                      <td>-{node}</td>
-
-                      <td></td>
-                    </tr>
-                  </thead>
-                );
+                return <li key={index.toString()}>{node}</li>;
               })}
-            </table>
+            </ul>
           </div>
         </div>
       </div>

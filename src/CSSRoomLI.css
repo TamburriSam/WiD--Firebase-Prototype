@@ -9,6 +9,7 @@ form {
 }
 
 #liveRoom {
+  min-height: 79vh;
   padding: 15px;
   position: relative;
   border-radius: 5px;
@@ -96,21 +97,6 @@ form {
 }
 
 /* Current Room */
-#current-room {
-  position: relative;
-  z-index: 100;
-  background-color: white;
-  width: 10vw;
-  position: absolute;
-  border-radius: 5px;
-  padding: 20px;
-  right: 15px;
-  text-align: center;
-  bottom: 10px;
-  width: 20vw;
-  height: 500px;
-  display: none;
-}
 
 #room-name {
   position: relative;
@@ -135,7 +121,7 @@ form {
   /* position: absolute; */
   background: white;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-  height: 80vh;
+  height: 75vh;
   /* left: 15px; */
   top: 29px;
   /* outline: solid 20px rgb(155, 155, 155); */
@@ -148,7 +134,8 @@ form {
 }
 
 #notification {
-  font-size: 24px;
+  font-size: 32px;
+  padding: 5px;
 }
 #inputContainer {
   font-size: 400px;
@@ -173,10 +160,11 @@ form {
   /* position: relative; */
   color: white;
   z-index: 5;
+  top: 80px;
   position: absolute;
-  top: 67px;
+
   display: none;
-  left: 15px;
+  left: 10px;
   width: 90vw;
   font-size: 32px;
 }
@@ -206,37 +194,17 @@ form {
 
 #alphabetInput {
   font-size: 400px;
-  height: 60vh;
+  height: 40vh;
   width: 50vw;
   text-align: center;
   border: none;
-}
-#alphabetInput::placeholder {
-  font-size: 46px;
-  position: relative;
-  bottom: 126px;
+  outline: none;
 }
 
-.startBtn {
-  background-color: #000000f5;
-  border: 3px solid white !important;
-  color: white;
-  height: 60px;
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  /* bottom: -95px; */
-  border-radius: 3px;
-  width: 100%;
-  font-family: "Montserrat", sans-serif !important;
-  font-size: 12px;
-  cursor: pointer;
-  transition: 0.3s;
-}
-.startBtn:hover {
-  color: black !important;
-  background-color: white;
-  border: 1px solid black;
+#alphabetInput::placeholder {
+  font-size: 5.5vw;
+  position: relative;
+  bottom: 150px;
 }
 
 #letterSubmit {
@@ -251,7 +219,7 @@ form {
   border-radius: 3px;
   width: 100%;
   font-family: "Montserrat", sans-serif !important;
-  font-size: 12px;
+  font-size: 2vw;
   cursor: pointer;
   transition: 0.3s;
 }
@@ -325,16 +293,82 @@ form {
   text-align: center;
 }
 
-#user-loading-list {
+/* #user-loading-list {
   border: 1px solid black;
-
+  max-height: 300px;
+  overflow-y: scroll;
   border: 3px solid #399e3c9a;
   text-align: center;
   position: relative;
   border-radius: 5px;
   padding: 10px;
   top: 10px;
+} */
+
+#current-room {
+  position: relative;
+  z-index: 100;
+  position: absolute;
+  border-radius: 5px;
+  right: 10px;
+  text-align: center;
+  bottom: 10px;
+  width: fit-content;
+  padding: 10px;
+  height: fit-content;
+  background-color: rgb(71, 67, 67);
+  box-shadow: inset 0 0 15px rgba(233, 230, 230, 0.2);
+
+  display: none;
 }
+
+#user-loading-list {
+  position: relative;
+  width: fit-content;
+
+  margin: 20px auto 0;
+  padding: 10px;
+  box-sizing: border-box;
+  background: rgb(0, 0, 0);
+  box-shadow: inset 0 0 15px rgba(233, 230, 230, 0.2);
+  color: white;
+}
+
+#user-loading-list li {
+  display: flex;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 10px 20px;
+  color: #fff;
+
+  margin: 5px 0;
+  transition: 0.5s;
+  cursor: pointer;
+}
+
+#user-loading-list li:nth-child(1) {
+  background: rgba(255, 255, 255, 0.6);
+}
+
+#user-loading-list li:nth-child(2) {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+#user-loading-list li:nth-child(3) {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+#user-loading-list li:nth-child(4) {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+#user-loading-list li:nth-child(5) {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+#user-loading-list li:nth-child(6) {
+  background: rgba(255, 255, 255, 0.1);
+}
+
 #user-loading-list tr {
   width: 10vw;
 }
