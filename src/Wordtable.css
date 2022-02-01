@@ -1,20 +1,19 @@
 #MainDiv {
   display: flex;
-  position: relative;
+  justify-content: space-around;
 }
 
 #table2 {
   background-color: white;
   padding: 5px;
   width: 40vw;
+  height: 70vh;
+
   border-radius: 5px;
   z-index: 100;
   border-collapse: unset;
-  position: absolute;
-
   box-shadow: 1px 1px 0px #999, 2px 2px 0px #999, 3px 3px 0px #999,
     4px 4px 0px #999, 5px 5px 0px #999, 6px 6px 0px #999 !important;
-  left: 40px;
   font-family: "Montserrat", sans-serif !important;
 }
 
@@ -30,19 +29,29 @@
 }
 
 .listItems {
+  border-bottom: 1px solid rgba(19, 18, 18, 0.226);
   text-align: center;
   position: relative;
   left: 10px;
+  align-items: center;
+  height: 3vh;
   bottom: 7px;
   width: 36vw;
   display: flex;
   justify-content: space-around;
 }
+
 .crossed-word {
+  border-bottom: 1px solid rgba(19, 18, 18, 0.226);
+  align-items: center;
+
   background-color: yellow;
   border-radius: 5px;
   width: 36vw;
   position: relative;
+  height: 3vh;
+  display: flex;
+  left: 10px;
   text-align: center;
   bottom: 7px;
   justify-content: space-around;
@@ -57,12 +66,12 @@
   text-align: center;
   flex-direction: column;
   width: 50vw;
-  height: 40vh;
-
+  height: 50vh;
+  bottom: 200px;
   position: absolute;
-  right: 30px;
-}
 
+  bottom: 80px;
+}
 #buttons {
   width: 50vw;
   display: flex;
@@ -73,8 +82,9 @@
 #essay {
   font-family: "Montserrat", sans-serif !important;
   font-size: 14px;
-  height: 300px;
+  height: 40vh;
   padding: 10px;
+
   border: 2px solid grey;
   outline: none;
   border-radius: 5px;
@@ -118,16 +128,20 @@
 
 #word-count-box {
   /* position: absolute; */
-  height: 20px;
+  height: 27px;
   position: relative;
   border: 1px solid black;
+  padding: 1px;
   width: 156px;
   bottom: 14px;
   border-radius: 5px;
   /* margin-bottom: 10px; */
   /* padding-bottom: 10px; */
+  display: flex;
   margin: auto;
   text-align: center;
+  justify-content: center;
+  align-items: center;
 }
 
 .word-table-btns {

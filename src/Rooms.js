@@ -458,13 +458,9 @@ function Rooms() {
   return (
     <div className='background'>
       <Nav />
-      <div id='overlay'></div>
 
       <div className='liveRoom'>
-        <div
-          id='active-container'
-          style={{ backgroundImage: `url(${background})` }}
-        >
+        <div id='active-container'>
           <form id='create-room' onSubmit={(e) => createRoom(e)}>
             <TextField
               label='Room Name'
@@ -506,15 +502,6 @@ function Rooms() {
             </Button>
           </form>
 
-          {/*  {roomLI ? (
-        <RoomLI
-          data={data}
-          createNewProfile={createNewProfile}
-          roomFullDisableBtn={roomFullDisableBtn}
-          soloFunc={soloFunc}
-          displayCreateBtns={displayCreateBtns}
-        />
-      ) : null} */}
           <div>{content}</div>
         </div>
       </div>

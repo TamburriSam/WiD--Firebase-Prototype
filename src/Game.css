@@ -135,7 +135,6 @@
 /* Continue Button */
 
 #button-container {
-  position: relative;
   /* bottom: 170px; */
   padding-top: 50px;
   padding-bottom: 25px;
@@ -151,14 +150,12 @@
 .second-button-container {
   width: 100vw;
   position: relative;
-
   padding-top: 50px;
-  padding-bottom: 25px;
-
-  position: absolute;
-  /*  bottom: -105px; */
+  /* padding-bottom: 25px; */
+  /* position: absolute; */
+  /* bottom: -105px; */
   text-align: center;
-  background-image: url("./logos/green3.jpg");
+  /* background-image: url(/static/media/green3.7e269544.jpg); */
   background-repeat: no-repeat;
   background-size: cover;
 }
@@ -234,32 +231,4 @@
   margin: auto;
   background-color: #399e3c9a;
   border-radius: 5px;
-}
-
-.overlay {
-  position: absolute;
-  /* display: none; */
-  width: 100%;
-
-  top: 304px;
-  left: 0;
-  right: 0;
-  bottom: -158px;
-  background-color: rgba(0, 0, 0, 0.7);
-  z-index: 1;
-  cursor: pointer;
-}
-
-.overlay2 {
-  position: absolute;
-  /* display: none; */
-  width: 100%;
-  /* top: 304px; */
-  left: 0;
-  bottom: -112px;
-  height: 20vh;
-  right: 0;
-  background-color: rgba(0, 0, 0, 0.9);
-  z-index: 4;
-  cursor: pointer;
 }

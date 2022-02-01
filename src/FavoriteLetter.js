@@ -19,7 +19,7 @@ const FavoriteLetter = ({
     }
 
     document.getElementById("active-container").style.height = "100vh";
-  });
+  }, []);
 
   return (
     <div id='fast-facts'>

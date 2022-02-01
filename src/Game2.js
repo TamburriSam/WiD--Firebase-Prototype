@@ -426,7 +426,6 @@ const Game2 = ({ expiryTimestamp }) => {
 
         <ul id='input-list'></ul>
       </div>
-      <div className='overlay2'></div>
 
       <form onSubmit={(e) => allEntered(e)} className='second-button-container'>
         <Button

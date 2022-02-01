@@ -195,38 +195,71 @@ const Wordtable = () => {
   }
   return (
     <div>
-      <div
-        style={{
-          backgroundColor: "#e0ffe3",
-          position: "relative",
-          textAlign: "center",
-          margin: "auto",
-          border: "2px solid grey",
-          width: "95vw",
-          marginBottom: "50px",
-          padding: "5px",
-          borderRadius: "5px",
-
-          height: "fit-content",
-          top: "10px",
-        }}
-        id='instruction-game'
-      >
-        Now for the creative part! Here are all your words, lined up in columns.
-        Read each row of four words across. Do you see any striking connections
-        and associations? Pick four or five rows that seem especially
-        interesting to you.<br></br>
-        Now write a poem using those words.<br></br>
-        Pick another word from your lists to be the title. Then use the rest of
-        the words to write your poem.<br></br>
-        You can use as many other words as you like to make connections between
-        the ones you chose.<br></br> You can change the forms of any of your
-        words, make nouns plural, change the tense of the verbs.<br></br>The
-        main thing is, don't worry about making sense: make poetry instead!
-        <br></br>
-      </div>
-
       <div id='MainDiv'>
+        <div>
+          <div
+            style={{
+              backgroundColor: "#e0ffe3",
+              position: "relative",
+              textAlign: "center",
+              display: "flex",
+              alignItems: "center",
+              border: "2px solid grey",
+              width: "50vw",
+              marginBottom: "50px",
+              padding: "20px",
+              borderRadius: "5px",
+              fontSize: "18px",
+              justifyContent: "center",
+              height: "fit-content",
+            }}
+            id='instruction-game'
+          >
+            Now for the creative part!
+            <br></br>
+            Read each row of four words for any interesting<br></br>connections
+            and associations. Pick four or five rows<br></br>
+            that interest you and use those words to write a poem <br></br>
+            in the blank window. Use as many other words as you <br></br>need to
+            make connections between your words and <br></br>change their forms
+            however you like; make nouns<br></br>plural, change tenses of verbs,
+            etc.<br></br>Don't worry about making sense: make poetry!<br></br>
+            When you're done, pick a word from your lists to be your title.
+            <br></br>
+          </div>
+          <div id='input_and_button_container'>
+            <textarea placeholder='Start writing here...' id='essay' />
+            <p style={{ color: "white" }}>
+              Save your poem and lists to your device for a later exercise. Then
+              click "Continue."
+            </p>
+            <div id='buttons'>
+              <Button
+                class='word-table-btns'
+                variant='outlined'
+                onClick={printEssay}
+              >
+                Print Poem to PDF
+              </Button>
+              <Button
+                class='word-table-btns'
+                variant='outlined'
+                onClick={printLists}
+              >
+                Print Lists to PDF
+              </Button>
+              <Button
+                class='word-table-btns'
+                variant='outlined'
+                color='success'
+                onClick={nextPage}
+              >
+                Finish (Continue)
+              </Button>
+            </div>
+          </div>
+        </div>
+
         <table id='table2'>
           <thead id='thead-col'>
             <tr id='table-row-cols'>
@@ -252,35 +285,6 @@ const Wordtable = () => {
             <tbody id='tbody1'></tbody>
           </div>
         </table>
-
-        <div id='input_and_button_container'>
-          <textarea placeholder='Start writing here...' id='essay' />
-
-          <div id='buttons'>
-            <Button
-              class='word-table-btns'
-              variant='outlined'
-              onClick={printEssay}
-            >
-              Print Poem to PDF
-            </Button>
-            <Button
-              class='word-table-btns'
-              variant='outlined'
-              onClick={printLists}
-            >
-              Print Lists to PDF
-            </Button>
-            <Button
-              class='word-table-btns'
-              variant='outlined'
-              color='success'
-              onClick={nextPage}
-            >
-              Finish (Continue)
-            </Button>
-          </div>
-        </div>
       </div>
     </div>
   );

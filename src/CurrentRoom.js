@@ -75,15 +75,12 @@ function CurrentRoom({ expiryTimestamp, name, favorite_letter, removeUser }) {
     let inputList = document.querySelector("#user-loading-list");
     const username = genUsername.generateUsername();
 
-    let userArray = [`Live Student 1`, "Live Student 2"];
-
     let html = "";
 
-    userArray.map((item) => {
-      html += `<li>${item}</li>`;
+    html += `<li> User1</li>`;
+    html += `<li> User2</li>`;
 
-      inputList.innerHTML += html;
-    });
+    inputList.innerHTML += html;
   }
 
   const handleSoloLetterChange = () => {
@@ -96,8 +93,6 @@ function CurrentRoom({ expiryTimestamp, name, favorite_letter, removeUser }) {
     waitingRoomShift();
 
     setinRoom(true);
-
-    mockUsers();
   };
 
   const handleLetterChange = () => {
@@ -109,7 +104,7 @@ function CurrentRoom({ expiryTimestamp, name, favorite_letter, removeUser }) {
 
       waitingRoomShift();
     }
-    setinRoom(true);
+    /*  setinRoom(true); */
   };
 
   useEffect(() => {
@@ -147,6 +142,8 @@ function CurrentRoom({ expiryTimestamp, name, favorite_letter, removeUser }) {
             const time = new Date();
             time.setSeconds(time.getSeconds() + 9); // 10 minutes timer
             restart(time, true);
+
+            mockUsers();
           }
         });
     }
