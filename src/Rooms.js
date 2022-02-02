@@ -14,6 +14,7 @@ import Nav from "./Nav";
 import Button from "@mui/material/Button";
 import "./Nav.css";
 import background from "./logos/green3.jpg";
+import uniqid from "uniqid";
 
 function Rooms() {
   const db = firebase.firestore();
@@ -98,9 +99,15 @@ function Rooms() {
 
   const createRoom = (e) => {
     e.preventDefault();
+
+    let ROOM_ID = uniqid();
+
+    console.log(ROOM_ID);
+
     if (typeof roomCount === "number" && roomCount < 40 && roomCount > 1) {
       db.collection("rooms")
-        .add({
+        .doc(ROOM_ID)
+        .set({
           name: roomName,
           total_count: parseInt(roomCount),
           active_count: 0,
@@ -112,12 +119,20 @@ function Rooms() {
           poems: [],
           password,
           display: true,
+          game_started: false,
         })
-        .then(() => {});
+        .then(() => {
+          createAdmin();
+          localStorage.setItem("room_id", ROOM_ID);
+        });
       document.getElementById("create-room").style.display = "none";
     } else {
       alert("Must Enter Number Over 1 and Less than 40");
     }
+  };
+
+  const createAdmin = () => {
+    localStorage.setItem("isAdmin", true);
   };
 
   const createNewProfile = (e) => {
@@ -158,11 +173,23 @@ function Rooms() {
     };
 
     checkPassword(id, userInfo);
-    testUpdate(currentUser, userInfoTest);
+    testUpdate(currentUser, userInfoTest, e);
   };
 
-  const testUpdate = (currentUser, userInfoTest) => {
+  const testUpdate = (currentUser, userInfoTest, e) => {
+    console.log("dblclick");
     db.collection("users").doc(currentUser).set(userInfoTest);
+
+    const LSadmin = localStorage.getItem("isAdmin");
+    const LSroom_id = localStorage.getItem("room_id");
+    if (LSadmin && e.target.id === LSroom_id) {
+      db.collection("users").doc(currentUser).update(
+        { isAdmin: true },
+        {
+          merge: true,
+        }
+      );
+    }
   };
 
   const checkPassword = (id, userInfo) => {
@@ -509,7 +536,10 @@ function Rooms() {
         <img id='secondaryLogo2' src={secondaryLogo} alt='' />
       </div>
       <footer>
-        <img className='gitHub' src={ghIcon} alt='' />
+        <a target='_blank' href='https://github.com/TamburriSam'>
+          <img className='gitHub' src={ghIcon} alt='' />
+        </a>
+
         <span className='footer-text'>Created by Sam Tamburri </span>
       </footer>
     </div>

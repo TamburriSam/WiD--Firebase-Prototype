@@ -28,6 +28,7 @@ function CurrentRoom({ expiryTimestamp, name, favorite_letter, removeUser }) {
   const [showLetter, setShowLetter] = useState(false);
   const [numOfStudents, setNumOfStudents] = useState(9);
   const [count, setCount] = useState(9);
+  const [admin, setAdmin] = useState(false);
 
   const selectAFavoriteLetter = (id) => {
     setroomLoad(true);
@@ -108,6 +109,11 @@ function CurrentRoom({ expiryTimestamp, name, favorite_letter, removeUser }) {
   };
 
   useEffect(() => {
+    const LSadmin = localStorage.getItem("isAdmin");
+    if (LSadmin) {
+      setAdmin(true);
+    }
+
     setroomID(localStorage.getItem("room_id"));
 
     selectAFavoriteLetter();
@@ -134,9 +140,9 @@ function CurrentRoom({ expiryTimestamp, name, favorite_letter, removeUser }) {
 
           let gs = localStorage.getItem("game_start");
 
+          //if(game_started===true){}
           if (activeCount === totalCount && Boolean(gs) !== true) {
-            document.querySelector(".loading-game-start").style.display =
-              "block";
+            document.querySelector(".game-start").style.display = "block";
             document.querySelector(".loading").style.display = "none";
 
             const time = new Date();
@@ -214,7 +220,7 @@ function CurrentRoom({ expiryTimestamp, name, favorite_letter, removeUser }) {
       <div id='waiting'>
         <p class='loading'>Waiting for users to join</p>
 
-        <p class='loading-game-start'>Game Starting in {seconds}</p>
+        <p class='loading game-start'>Game Starting in {seconds}</p>
       </div>
 
       <div id='current-room'>
@@ -232,6 +238,19 @@ function CurrentRoom({ expiryTimestamp, name, favorite_letter, removeUser }) {
           </div>
         </div>
       </div>
+
+      {admin ? (
+        <button
+          style={{
+            backgroundColor: "red",
+            width: "30vw",
+            position: "absolute",
+            bottom: "40px",
+          }}
+        >
+          Start Game
+        </button>
+      ) : null}
     </div>
   );
 }
