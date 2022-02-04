@@ -119,8 +119,6 @@ body {
 .blurb {
   width: 35vw;
   position: relative;
-  max-width: 700px;
-  min-width: 500px;
 
   bottom: 10px;
 }

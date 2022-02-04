@@ -61,7 +61,8 @@ function Rooms() {
   useEffect(() => {
     if (
       localStorage.getItem("room_id") &&
-      localStorage.getItem("room_id") !== ""
+      localStorage.getItem("room_id") !== "" /* &&
+      !localStorage.getItem("isAdmin") */
     ) {
       console.log("ok");
       setwaitingRoom(true);
@@ -356,6 +357,7 @@ function Rooms() {
     let activeCount;
     let users;
     let LSsolo = localStorage.getItem("solo");
+    let LSadmin = localStorage.getItem("isAdmin");
 
     if (LSroomId) {
       if (LSroomId !== "" && e.target.id !== LSroomId && !LSsolo) {
@@ -421,6 +423,8 @@ function Rooms() {
     localStorage.removeItem("favorite_letter");
     localStorage.removeItem("waiting");
     localStorage.removeItem("room");
+    localStorage.removeItem("isAdmin");
+    localStorage.removeItem("adminRoom");
   };
 
   const roomFullDisableBtn = () => {
@@ -465,6 +469,7 @@ function Rooms() {
     content = (
       <CurrentRoom
         name={localStorage.getItem("room")}
+        createNewProfile={createNewProfile}
         removeUser={removeUser}
       />
     );

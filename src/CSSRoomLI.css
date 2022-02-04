@@ -19,7 +19,7 @@ form {
   margin: auto;
   background-color: white;
   width: 95vw;
-  overflow-x: scroll;
+  overflow-y: scroll;
 }
 
 /* Table */
