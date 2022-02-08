@@ -78,7 +78,9 @@ function CurrentRoom({
             time.setSeconds(time.getSeconds() + 9); // 10 minutes timer
             restart(time, true);
 
-            mockUsers();
+            if (isSolo) {
+              mockUsers();
+            }
           }
         });
     }

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import firebase from "firebase/app";
 import { useScrollTrigger } from "@mui/material";
 import Button from "@mui/material/Button";
-
+import { jsPDF } from "jspdf";
 const LiveRoom = () => {
   const db = firebase.firestore();
 
@@ -13,6 +13,7 @@ const LiveRoom = () => {
   const [message, setMessage] = useState("");
   const [count, setCount] = useState(true);
   const [goBack, setgoBack] = useState(false);
+  const [admin, setAdmin] = useState(false);
 
   const [buttonHTML, setButtonHTML] = useState("Send Poem");
 
@@ -20,6 +21,11 @@ const LiveRoom = () => {
 
   useEffect(() => {
     let LSsolo = localStorage.getItem("solo");
+    let LSadmin = localStorage.getItem("isAdmin");
+
+    if (LSadmin) {
+      setAdmin(LSadmin);
+    }
 
     if (!LSsolo) {
       getData();
@@ -99,6 +105,21 @@ const LiveRoom = () => {
       let LSPoem = localStorage.getItem("poem");
       setNodes((nodes) => [...nodes, LSPoem]);
     }
+  };
+
+  const getClassInfo = () => {
+    db.collection("rooms")
+      .doc(localStorage.getItem("room_id"))
+      .get()
+      .then((doc) => {
+        let poems = doc.data().poems;
+        const pdf = new jsPDF();
+
+        let essay = document.getElementById("essay");
+
+        pdf.text(poems, 10, 10);
+        pdf.save("Class Poems.pdf");
+      });
   };
 
   const endGame = () => {
@@ -206,6 +227,24 @@ const LiveRoom = () => {
             >
               {buttonHTML}
             </Button>
+
+            {admin ? (
+              <Button
+                onClick={getClassInfo}
+                variant='outlined'
+                color='success'
+                style={{
+                  margin: "auto",
+                  border: "2px solid white",
+                  position: "relative",
+                  top: "80px",
+                  color: "white",
+                }}
+              >
+                Get poems
+              </Button>
+            ) : null}
+
             <div
               style={{
                 position: "relative",

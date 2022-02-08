@@ -105,31 +105,27 @@ function Rooms() {
 
     console.log(ROOM_ID);
 
-    if (typeof roomCount === "number" && roomCount < 40 && roomCount > 1) {
-      db.collection("rooms")
-        .doc(ROOM_ID)
-        .set({
-          name: roomName,
-          total_count: parseInt(roomCount),
-          active_count: 0,
-          list_one: [],
-          list_two: [],
-          list_three: [],
-          list_four: [],
-          users: {},
-          poems: [],
-          password,
-          display: true,
-          game_started: false,
-        })
-        .then(() => {
-          createAdmin();
-          localStorage.setItem("room_id", ROOM_ID);
-        });
-      document.getElementById("create-room").style.display = "none";
-    } else {
-      alert("Must Enter Number Over 1 and Less than 40");
-    }
+    db.collection("rooms")
+      .doc(ROOM_ID)
+      .set({
+        name: roomName,
+        total_count: parseInt(roomCount),
+        active_count: 0,
+        list_one: [],
+        list_two: [],
+        list_three: [],
+        list_four: [],
+        users: {},
+        poems: [],
+        password,
+        display: true,
+        game_started: false,
+      })
+      .then(() => {
+        createAdmin();
+        localStorage.setItem("room_id", ROOM_ID);
+      });
+    document.getElementById("create-room").style.display = "none";
   };
 
   const closeCreateRoom = () => {
