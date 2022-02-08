@@ -72,7 +72,7 @@ function RoomLI({
                 </td>
 
                 <td className='group-count'>
-                  {node.data().active_count} / {node.data().total_count} Active
+                  {node.data().active_count} Active
                 </td>
 
                 <td className='join-btn'>
@@ -84,11 +84,7 @@ function RoomLI({
                     id={node.id}
                     onClick={(e) => createNewProfile(e)}
                     className=' room-select'
-                    disabled={
-                      node.data().active_count === node.data().total_count
-                        ? true
-                        : false
-                    }
+                    disabled={node.data().is_solo ? true : false}
                   >
                     {"Join"}
                   </Button>

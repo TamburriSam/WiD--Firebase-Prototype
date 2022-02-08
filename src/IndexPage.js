@@ -93,7 +93,16 @@ function IndexPage(props) {
             <img className='logo' src={white_logo_dark_bg} alt='' />
           </div>
           <div id='blurbContainer'>
-            <img className='blurb' src={blurb} alt='' />
+             <img className='blurb' src={blurb} alt='' />
+           {/*  <p id='blurb-text'>
+              Word into idea is a creative exercise created by Stephen Fried in
+              1972.<br></br>
+              <br></br> The exercise is inspired by the "cut-up" technique made
+              popular in the 1950's and used for creative inspiration for
+              artists like David Bowie and Kurt Cobain.<br></br>
+              <br></br> This website aims to bring the round-robin classroom
+              exercise live in a digital format
+            </p> */}
           </div>
         </div>
 

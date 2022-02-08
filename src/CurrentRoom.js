@@ -57,6 +57,8 @@ function CurrentRoom({
           let users = data.users;
           let activeCount = data.active_count;
           let totalCount = data.total_count;
+          let game_started = data.game_started;
+          let isSolo = data.is_solo;
           let letters = [];
 
           console.log("CHANGED NOWS");
@@ -68,8 +70,7 @@ function CurrentRoom({
 
           let gs = localStorage.getItem("game_start");
 
-          //if(game_started===true){}
-          if (activeCount === totalCount && Boolean(gs) !== true) {
+          if ((game_started === true && Boolean(gs) !== true) || isSolo) {
             document.querySelector(".game-start").style.display = "block";
             document.querySelector(".loading").style.display = "none";
 
@@ -162,8 +163,8 @@ function CurrentRoom({
 
     let html = "";
 
-    html += `<li> User1</li>`;
-    html += `<li> User2</li>`;
+    html += `<li>Mock Student</li>`;
+    html += `<li>Mock Student</li>`;
 
     inputList.innerHTML += html;
   }
@@ -213,6 +214,11 @@ function CurrentRoom({
     } else {
       return false;
     }
+  };
+
+  const adminStartedGame = () => {
+    let ROOMLS = localStorage.getItem("room_id");
+    db.collection("rooms").doc(ROOMLS).update({ game_started: true });
   };
 
   let gs = localStorage.getItem("game_start");
@@ -279,6 +285,7 @@ function CurrentRoom({
 
       {admin ? (
         <button
+          onClick={adminStartedGame}
           style={{
             backgroundColor: "red",
             width: "30vw",

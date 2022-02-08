@@ -132,6 +132,10 @@ function Rooms() {
     }
   };
 
+  const closeCreateRoom = () => {
+    document.getElementById("create-room").style.display = "none";
+  };
+
   const createAdmin = () => {
     localStorage.setItem("isAdmin", true);
   };
@@ -225,7 +229,7 @@ function Rooms() {
         userArray.push(users[prop].uid);
       }
 
-      if (!userArray.includes(userID) && activeCount < totalCount) {
+      if (!userArray.includes(userID)) {
         roomRef
           .update({
             users: firebase.firestore.FieldValue.arrayUnion(userInfo),
@@ -435,15 +439,7 @@ function Rooms() {
         .then((querySnapshot) => {
           querySnapshot.forEach((doc) => {
             //if ls room id not found
-
             //TRY SETTIMEOUT
-
-            setTimeout(() => {
-              if (doc.data().active_count === doc.data().total_count) {
-                document.getElementById(doc.id).disabled = true;
-                document.getElementById(doc.id).innerHTML = "In Session";
-              }
-            }, 10);
           });
         });
     } else {
@@ -494,6 +490,9 @@ function Rooms() {
       <div className='liveRoom'>
         <div id='active-container'>
           <form id='create-room' onSubmit={(e) => createRoom(e)}>
+            <p style={{ marginBottom: "10px" }}>
+              The creator of the room will be the administrator by default.
+            </p>
             <TextField
               label='Room Name'
               size='small'
@@ -501,16 +500,6 @@ function Rooms() {
               id='room-name'
               onChange={(e) => setRoomName(e.target.value)}
               placeholder='Room Name'
-              required
-            />
-
-            <TextField
-              label='Room Count'
-              size='small'
-              type='number'
-              id='room-count'
-              placeholder='Room Count'
-              onChange={(e) => setRoomCount(parseInt(e.target.value))}
               required
             />
             <TextField
@@ -531,6 +520,9 @@ function Rooms() {
               className='creater create-room'
             >
               Create Room
+            </Button>
+            <Button onClick={closeCreateRoom} type='button'>
+              Cancel
             </Button>
           </form>
 
