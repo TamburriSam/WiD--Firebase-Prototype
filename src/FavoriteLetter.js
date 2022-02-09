@@ -13,12 +13,15 @@ const FavoriteLetter = ({
     if (LSsolo) {
       console.log("yea found");
       handleSoloLetterChange();
-      document.getElementById(
-        "inputContainer"
-      ).innerHTML = `<div>${LSfavorite_letter.toUpperCase()}</div>`;
-    }
 
-    document.getElementById("active-container").style.height = "100vh";
+      if (LSfavorite_letter) {
+        document.getElementById(
+          "inputContainer"
+        ).innerHTML = `<div>${LSfavorite_letter.toUpperCase()}</div>`;
+      }
+
+      document.getElementById("active-container").style.height = "100vh";
+    }
   }, []);
 
   return (

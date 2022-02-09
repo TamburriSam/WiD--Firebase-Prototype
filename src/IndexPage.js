@@ -2,7 +2,7 @@ import firebase from "firebase/app";
 import logoStandAlone from "./logos/logoStandalone.png";
 import white_logo_dark_bg from "./logos/white_logo_dark_background.jpg";
 import white_logo_only from "./logos/whiteTextLogoOnly.png";
-
+import InstructionMode from "./InstructionMode";
 import blurb from "./logos/blurb10.jpeg";
 import mobileLogo from "./logos/whiteLogoStandalone.png";
 import App from "./App.js";
@@ -19,6 +19,7 @@ function IndexPage(props) {
   const [nextPage, setnextPage] = useState(false);
   const [uniqueId, setuniqueId] = useState(uniqid());
   const [showOption, setShowOption] = useState(false);
+  const [instructionMode, setInstructionMode] = useState(false);
 
   const handleChange = (e) => {
     setinputField(e.target.value);
@@ -31,6 +32,12 @@ function IndexPage(props) {
     console.log(inputField);
     localStorage.setItem("username", inputField);
     localStorage.setItem("user_id", uniqueId);
+
+    if (inputField === "instruction_username") {
+      /*  localStorage.setItem("instruction_mode", true); */
+      setInstructionMode(true);
+      alert("working");
+    }
 
     setShowOption(true);
     /* setnextPage(true); */
@@ -48,6 +55,10 @@ function IndexPage(props) {
   useEffect(() => {
     console.log(nextPage);
   }, [nextPage]);
+
+  if (instructionMode) {
+    return <InstructionMode />;
+  }
 
   if (nextPage) {
     return <Rooms />;
@@ -93,8 +104,8 @@ function IndexPage(props) {
             <img className='logo' src={white_logo_dark_bg} alt='' />
           </div>
           <div id='blurbContainer'>
-             <img className='blurb' src={blurb} alt='' />
-           {/*  <p id='blurb-text'>
+            <img className='blurb' src={blurb} alt='' />
+            {/*  <p id='blurb-text'>
               Word into idea is a creative exercise created by Stephen Fried in
               1972.<br></br>
               <br></br> The exercise is inspired by the "cut-up" technique made

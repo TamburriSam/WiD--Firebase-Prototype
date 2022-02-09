@@ -3,6 +3,7 @@ import "firebase/firestore";
 import { useEffect, useState } from "react";
 import React from "react";
 import RoomLI from "./RoomLI";
+import InstructionMode from "./InstructionMode";
 import CurrentRoom from "./CurrentRoom";
 import TextField from "@mui/material/TextField";
 import secondaryLogo from "./logos/whiteTextLogoOnly.png";
@@ -33,6 +34,7 @@ function Rooms() {
   const [isLoading, setLoading] = useState(false);
   const [solo, setSolo] = useState(false);
   const [show, setShow] = useState("");
+  const [instructionMode, setInstructionMode] = useState(false);
 
   //mount
   useEffect(() => {
@@ -452,6 +454,14 @@ function Rooms() {
     setSolo(true);
   };
 
+  useEffect(() => {
+    const instruction_mode = localStorage.getItem("instruction_mode");
+
+    if (instruction_mode) {
+      setInstructionMode(true);
+    }
+  }, []);
+
   if (isLoading) {
     return <div className='App'>Loading...</div>;
   }
@@ -523,6 +533,8 @@ function Rooms() {
           </form>
 
           <div>{content}</div>
+
+          <div>{instructionMode ? <InstructionMode /> : null}</div>
         </div>
       </div>
       <div id='logoBox'>
