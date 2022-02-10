@@ -174,17 +174,17 @@ const Game3 = ({ expiryTimestamp }) => {
             let t2 = doc.data().t2;
             let rooms_joined = doc.data().rooms_joined;
             let list_two_input = doc.data().list_two_input;
-            let listlength = list_two_input.length;
-            console.log(listlength);
 
             console.log(rooms_joined === roomUID);
 
             console.log(list_two_input);
 
-            console.log(list_two_input.length === 26);
-            console.log(list_two_input.length);
-
-            if (ids !== userUID && t2 == false && rooms_joined === roomUID) {
+            if (
+              ids !== userUID &&
+              t2 == false &&
+              rooms_joined === roomUID &&
+              list_two_input.length === 26
+            ) {
               haventBeenUsedLists.push(doc.data());
               console.log(haventBeenUsedLists);
             } else {
@@ -193,11 +193,20 @@ const Game3 = ({ expiryTimestamp }) => {
           });
         })
         .then(() => {
-          haventBeenUsedLists.map((item) => {
-            let list_two = item.list_two_input;
+          //the first part is good- the error is here
 
-            if (list_two.length == 26) {
-              console.log(`havent been used`, haventBeenUsedLists);
+          console.log(haventBeenUsedLists[0]);
+
+          if (haventBeenUsedLists.length === 1) {
+            displayListFromDB(haventBeenUsedLists[0].list_two_input);
+
+            localStorage.setItem(
+              "list_two_received",
+              haventBeenUsedLists[0].list_two_input
+            );
+          } else if (haventBeenUsedLists.length > 1) {
+            haventBeenUsedLists.map((item) => {
+              console.log(item.list_two_input);
               let random = Math.floor(
                 Math.random() * haventBeenUsedLists.length
               );
@@ -216,10 +225,10 @@ const Game3 = ({ expiryTimestamp }) => {
               localStorage.setItem("list_two_received", personSelectedListTwo);
               console.log("person selected", personSelectedListTwo);
               displayListFromDB(personSelectedListTwo);
-            } else {
-              defaultList();
-            }
-          });
+            });
+          } else {
+            defaultList();
+          }
         })
         .then(() => {
           updateUsersTurn(personSelectedUID);

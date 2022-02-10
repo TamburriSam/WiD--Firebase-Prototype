@@ -176,7 +176,14 @@ const Game4 = ({ expiryTimestamp }) => {
 
             console.log(rooms_joined === roomUID);
 
-            if (ids !== userUID && t3 == false && rooms_joined === roomUID) {
+            console.log(list_three_input);
+
+            if (
+              ids !== userUID &&
+              t3 == false &&
+              rooms_joined === roomUID &&
+              list_three_input.length === 26
+            ) {
               haventBeenUsedLists.push(doc.data());
               console.log(haventBeenUsedLists);
             } else {
@@ -185,11 +192,20 @@ const Game4 = ({ expiryTimestamp }) => {
           });
         })
         .then(() => {
-          haventBeenUsedLists.map((item) => {
-            let list_three = item.list_three_input;
+          //the first part is good- the error is here
 
-            if (list_three.length == 26) {
-              console.log(`havent been used`, haventBeenUsedLists);
+          console.log(haventBeenUsedLists[0]);
+
+          if (haventBeenUsedLists.length === 1) {
+            displayListFromDB(haventBeenUsedLists[0].list_three_input);
+
+            localStorage.setItem(
+              "list_three_received",
+              haventBeenUsedLists[0].list_three_input
+            );
+          } else if (haventBeenUsedLists.length > 1) {
+            haventBeenUsedLists.map((item) => {
+              console.log(item.list_three_input);
               let random = Math.floor(
                 Math.random() * haventBeenUsedLists.length
               );
@@ -211,10 +227,10 @@ const Game4 = ({ expiryTimestamp }) => {
               );
               console.log("person selected", personSelectedListThree);
               displayListFromDB(personSelectedListThree);
-            } else {
-              defaultList();
-            }
-          });
+            });
+          } else {
+            defaultList();
+          }
         })
         .then(() => {
           updateUsersTurn(personSelectedUID);
