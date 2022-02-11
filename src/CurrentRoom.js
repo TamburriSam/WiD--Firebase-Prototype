@@ -37,6 +37,9 @@ function CurrentRoom({
   const [admin, setAdmin] = useState(false);
 
   useEffect(() => {
+    document.querySelector("#logoBox").style.display = "none";
+    document.querySelector("footer").style.display = "none";
+
     const LSadmin = localStorage.getItem("isAdmin");
     if (LSadmin) {
       setAdmin(true);
@@ -55,11 +58,11 @@ function CurrentRoom({
         .onSnapshot((snapshot) => {
           let data = snapshot.data();
           let users = data.users;
-          let activeCount = data.active_count;
-          let totalCount = data.total_count;
           let game_started = data.game_started;
-          let isSolo = data.is_solo;
+          /* let isSolo = data.is_solo; */
+          let isSolo = localStorage.getItem("solo");
           let letters = [];
+          let g1 = localStorage.getItem("game_start");
 
           console.log("CHANGED NOWS");
           for (const prop in users) {
@@ -70,7 +73,10 @@ function CurrentRoom({
 
           let gs = localStorage.getItem("game_start");
 
-          if ((game_started === true && Boolean(gs) !== true) || isSolo) {
+          if (
+            (game_started === true && Boolean(gs) !== true) ||
+            (isSolo && !g1)
+          ) {
             document.querySelector(".game-start").style.display = "block";
             document.querySelector(".loading").style.display = "none";
 
@@ -123,7 +129,7 @@ function CurrentRoom({
   };
 
   const setFavLetterChange = (e) => {
-    setfavoriteLetter(e.target.value);
+    setfavoriteLetter(e.target.value.toUpperCase());
   };
 
   const waitingRoomShift = () => {

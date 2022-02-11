@@ -17,6 +17,8 @@ const Game3 = ({ expiryTimestamp }) => {
   let [g2Start, setG2start] = useState(localStorage.getItem("g2"));
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+
     let LSroomId = localStorage.getItem("room_id");
     let LSuserId = localStorage.getItem("user_id");
     const time = new Date();

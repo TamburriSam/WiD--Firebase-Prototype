@@ -48,7 +48,7 @@
 }
 
 /* Game 1 */
-#list-container {
+/* #list-container {
   display: flex;
   position: relative;
   justify-content: space-around;
@@ -57,8 +57,33 @@
   height: fit-content;
   top: 30px;
   margin: auto;
+} */
+
+#list-container {
+  position: relative;
+  width: 55vw;
+
+  margin: 10px auto 0;
+  padding: 10px;
+  box-sizing: border-box;
+  background: rgb(0, 0, 0);
 }
-#input-form {
+
+#list-container li {
+  display: flex;
+  background: rgb(255 255 255);
+  padding: 10px 20px;
+  /*   color: #fff; */
+  color: black;
+  font-size: 32px;
+  text-align: center;
+  justify-content: center;
+  margin: 5px 0;
+  transition: 0.5s;
+  align-items: center;
+  cursor: pointer;
+}
+/* #input-form {
   width: 50vw !important;
   height: 631px;
   z-index: 100;
@@ -67,6 +92,17 @@
   box-shadow: 1px 1px 0px #999, 2px 2px 0px #999, 3px 3px 0px #999,
     4px 4px 0px #999, 5px 5px 0px #999, 6px 6px 0px #999 !important;
   position: relative;
+} */
+
+#input-form {
+  position: relative;
+  width: fit-content;
+
+  margin: 10px auto 0;
+  padding: 10px;
+  box-sizing: border-box;
+  background: rgb(0, 0, 0);
+  box-shadow: inset 0 0 15px rgb(236 224 224);
 }
 
 #input-list1 {
@@ -101,6 +137,7 @@
 
 #input-list1 li {
   text-align: center;
+  cursor: pointer;
 }
 
 .input-cell {
@@ -108,15 +145,21 @@
   text-align: center;
   outline: none;
   font-family: "Montserrat", sans-serif !important;
-  font-size: 17px !important;
+  font-size: 22px !important;
+}
+
+.input-cell {
+  width: 45vw;
 }
 
 .input-cell1 {
-  font-size: 17px !important;
+  font-size: 22px !important;
   font-family: "Montserrat", sans-serif !important;
   text-align: center;
   outline: none;
   height: 21px;
+  font-size: 22px;
+  width: 29vw;
   border: none;
 }
 
@@ -127,7 +170,7 @@
 .placeholder {
   position: absolute;
   font-weight: bold;
-  left: 15px;
+  left: 20px;
   font-family: "Montserrat", sans-serif !important;
   font-weight: 600;
 }
@@ -135,15 +178,10 @@
 /* Continue Button */
 
 #button-container {
-  /* bottom: 170px; */
-  padding-top: 50px;
-  padding-bottom: 25px;
+  padding-top: 30px;
 
   width: 100vw;
   background-color: rgb(15, 15, 15);
-  background-image: url("./logos/green3.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
 
   text-align: center;
 }
@@ -151,11 +189,8 @@
   width: 100vw;
   position: relative;
   padding-top: 50px;
-  /* padding-bottom: 25px; */
-  /* position: absolute; */
-  /* bottom: -105px; */
+
   text-align: center;
-  /* background-image: url(/static/media/green3.7e269544.jpg); */
   background-repeat: no-repeat;
   background-size: cover;
 }
@@ -168,6 +203,7 @@
 #continueBtn {
   position: relative;
   z-index: 100;
+  margin-bottom: 30px;
   background-color: rgb(255, 255, 255);
 }
 
@@ -185,14 +221,14 @@
   z-index: 100;
   position: relative;
   justify-content: space-around;
-  width: 85vw;
+  width: 70vw;
 
   height: fit-content;
   top: 20px;
   margin: auto;
 }
 
-#received_word_list {
+/* #received_word_list {
   border: 2px solid #399e3c56;
   text-align: center;
   background-color: white;
@@ -202,15 +238,62 @@
     4px 4px 0px #999, 5px 5px 0px #999, 6px 6px 0px #999 !important;
   font-family: "Montserrat", sans-serif;
   font-size: 12px;
+} */
+
+#received_word_list {
+  position: relative;
+  width: 35vw;
+
+  margin: 10px auto 0;
+  padding: 10px;
+  box-sizing: border-box;
+  background: rgb(0, 0, 0);
+  box-shadow: inset 0 0 15px rgb(236 224 224);
+}
+
+#received_word_list li {
+  display: flex;
+  background: rgb(255 255 255);
+  padding: 10px 20px;
+  /*   color: #fff; */
+  color: black;
+  font-size: 32px;
+  text-align: center;
+  justify-content: center;
+  margin: 5px 0;
+  transition: 0.5s;
+  cursor: pointer;
 }
 
 #received_word_list li {
   letter-spacing: 2px;
   line-height: 21px;
-  font-size: 16px !important;
+  font-size: 22px !important;
 }
 
 #input-list {
+  position: relative;
+  width: 35vw;
+
+  margin: 10px auto 0;
+  padding: 10px;
+  box-sizing: border-box;
+  background: rgb(0, 0, 0);
+  box-shadow: inset 0 0 15px rgb(236 224 224);
+}
+
+#input-list li {
+  display: flex;
+  background: rgb(255 255 255);
+  padding: 10px 20px;
+  color: #fff;
+  font-size: 32px;
+  margin: 5px 0;
+  transition: 0.5s;
+  cursor: pointer;
+}
+
+/* #input-list {
   width: 38vw;
   text-align: center;
   background-color: white;
@@ -219,7 +302,7 @@
   box-shadow: 1px 1px 0px #999, 2px 2px 0px #999, 3px 3px 0px #999,
     4px 4px 0px #999, 5px 5px 0px #999, 6px 6px 0px #999 !important;
   font-family: "Montserrat", sans-serif;
-}
+} */
 
 .passed-words {
 }

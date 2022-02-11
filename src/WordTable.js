@@ -22,6 +22,8 @@ const Wordtable = () => {
   let list1, list2, list3, list4;
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+
     document.getElementById("active-container").style.height = "100vh";
     let LSPoem = localStorage.getItem("poem");
 
@@ -175,10 +177,14 @@ const Wordtable = () => {
     let essay = document.getElementById("essay");
     localStorage.setItem("poem", essay.value);
 
-    if (LSsolo) {
-      setSoloLive(true);
+    if (essay.value.length < 10) {
+      alert(`Please complete the exercise before continuing.`);
     } else {
-      setLiveRoom(true);
+      if (LSsolo) {
+        setSoloLive(true);
+      } else {
+        setLiveRoom(true);
+      }
     }
   };
 

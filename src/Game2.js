@@ -23,6 +23,8 @@ const Game2 = ({ expiryTimestamp }) => {
   const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+
     let LSroomId = localStorage.getItem("room_id");
     let LSuserId = localStorage.getItem("user_id");
 

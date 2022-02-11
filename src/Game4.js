@@ -16,6 +16,8 @@ const Game4 = ({ expiryTimestamp }) => {
   const [fp, setfp] = useState(false);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+
     let LSroomId = localStorage.getItem("room_id");
     let LSuserId = localStorage.getItem("user_id");
     let token = localStorage.getItem("g4");

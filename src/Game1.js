@@ -17,7 +17,9 @@ function Game1({ expiryTimestamp }) {
 
   let instruction = null;
 
-  useEffect(() => {
+  useEffect((e) => {
+    document.body.addEventListener("click", doThis);
+
     let LSroomId = localStorage.getItem("room_id");
     let LSuserId = localStorage.getItem("user_id");
     let LSg1Start = localStorage.getItem("g1");
@@ -34,6 +36,18 @@ function Game1({ expiryTimestamp }) {
       populateAlphabet();
     }
   }, []);
+
+  const doThis = (e) => {
+    let current = e.target;
+    let nextSibling = current.nextElementSibling;
+
+    /*   while (nextSibling) {
+      console.log(nextSibling);
+      nextSibling = nextSibling.nextElementSibling;
+
+      nextSibling.className == 'highlight'
+    } */
+  };
 
   const shuffle = (array) => {
     let currentIndex = array.length,
@@ -118,7 +132,7 @@ function Game1({ expiryTimestamp }) {
     console.log(shuffledAlpha.length);
 
     alphabet.map((letter) => {
-      html += `<li><input type="text" data-id="${count}" class="input-cell"> </input><span class="placeholder">${letter}</span></li><hr>`;
+      html += `<li><input type="text" data-id="${count}" class="input-cell"/> <span class="placeholder">${letter}</span></li><hr>`;
       count++;
     });
     listofInp.innerHTML = html;

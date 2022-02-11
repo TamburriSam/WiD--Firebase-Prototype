@@ -4,6 +4,9 @@ import firebase from "firebase/app";
 import { useScrollTrigger } from "@mui/material";
 import Button from "@mui/material/Button";
 import { jsPDF } from "jspdf";
+
+import secondaryLogo from "./logos/whiteTextLogoOnly.png";
+import ghIcon from "./logos/ghicon.png";
 const LiveRoom = () => {
   const db = firebase.firestore();
 
@@ -271,6 +274,16 @@ const LiveRoom = () => {
           </div>
         </div>
       </form>
+      <div id='logoBox'>
+        <img id='secondaryLogo2' src={secondaryLogo} alt='' />
+      </div>
+      <footer>
+        <a target='_blank' href='https://github.com/TamburriSam'>
+          <img className='gitHub' src={ghIcon} alt='' />
+        </a>
+
+        <span className='footer-text'>Created by Sam Tamburri </span>
+      </footer>
     </div>
   );
 };

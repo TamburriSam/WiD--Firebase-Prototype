@@ -50,6 +50,10 @@ function IndexPage(props) {
     if (LSitem) {
       setnextPage(true);
     }
+
+    return () => {
+      console.log("unmounted");
+    };
   }, []);
 
   useEffect(() => {
