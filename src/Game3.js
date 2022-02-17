@@ -131,8 +131,6 @@ const Game3 = ({ expiryTimestamp }) => {
   const areThereLists = () => {
     const LS_room_id = localStorage.getItem("room_id");
 
-    console.log(LS_room_id);
-
     let arr = [];
     db.collection("users")
       .get()
@@ -142,14 +140,10 @@ const Game3 = ({ expiryTimestamp }) => {
 
           if (rooms_joined == LS_room_id) {
             arr.push(doc);
-            console.log(doc.data().rooms_joined);
           }
-
-          console.log(`wanted arr`, arr);
         });
       })
       .then(() => {
-        console.log(arr.length);
         selectAList();
       });
   };
@@ -167,8 +161,6 @@ const Game3 = ({ expiryTimestamp }) => {
       let roomUID = localStorage.getItem("room_id");
       let userUID = localStorage.getItem("user_id");
 
-      console.log(`USER ID`, userUID);
-
       db.collection("users")
         .get()
         .then((querySnapshot) => {
@@ -178,10 +170,6 @@ const Game3 = ({ expiryTimestamp }) => {
             let rooms_joined = doc.data().rooms_joined;
             let list_two_input = doc.data().list_two_input;
 
-            console.log(rooms_joined === roomUID);
-
-            console.log(list_two_input);
-
             if (
               ids !== userUID &&
               t2 == false &&
@@ -189,7 +177,6 @@ const Game3 = ({ expiryTimestamp }) => {
               list_two_input.length === 26
             ) {
               haventBeenUsedLists.push(doc.data());
-              console.log(haventBeenUsedLists);
             } else {
               return false;
             }
@@ -197,8 +184,6 @@ const Game3 = ({ expiryTimestamp }) => {
         })
         .then(() => {
           //the first part is good- the error is here
-
-          console.log(haventBeenUsedLists[0]);
 
           if (haventBeenUsedLists.length === 1) {
             displayListFromDB(haventBeenUsedLists[0].list_two_input);
@@ -209,7 +194,6 @@ const Game3 = ({ expiryTimestamp }) => {
             );
           } else if (haventBeenUsedLists.length > 1) {
             haventBeenUsedLists.map((item) => {
-              console.log(item.list_two_input);
               let random = Math.floor(
                 Math.random() * haventBeenUsedLists.length
               );
@@ -218,15 +202,7 @@ const Game3 = ({ expiryTimestamp }) => {
               personSelectedListTwo = personSelected.list_two_input;
               personSelectedUID = personSelected.uid;
 
-              console.log(
-                `person selected`,
-                personSelected,
-                personSelectedListTwo,
-                personSelectedUID
-              );
-
               localStorage.setItem("list_two_received", personSelectedListTwo);
-              console.log("person selected", personSelectedListTwo);
               displayListFromDB(personSelectedListTwo);
             });
           } else {
@@ -256,8 +232,6 @@ const Game3 = ({ expiryTimestamp }) => {
           defaultList = user[0];
           localStorage.setItem("list_two_received", defaultList);
           displayListFromDB(defaultList);
-
-          console.log(defaultList);
         });
       });
   };
@@ -276,8 +250,6 @@ const Game3 = ({ expiryTimestamp }) => {
     });
 
     received_list.innerHTML = html;
-
-    console.log(listForRoom);
   };
 
   const updateUsersTurn = (id) => {
@@ -319,8 +291,6 @@ const Game3 = ({ expiryTimestamp }) => {
     });
 
     updateUserListToMainRoom(game_three_list);
-
-    console.log(game_three_list);
   };
 
   const updateUserListToMainRoom = (list) => {

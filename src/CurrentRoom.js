@@ -18,11 +18,7 @@ function CurrentRoom({
   createNewProfile,
 }) {
   const db = firebase.firestore();
-
-  var UsernameGenerator = require("username-generator");
-
   const genUsername = require("unique-username-generator");
-
   const [nodes, setNodes] = useState({});
   const [isLoading, setLoading] = useState(true);
   const [roomID, setroomID] = useState("");
@@ -35,6 +31,21 @@ function CurrentRoom({
   const [numOfStudents, setNumOfStudents] = useState(9);
   const [count, setCount] = useState(9);
   const [admin, setAdmin] = useState(false);
+  let gs = localStorage.getItem("game_start");
+  const {
+    seconds,
+    minutes,
+
+    start,
+    pause,
+    resume,
+    restart,
+  } = useTimer({
+    expiryTimestamp,
+    onExpire: () => {
+      startCountdown();
+    },
+  });
 
   useEffect(() => {
     document.querySelector("#logoBox").style.display = "none";
@@ -51,7 +62,6 @@ function CurrentRoom({
   }, []);
 
   useEffect(() => {
-    console.log("ok");
     if (inRoom) {
       db.collection("rooms")
         .doc(roomID)
@@ -64,7 +74,6 @@ function CurrentRoom({
           let letters = [];
           let g1 = localStorage.getItem("game_start");
 
-          console.log("CHANGED NOWS");
           for (const prop in users) {
             if (users[prop].favorite_letter !== "") {
               letters.push(users[prop].favorite_letter);
@@ -112,12 +121,7 @@ function CurrentRoom({
 
   useEffect(() => {
     if (users) {
-      console.log(nodes);
       setLoading(false);
-
-      nodes.map((node) => {
-        console.log(node);
-      });
     } else {
       console.log("no users");
     }
@@ -137,27 +141,11 @@ function CurrentRoom({
     document.getElementById("letterSubmit").style.display = "none";
     document.getElementById("fast-facts").style.left = "10px";
     document.getElementById("fast-facts").style.position = "absolute";
-
     document.getElementById("fast-facts").style.top = "130px";
     document.getElementById("waiting").style.display = "block";
     document.getElementById("current-room").style.display = "block";
     document.getElementById("current-room").style.top = "185px";
   };
-
-  const {
-    seconds,
-    minutes,
-
-    start,
-    pause,
-    resume,
-    restart,
-  } = useTimer({
-    expiryTimestamp,
-    onExpire: () => {
-      startCountdown();
-    },
-  });
 
   const startCountdown = () => {
     setgameStart(true);
@@ -165,9 +153,8 @@ function CurrentRoom({
     localStorage.setItem("game_start", true);
   };
 
-  function mockUsers() {
+  const mockUsers = () => {
     let inputList = document.querySelector("#user-loading-list");
-    const username = genUsername.generateUsername();
 
     let html = "";
 
@@ -175,7 +162,7 @@ function CurrentRoom({
     html += `<li>Mock Student</li>`;
 
     inputList.innerHTML += html;
-  }
+  };
 
   const handleSoloLetterChange = () => {
     const LSfavorite_letter = localStorage.getItem("favorite_letter");
@@ -198,7 +185,6 @@ function CurrentRoom({
 
       waitingRoomShift();
     }
-    /*  setinRoom(true); */
   };
 
   const terminateUser = (e) => {
@@ -228,8 +214,6 @@ function CurrentRoom({
     let ROOMLS = localStorage.getItem("room_id");
     db.collection("rooms").doc(ROOMLS).update({ game_started: true });
   };
-
-  let gs = localStorage.getItem("game_start");
 
   if (gameStart) {
     return <Game1 />;

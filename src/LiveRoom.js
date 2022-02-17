@@ -33,7 +33,6 @@ const LiveRoom = () => {
     if (!LSsolo) {
       getData();
     } else {
-      console.log("ok");
       soloData();
     }
   }, []);
@@ -97,8 +96,6 @@ const LiveRoom = () => {
       let LSPoem = localStorage.getItem("poem");
 
       setButtonHTML("Poem Sent!");
-
-      console.log(nodes);
 
       db.collection("rooms")
         .doc(roomID)

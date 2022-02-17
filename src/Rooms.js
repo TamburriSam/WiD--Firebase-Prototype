@@ -105,8 +105,6 @@ function Rooms() {
 
     let ROOM_ID = uniqid();
 
-    console.log(ROOM_ID);
-
     db.collection("rooms")
       .doc(ROOM_ID)
       .set({
@@ -180,7 +178,6 @@ function Rooms() {
   };
 
   const testUpdate = (currentUser, userInfoTest, e) => {
-    console.log("dblclick");
     db.collection("users").doc(currentUser).set(userInfoTest);
 
     const LSadmin = localStorage.getItem("isAdmin");
@@ -221,8 +218,6 @@ function Rooms() {
       activeCount = doc.data().active_count;
       totalCount = doc.data().total_count;
 
-      console.log(users);
-
       for (const prop in users) {
         userArray.push(users[prop].uid);
       }
@@ -242,7 +237,6 @@ function Rooms() {
               })
               .then(() => {
                 checkForLetter(id);
-                console.log(`roomid`, id);
                 console.log("Document successfully updated!");
               })
               .catch((error) => {
@@ -254,7 +248,6 @@ function Rooms() {
   };
 
   const checkForLetter = (id) => {
-    console.log(userID);
     db.collection("rooms")
       .doc(id)
       .get()
@@ -272,12 +265,10 @@ function Rooms() {
           }
         }
         if (userProfile.favorite_letter == "") {
-          console.log("favorite letter not found");
           setwaitingRoom(true);
           setroomLI(false);
           localStorage.setItem("waiting", true);
         }
-        console.log(`user profile`, userProfile);
       });
   };
 
@@ -435,10 +426,7 @@ function Rooms() {
       db.collection("rooms")
         .get()
         .then((querySnapshot) => {
-          querySnapshot.forEach((doc) => {
-            //if ls room id not found
-            //TRY SETTIMEOUT
-          });
+          querySnapshot.forEach((doc) => {});
         });
     } else {
       return false;

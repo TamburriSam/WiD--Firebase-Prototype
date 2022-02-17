@@ -129,8 +129,6 @@ function Game1({ expiryTimestamp }) {
     let count = 0;
     let html = "";
 
-    console.log(shuffledAlpha.length);
-
     alphabet.map((letter) => {
       html += `<li><input type="text" data-id="${count}" class="input-cell"/> <span class="placeholder">${letter}</span></li><hr>`;
       count++;
@@ -173,8 +171,6 @@ function Game1({ expiryTimestamp }) {
     });
 
     updateUserListToMainRoom(game_one_list);
-
-    console.log(game_one_list);
   };
 
   const updateUserListToMainRoom = (list) => {

@@ -78,8 +78,6 @@ const Wordtable = () => {
           result.push(chunk);
         }
 
-        console.log(result);
-
         let test = [];
         let html = "";
         result.map((item) => {
@@ -115,25 +113,13 @@ const Wordtable = () => {
 
     checkboxes.forEach((item, index) => {
       item.addEventListener("change", () => {
-        console.log(listItems.length);
-        console.log(crossed.length);
-        console.log(counter++);
         if (item.className === "word-check" && item.checked) {
-          console.log(item.className);
           listItems[index].classList.remove("listItems");
 
           listItems[index].classList.add("crossed-word");
 
-          console.log(listItems[index].childNodes[1]);
-
-          /*   listItems[
-            index
-          ].childNodes[1].innerHTML += `<input type="checkbox" />`; */
-
           wordCounter();
         } else {
-          console.log(item.className);
-
           listItems[index].classList.remove("crossed-word");
           listItems[index].classList.add("listItems");
           wordCounter();

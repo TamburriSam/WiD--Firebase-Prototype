@@ -195,7 +195,6 @@ const SoloMode = () => {
         clearInterval(interval);
         console.log("Ding!");
         setGameStart(true);
-        /*   window.location.reload(true); */
         localStorage.setItem("game_start", true);
       }
     }, 1000);
@@ -205,15 +204,9 @@ const SoloMode = () => {
     document.getElementById("notification").innerHTML = "Your Favorite Letter";
     document.getElementById("letterSubmit").style.display = "none";
     document.getElementById("fast-facts").style.right = "164px";
-    /*  document.getElementById("fast-facts").style.height = "71vh";
-    document.getElementById("fast-facts").style.width = "63vw";  */
     document.getElementById("fast-facts").style.top = "87px";
     document.getElementById("fast-facts").style.height = "70vh";
     document.getElementById("waiting1").style.display = "block";
-    /*     document.getElementById("current-room").style.display = "block";
-    document.getElementById("current-room").style.bottom = "100px"; */
-    /* mockUsers(); */
-    /* startCountdown(9); */
   };
 
   const startGame = () => {
@@ -233,29 +226,8 @@ const SoloMode = () => {
       setfavoriteLetter(favoriteLetter);
       setLoading(false);
       setGameStart(true);
-      /*  content = <CurrentRoom />; */
     }
   };
-
-  /*  const mockUsers = () => {
-    let inputList = document.querySelector("#user-list");
-
-    let i = 1;
-
-    setInterval(() => {
-      if (i < 11) {
-        let randomInt = Math.floor(Math.random() * 19) + 1;
-        inputList.innerHTML += `<li class="profile-holder"> <img
-        class="profilepic"
-        src="logos/icons/${randomInt}.png"
-        alt=""
-      />Live Student ${i}</li>`;
-        i++;
-      } else {
-        return false;
-      }
-    }, 1000);
-  }; */
 
   if (gameStart) {
     return <CurrentRoom />;

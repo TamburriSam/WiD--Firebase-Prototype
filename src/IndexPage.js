@@ -23,13 +23,9 @@ function IndexPage(props) {
 
   const handleChange = (e) => {
     setinputField(e.target.value);
-
-    console.log(uniqueId);
   };
 
   const submitForm = (e) => {
-    console.log("submitted");
-    console.log(inputField);
     localStorage.setItem("username", inputField);
     localStorage.setItem("user_id", uniqueId);
 
@@ -55,10 +51,6 @@ function IndexPage(props) {
       console.log("unmounted");
     };
   }, []);
-
-  useEffect(() => {
-    console.log(nextPage);
-  }, [nextPage]);
 
   if (instructionMode) {
     return <InstructionMode />;

@@ -11,7 +11,6 @@ const FavoriteLetter = ({
     const LSfavorite_letter = localStorage.getItem("favorite_letter");
 
     if (LSsolo) {
-      console.log("yea found");
       handleSoloLetterChange();
 
       if (LSfavorite_letter) {
