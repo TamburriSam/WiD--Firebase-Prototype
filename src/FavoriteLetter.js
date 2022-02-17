@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import "./CSSRoomLI.css";
+import "./styles/CSSRoomLI.css";
 
 const FavoriteLetter = ({
   handleLetterChange,

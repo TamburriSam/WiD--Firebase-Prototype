@@ -7,12 +7,12 @@ import blurb from "./logos/blurb10.jpeg";
 import mobileLogo from "./logos/whiteLogoStandalone.png";
 import App from "./App.js";
 import Rooms from "./Rooms";
-import "./index.css";
+
 import { useEffect, useState } from "react";
 import uniqid from "uniqid";
 import Button from "@mui/material/Button";
 import ModeSelection from "./ModeSelection";
-import "./index.css";
+import "./styles/index.css";
 
 function IndexPage(props) {
   const [inputField, setinputField] = useState("Enter a Screen Name");

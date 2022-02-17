@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import firebase from "firebase/app";
 import "firebase/firestore";
 import Game2 from "./Game2.js";
-import "./Game.css";
+import "./styles/Game.css";
 import Button from "@mui/material/Button";
 import { useTimer } from "react-timer-hook";
 

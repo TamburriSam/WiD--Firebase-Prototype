@@ -3,7 +3,7 @@ import firebase from "firebase/app";
 import "firebase/firestore";
 import RoomLI from "./RoomLI";
 import Wordtable from "./WordTable";
-import "./Game.css";
+import "./styles/Game.css";
 import Button from "@mui/material/Button";
 import { useTimer } from "react-timer-hook";
 

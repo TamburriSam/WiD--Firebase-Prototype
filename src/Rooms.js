@@ -13,7 +13,7 @@ import Game1 from "./Game1";
 import Wordtable from "./WordTable";
 import Nav from "./Nav";
 import Button from "@mui/material/Button";
-import "./Nav.css";
+import "./styles/Nav.css";
 import background from "./logos/green3.jpg";
 import uniqid from "uniqid";
 

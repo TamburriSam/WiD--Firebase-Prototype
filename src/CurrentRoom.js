@@ -3,7 +3,7 @@ import "firebase/firestore";
 import { useEffect, useState } from "react";
 import Game1 from "./Game1";
 import React from "react";
-import "./CSSRoomLI.css";
+import "./styles/CSSRoomLI.css";
 import FavoriteLetter from "./FavoriteLetter";
 import mainLogo from "./logos/whiteLogoStandalone.png";
 import { useTimer } from "react-timer-hook";

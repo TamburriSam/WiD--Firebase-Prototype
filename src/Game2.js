@@ -4,7 +4,7 @@ import "firebase/firestore";
 import RoomLI from "./RoomLI";
 import Game3 from "./Game3";
 import { create } from "@mui/material/styles/createTransitions";
-import "./Game.css";
+import "./styles/Game.css";
 import Button from "@mui/material/Button";
 import { useTimer } from "react-timer-hook";
 

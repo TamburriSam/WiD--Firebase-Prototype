@@ -3,7 +3,8 @@ import "firebase/firestore";
 import { useEffect, useState } from "react";
 import TextField from "@mui/material/TextField";
 import React from "react";
-import "./CSSRoomLI.css";
+import "./styles/CSSRoomLI.css";
+
 import Button from "@mui/material/Button";
 function RoomLI({
   soloFunc,

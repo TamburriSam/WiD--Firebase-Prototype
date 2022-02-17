@@ -3,11 +3,11 @@ import "firebase/firestore";
 import { useEffect, useState } from "react";
 import TextField from "@mui/material/TextField";
 import React from "react";
-import "./index.css";
+import "./styles/index.css";
 import { jsPDF } from "jspdf";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import LiveRoom from "./LiveRoom";
-import "./Wordtable.css";
+import "./styles/Wordtable.css";
 import Button from "@mui/material/Button";
 
 const Wordtable = () => {

@@ -3,7 +3,8 @@ import { useEffect } from "react";
 import CurrentRoom from "./CurrentRoom";
 import { useState } from "react";
 import FavoriteLetter from "./FavoriteLetter";
-import "./CSSRoomLI.css";
+import "./styles/CSSRoomLI.css";
+
 import Typing from "react-typing-animation";
 import BarLoader from "react-spinners/ClipLoader";
 import mainLogo from "./logos/whiteLogoStandalone.png";

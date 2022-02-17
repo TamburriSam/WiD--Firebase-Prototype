@@ -4,6 +4,7 @@ import "firebase/firestore";
 import Game4 from "./Game4";
 import Button from "@mui/material/Button";
 import { useTimer } from "react-timer-hook";
+import "./styles/Game.css";
 
 const Game3 = ({ expiryTimestamp }) => {
   const db = firebase.firestore();

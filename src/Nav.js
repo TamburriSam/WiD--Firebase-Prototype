@@ -1,6 +1,6 @@
 import mainLogo from "./logos/whiteLogoStandalone.png";
 import secondaryLogo from "./logos/whiteTextLogoOnly.png";
-import "./Nav.css";
+import "./styles/Nav.css";
 import background from "./logos/green3.jpg";
 
 const Nav = () => {

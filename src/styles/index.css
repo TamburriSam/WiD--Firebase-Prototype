@@ -30,8 +30,7 @@
   font-family: "IBM Plex Mono", monospace !important;
 }
 
-body {
-}
+/* Index Left Half */
 
 #blurbBox {
   width: 60vw;
@@ -50,7 +49,7 @@ body {
   align-items: center;
 }
 
-/* Logo Container */
+/* Logo Container on Index */
 #logoContainer {
   position: absolute;
   left: 0;
@@ -73,7 +72,7 @@ body {
   display: flex;
   justify-content: center;
   height: 100vh;
-  background-image: url("./logos/green3.jpg");
+  background-image: url("/src/logos/green3.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   align-items: center;
@@ -263,6 +262,8 @@ body {
   width: 100px;
   position: inherit;
 }
+
+/* Create Room Form */
 
 #create-room {
   /* margin: auto; */
