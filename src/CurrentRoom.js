@@ -2,6 +2,8 @@ import firebase from "firebase/app";
 import "firebase/firestore";
 import { useEffect, useState } from "react";
 import Game1 from "./Game1";
+import Game2 from "./Game2";
+
 import React from "react";
 import "./styles/CSSRoomLI.css";
 import FavoriteLetter from "./FavoriteLetter";
@@ -25,12 +27,15 @@ function CurrentRoom({
   const [roomLoad, setroomLoad] = useState(false);
   const [users, setUsers] = useState(false);
   const [gameStart, setgameStart] = useState(false);
+  const [gameStart2, setgameStart2] = useState(false);
   const [inRoom, setinRoom] = useState(false);
   const [favoriteLetter, setfavoriteLetter] = useState("");
   const [showLetter, setShowLetter] = useState(false);
   const [numOfStudents, setNumOfStudents] = useState(9);
   const [count, setCount] = useState(9);
   const [admin, setAdmin] = useState(false);
+  const [currentRound, setCurrentRound] = useState(false);
+
   let gs = localStorage.getItem("game_start");
   const {
     seconds,
@@ -48,9 +53,6 @@ function CurrentRoom({
   });
 
   useEffect(() => {
-    document.querySelector("#logoBox").style.display = "none";
-    document.querySelector("footer").style.display = "none";
-
     const LSadmin = localStorage.getItem("isAdmin");
     if (LSadmin) {
       setAdmin(true);
@@ -90,7 +92,7 @@ function CurrentRoom({
             document.querySelector(".loading").style.display = "none";
 
             const time = new Date();
-            time.setSeconds(time.getSeconds() + 9); // 10 minutes timer
+            time.setSeconds(time.getSeconds() + 1); // 10 minutes timer
             restart(time, true);
 
             if (isSolo) {
@@ -148,7 +150,8 @@ function CurrentRoom({
   };
 
   const startCountdown = () => {
-    setgameStart(true);
+    /* setgameStart(true); */
+    setCurrentRound(1);
 
     localStorage.setItem("game_start", true);
   };
@@ -215,19 +218,42 @@ function CurrentRoom({
     db.collection("rooms").doc(ROOMLS).update({ game_started: true });
   };
 
-  if (gameStart) {
-    return <Game1 />;
+  const testGame = () => {
+    setCurrentRound(2);
+  };
+  let content = null;
+
+  useEffect(() => {
+    console.log(currentRound);
+  }, [currentRound]);
+
+  if (currentRound == 1) {
+    return <Game1 testGame={testGame} />;
+  } else if (currentRound == 2) {
+    return <Game2 />;
+  }
+  if (gs) {
+    return <Game1 testGame={testGame} />;
   }
 
-  if (gs) {
-    return <Game1 />;
+  /* if (gameStart) {
+    return <Game1 testGame={testGame} />;
   }
+
+  
+
+  if (gameStart2) {
+   
+
+     setgameStart(false);
+    console.log("ok done"); 
+      return <Game2 />; 
+  } */
 
   if (isLoading) {
     return <div className='App'>Loading...</div>;
   }
 
-  let content = null;
   if (showLetter) {
     content = (
       <FavoriteLetter
@@ -251,6 +277,9 @@ function CurrentRoom({
       </div>
 
       <div id='current-room'>
+        <button id='leave-room' onClick={(e) => removeUser(e)}>
+          Leave Room
+        </button>
         {/*   {admin ? (
           <button onClick={(e) => terminateUser(e)}>Terminate Room</button>
         ) : (
