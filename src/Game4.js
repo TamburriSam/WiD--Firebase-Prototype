@@ -343,7 +343,7 @@ const Game4 = ({ expiryTimestamp }) => {
       <div>
         <div
           style={{
-            backgroundColor: "#e0ffe3",
+            backgroundColor: "#e5e5e5",
             position: "relative",
             textAlign: "center",
             margin: "auto",

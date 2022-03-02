@@ -173,3 +173,27 @@
   width: 20vw;
   display: block;
 }
+
+#instruction-game {
+  background-color: #e5e5e5;
+  position: relative;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  border: 2px solid grey;
+  width: 50vw;
+  margin-bottom: 50px;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 17px;
+  justify-content: center;
+  height: 35vh;
+}
+
+/* Queries */
+
+@media only screen and (max-width: 1000px) {
+  #instruction-game {
+    font-size: 12px;
+  }
+}

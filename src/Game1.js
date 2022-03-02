@@ -23,10 +23,9 @@ function Game1({ expiryTimestamp, testGame }) {
   let instruction = null;
 
   useEffect((e) => {
-    /*   const time = new Date();
+    const time = new Date();
     time.setSeconds(time.getSeconds() + 420); // 10 minutes timer
     restart(time, true);
- */
 
     if (!mounted) {
       console.log("ok");
@@ -262,7 +261,11 @@ function Game1({ expiryTimestamp, testGame }) {
         }}
         id='instruction-game'
       >
-        {animated}
+        Here's a list of letters<br></br>
+        Replace each letter with a word that you think you might like to write
+        with.<br></br>
+        The word can begin with the letter or not.<br></br>
+        Let your mind run free!<br></br>
       </div>
 
       <div>
@@ -277,7 +280,9 @@ function Game1({ expiryTimestamp, testGame }) {
             top: "12px",
           }}
         >
-          {/*   {Timer} */}
+          <div style={{ fontSize: "22px" }}>
+            <span>{minutes}</span>:<span>{seconds}</span>
+          </div>
         </div>
       </div>
       <form onSubmit={(e) => allEntered(e)}>

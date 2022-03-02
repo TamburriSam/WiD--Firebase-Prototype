@@ -71,7 +71,6 @@ function CurrentRoom({
           let data = snapshot.data();
           let users = data.users;
           let game_started = data.game_started;
-          /* let isSolo = data.is_solo; */
           let isSolo = localStorage.getItem("solo");
           let letters = [];
           let g1 = localStorage.getItem("game_start");
@@ -92,7 +91,7 @@ function CurrentRoom({
             document.querySelector(".loading").style.display = "none";
 
             const time = new Date();
-            time.setSeconds(time.getSeconds() + 1); // 10 minutes timer
+            time.setSeconds(time.getSeconds() + 9);
             restart(time, true);
 
             if (isSolo) {
@@ -232,6 +231,7 @@ function CurrentRoom({
   } else if (currentRound == 2) {
     return <Game2 />;
   }
+
   if (gs) {
     return <Game1 testGame={testGame} />;
   }
@@ -309,7 +309,7 @@ function CurrentRoom({
           onClick={adminStartedGame}
           style={{
             backgroundColor: "red",
-            width: "30vw",
+            width: "10vw",
             position: "absolute",
             bottom: "40px",
           }}

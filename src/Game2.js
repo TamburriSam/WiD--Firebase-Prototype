@@ -358,7 +358,20 @@ const Game2 = ({ expiryTimestamp }) => {
     <div id='game2'>
       <h1>Game Two</h1>
       <div>
-        <div id='instruction-game-2'>
+        <div
+          style={{
+            backgroundColor: "#e5e5e5",
+            position: "relative",
+            textAlign: "center",
+            margin: "auto",
+            border: "2px solid grey",
+            width: "68vw",
+            padding: "5px",
+            borderRadius: "5px",
+            marginBottom: "10px",
+            height: "fit-content",
+          }}
+        >
           You've received a paper with a random classmate's words.<br></br>
           Here's someone else's list from the previous step.<br></br>
           Look at the top word. Then, at the top of the blank column, write the
@@ -369,15 +382,12 @@ const Game2 = ({ expiryTimestamp }) => {
         <div
           style={{
             textAlign: "center",
-            backgroundColor: "#141414",
-            border: "2px solid #e5e5e5a8",
-            color: "#e5e5e5a8",
-            position: "fixed",
+            backgroundColor: "white",
+            position: "relative",
             margin: "auto",
-            width: "14vw",
+            width: "15vw",
             borderRadius: "3px",
-            bottom: "50px",
-            left: "5px",
+            top: "12px",
           }}
         >
           <div style={{ fontSize: "22px" }}>

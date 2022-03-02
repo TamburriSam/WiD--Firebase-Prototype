@@ -187,24 +187,7 @@ const Wordtable = () => {
     <div>
       <div id='MainDiv'>
         <div>
-          <div
-            style={{
-              backgroundColor: "#e0ffe3",
-              position: "relative",
-              textAlign: "center",
-              display: "flex",
-              alignItems: "center",
-              border: "2px solid grey",
-              width: "50vw",
-              marginBottom: "50px",
-              padding: "20px",
-              borderRadius: "5px",
-              fontSize: "18px",
-              justifyContent: "center",
-              height: "fit-content",
-            }}
-            id='instruction-game'
-          >
+          <div id='instruction-game'>
             Now for the creative part!
             <br></br>
             Read each row of four words for any interesting<br></br>connections

@@ -22,7 +22,7 @@ const FavoriteLetter = ({
       if (LSfavorite_letter) {
         document.getElementById(
           "inputContainer"
-        ).innerHTML = `<div>${LSfavorite_letter.toUpperCase()}</div>`;
+        ).innerHTML = `<div className="alphabetInput">${LSfavorite_letter.toUpperCase()}</div>`;
       }
 
       document.getElementById("active-container").style.height = "100vh";
