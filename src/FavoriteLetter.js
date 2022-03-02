@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import "./styles/CSSRoomLI.css";
 
 const FavoriteLetter = ({
@@ -6,9 +6,15 @@ const FavoriteLetter = ({
   setFavLetterChange,
   handleSoloLetterChange,
 }) => {
+  const [mounted, setmounted] = useState(false);
+
   useEffect(() => {
     const LSsolo = localStorage.getItem("solo");
     const LSfavorite_letter = localStorage.getItem("favorite_letter");
+
+    if (!mounted) {
+      console.log("ok");
+    }
 
     if (LSsolo) {
       handleSoloLetterChange();
@@ -21,18 +27,23 @@ const FavoriteLetter = ({
 
       document.getElementById("active-container").style.height = "100vh";
     }
+
+    return () => {
+      setmounted(true);
+
+      console.log("unmounting fav letter");
+    };
   }, []);
 
   return (
     <div id='fast-facts'>
-      <div id='blurb'></div>
       <div id='notification'>
         What's your favorite letter of the alphabet? Type it below.
       </div>
       <div id='inputContainer'>
         <input
           onChange={setFavLetterChange}
-          id='alphabetInput'
+          className='alphabetInput'
           type='text'
           placeholder='favorite letter'
         />

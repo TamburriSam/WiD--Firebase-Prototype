@@ -246,7 +246,7 @@ const SoloMode = () => {
       <div id='inputContainer'>
         <input
           onChange={setFavLetterChange}
-          id='alphabetInput'
+          className='alphabetInput'
           type='text'
           placeholder='favorite letter'
         />

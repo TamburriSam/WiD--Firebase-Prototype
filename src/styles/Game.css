@@ -1,12 +1,19 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap");
+:root {
+  --main-font: "IBM Plex Mono", monospace !important;
+  --test-font: "Special Elite", cursive;
+  --background-black: #141414;
+  --text-color: #e5e5e5;
+}
+
 /* Create Room Btn */
 
 #createNewRoom {
   display: block;
   display: block;
-  background-color: #101a19cf !important;
-  color: white;
-  border: 3px solid white;
+  background-color: var(--background-black) !important;
+  color: var(--text-color);
+  border: 3px solid var(--text-color);
   border-radius: 5px;
   width: 110px !important;
   line-height: 2.6;
@@ -19,24 +26,32 @@
 }
 #createNewRoom:hover {
   background-color: white !important;
-  transform: scale(1);
+  transform: scale(1.1);
   color: black;
   border: black 3px solid;
+}
+
+.join-btn button {
+  background-color: var(--text-color);
+  border: 2px solid var(--text-color);
+  color: var(--background-black);
 }
 
 /* Solo Btn */
 #solobtn {
   display: block;
-  background-color: #101a19cf !important;
-  color: white;
-  border: 3px solid white;
+  background-color: var(--background-black) !important;
+  color: var(--text-color);
+  border: 3px solid var(--text-color);
   border-radius: 5px;
   width: 110px !important;
   line-height: 2.6;
   cursor: pointer;
+  transition: 0.2s;
 }
 #solobtn:hover {
   background-color: white !important;
+  transform: scale(1.1);
   color: black;
   border: black 3px solid;
 }
@@ -56,12 +71,11 @@
   margin: 10px auto 0;
   padding: 10px;
   box-sizing: border-box;
-  background: rgb(0, 0, 0);
 }
 
 #list-container li {
   display: flex;
-  background: rgb(255 255 255);
+  background: var(--text-color);
   padding: 10px 20px;
   /*   color: #fff; */
   color: black;
@@ -94,27 +108,38 @@
 
 #input-list1 li {
   text-align: center;
+  background-color: var(--text-color);
   cursor: pointer;
 }
 
 .input-cell {
   border: none;
   text-align: center;
+  background-color: var(--text-color);
+  color: var(--background-black);
   outline: none;
-  font-family: "Montserrat", sans-serif !important;
+  font-family: var(--main-font);
+  /*   font-family: "Montserrat", sans-serif !important;
+ */
   font-size: 22px !important;
 }
 
 .input-cell {
   width: 45vw;
+  background-color: var(--text-color);
 }
 
 .input-cell1 {
   font-size: 22px !important;
-  font-family: "Montserrat", sans-serif !important;
+  font-family: var(--main-font);
+
+  /*   font-family: "Montserrat", sans-serif !important;
+ */
   text-align: center;
   outline: none;
   height: 21px;
+  background-color: var(--text-color);
+  color: var(--background-black);
   font-size: 22px;
   width: 29vw;
   border: none;
@@ -198,10 +223,10 @@
 
 #received_word_list li {
   display: flex;
-  background: rgb(255 255 255);
+  background-color: var(--text-color);
   padding: 10px 20px;
   /*   color: #fff; */
-  color: black;
+  color: var(--background-black);
   font-size: 32px;
   text-align: center;
   justify-content: center;
@@ -229,7 +254,7 @@
 
 #input-list li {
   display: flex;
-  background: rgb(255 255 255);
+  background-color: var(--text-color);
   padding: 10px 20px;
   color: #fff;
   font-size: 32px;
@@ -248,4 +273,24 @@
   margin: auto;
   background-color: #399e3c9a;
   border-radius: 5px;
+}
+
+/* Instructions */
+
+#instruction-game-2 {
+  background-color: var(--text-color);
+  color: var(--background-black);
+  position: relative;
+  text-align: center;
+  margin: auto;
+  border: 2px solid var(--text-color);
+  width: 100vw;
+  padding: 20px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  height: fit-content;
+  position: sticky;
+  top: 0;
+
+  box-shadow: inset 0 0 15px var(--background-black);
 }

@@ -5,28 +5,38 @@ import Game2 from "./Game2.js";
 import "./styles/Game.css";
 import Button from "@mui/material/Button";
 import { useTimer } from "react-timer-hook";
+import CurrentRoom from "./CurrentRoom.js";
+import Typing from "react-typing-animation";
+import Timer from "./Timer.js";
 
-function Game1({ expiryTimestamp }) {
+function Game1({ expiryTimestamp, testGame }) {
   const db = firebase.firestore();
 
   const [roomID, setroomID] = useState("");
   const [userID, setuserID] = useState("");
   const [g2Start, setG2Start] = useState(false);
   const [isLoading, setLoading] = useState(false);
+  const [mounted, setmounted] = useState(false);
+
   let content = null;
 
   let instruction = null;
 
   useEffect((e) => {
+    /*   const time = new Date();
+    time.setSeconds(time.getSeconds() + 420); // 10 minutes timer
+    restart(time, true);
+ */
+
+    if (!mounted) {
+      console.log("ok");
+    }
+
     document.body.addEventListener("click", doThis);
 
     let LSroomId = localStorage.getItem("room_id");
     let LSuserId = localStorage.getItem("user_id");
     let LSg1Start = localStorage.getItem("g1");
-
-    const time = new Date();
-    time.setSeconds(time.getSeconds() + 420); // 10 minutes timer
-    restart(time, true);
 
     if (LSg1Start) {
       setG2Start(true);
@@ -35,6 +45,12 @@ function Game1({ expiryTimestamp }) {
       setuserID(LSuserId);
       populateAlphabet();
     }
+
+    return () => {
+      setmounted(true);
+      setLoading(true);
+      console.log("unmounting");
+    };
   }, []);
 
   const doThis = (e) => {
@@ -212,8 +228,20 @@ function Game1({ expiryTimestamp }) {
   }
 
   if (g2Start) {
-    return <Game2 />;
+    setLoading(true);
+    testGame();
+    /*  return <Game2 />; */
   }
+
+  let animated = (
+    <Typing>
+      Here's a list of letters<br></br>
+      Replace each letter with a word that you think you might like to write
+      with.<br></br>
+      The word can begin with the letter or not.<br></br>
+      Let your mind run free!<br></br>
+    </Typing>
+  );
 
   return (
     <div>
@@ -221,7 +249,7 @@ function Game1({ expiryTimestamp }) {
 
       <div
         style={{
-          backgroundColor: "#e0ffe3",
+          backgroundColor: "#e5e5e5",
           position: "relative",
           textAlign: "center",
           margin: "auto",
@@ -234,12 +262,9 @@ function Game1({ expiryTimestamp }) {
         }}
         id='instruction-game'
       >
-        Here's a list of letters<br></br>
-        Replace each letter with a word that you think you might like to write
-        with.<br></br>
-        The word can begin with the letter or not.<br></br>
-        Let your mind run free!<br></br>
+        {animated}
       </div>
+
       <div>
         <div
           style={{
@@ -252,9 +277,7 @@ function Game1({ expiryTimestamp }) {
             top: "12px",
           }}
         >
-          <div style={{ fontSize: "22px" }}>
-            <span>{minutes}</span>:<span>{seconds}</span>
-          </div>
+          {/*   {Timer} */}
         </div>
       </div>
       <form onSubmit={(e) => allEntered(e)}>

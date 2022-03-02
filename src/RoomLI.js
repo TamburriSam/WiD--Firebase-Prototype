@@ -18,6 +18,7 @@ function RoomLI({
 
   const [nodes, setNodes] = useState({});
   const [isLoading, setLoading] = useState(true);
+  const [mounted, setmounted] = useState(false);
 
   useEffect(() => {
     let game_start_token = localStorage.getItem("waiting");
@@ -26,7 +27,12 @@ function RoomLI({
       getData();
     }
 
+    if (!mounted) {
+      console.log("ok");
+    }
+
     return () => {
+      setmounted(true);
       setLoading(true);
       console.log("unmounting component");
     };
@@ -75,7 +81,6 @@ function RoomLI({
                 <td className='group-count'>
                   {node.data().active_count} Active
                 </td>
-
                 <td className='join-btn'>
                   <Button
                     variant='outlined'
