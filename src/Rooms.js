@@ -367,10 +367,10 @@ function Rooms() {
           .then(() => {
             userDeleted(LSroomId, userArray);
 
-            var jobskill_query = db
+            let user_query = db
               .collection("users")
               .where("uid", "==", userID);
-            jobskill_query.get().then(function (querySnapshot) {
+            user_query.get().then(function (querySnapshot) {
               querySnapshot.forEach(function (doc) {
                 doc.ref.delete();
               });
@@ -480,7 +480,7 @@ function Rooms() {
   return (
     <div className='background'>
       <Nav />
-
+      <div id='overlay'></div>
       <div className='liveRoom'>
         <div id='active-container'>
           <form id='create-room' onSubmit={(e) => createRoom(e)}>
@@ -525,16 +525,6 @@ function Rooms() {
           <div>{instructionMode ? <InstructionMode /> : null}</div>
         </div>
       </div>
-      <div id='logoBox'>
-        <img id='secondaryLogo2' src={secondaryLogo} alt='' />
-      </div>
-      <footer>
-        <a target='_blank' href='https://github.com/TamburriSam'>
-          <img className='gitHub' src={ghIcon} alt='' />
-        </a>
-
-        <span className='footer-text'>Created by Sam Tamburri </span>
-      </footer>
     </div>
   );
 }
