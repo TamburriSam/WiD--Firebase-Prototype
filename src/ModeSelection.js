@@ -22,7 +22,7 @@ const ModeSelection = ({ soloFunc }) => {
     localStorage.setItem("option", true);
 
     localStorage.setItem("option-solo", true);
-    console.log(option);
+
     return <Rooms />;
   }
 
@@ -63,8 +63,10 @@ const ModeSelection = ({ soloFunc }) => {
             To play in a group, <br />
             in real time, <br />
             select this button:
+            <br />
+            <br></br>
           </p>
-          <br />
+
           <button onClick={() => setOption("group")} id='mode-group-btn'>
             Group
           </button>
