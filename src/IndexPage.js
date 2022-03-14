@@ -9,7 +9,7 @@ import App from "./App.js";
 import Rooms from "./Rooms";
 import { faHome } from "@fortawesome/free-solid-svg-icons";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
-
+import SignInSide from "./SigninSide";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
 import uniqid from "uniqid";
@@ -23,6 +23,18 @@ function IndexPage(props) {
   const [uniqueId, setuniqueId] = useState(uniqid());
   const [showOption, setShowOption] = useState(false);
   const [instructionMode, setInstructionMode] = useState(false);
+
+  useEffect(() => {
+    const LSitem = localStorage.getItem("username");
+
+    if (LSitem) {
+      setnextPage(true);
+    }
+
+    return () => {
+      console.log("unmounted");
+    };
+  }, []);
 
   const handleChange = (e) => {
     console.log(inputField);
@@ -47,21 +59,8 @@ function IndexPage(props) {
       alert("working");
     }
 
-    /* setnextPage(true); */
     e.preventDefault();
   };
-
-  useEffect(() => {
-    const LSitem = localStorage.getItem("username");
-
-    if (LSitem) {
-      setnextPage(true);
-    }
-
-    return () => {
-      console.log("unmounted");
-    };
-  }, []);
 
   if (instructionMode) {
     return <InstructionMode />;
@@ -78,80 +77,11 @@ function IndexPage(props) {
   return (
     <div id='indexBody'>
       <div id='main-container'>
-        <div className='title'>What is this?</div>
-
-        <ul id='main-option-container'>
-          <li className='main-option'>
-            <FontAwesomeIcon icon={faChevronRight} className='fontAwesome' />
-            Word into Idea is a creative writing exercise.
-          </li>
-
-          <li className='main-option'>
-            <FontAwesomeIcon icon={faChevronRight} className='fontAwesome' />
-            Usually writing assignments ask you to put your ideas into words.
-          </li>
-
-          <li className='main-option'>
-            <FontAwesomeIcon icon={faChevronRight} className='fontAwesome' />
-            Today, we're going to reverse that and see how words can lead to
-            ideas.
-          </li>
-        </ul>
-
-        <form id='username-container' onSubmit={(e) => submitForm(e)}>
-          <div className='main-option username-option'>
-            Create a username to start!
-          </div>
-          <input onChange={handleChange} placeholder='Enter Username'></input>
-          <button id='index-submit' type='submit'>
-            Start
-          </button>
-        </form>
-
-        <div id='nav'>
-          <p>Concept: Steve Fried</p>
-          <p>Realization: Sam Tamburri</p>
-        </div>
+        <SignInSide submitForm={submitForm} handleChange={handleChange} />
       </div>
       <div id='logo2'>
         <img className='logo' src={white_logo_dark_bg} alt='' />
       </div>
-
-      {/*  <div id='right-half'>
-        <div id='sign-inContainer'>
-          <form id='userName-box' onSubmit={submitForm}>
-           
-
-            <label>Enter Username</label>
-            <input
-              type='text'
-              placeholder={inputField}
-              onChange={handleChange}
-              required
-            />
-            <button
-              variant='contained'
-              size='medium'
-              type='submit'
-              id='startBtn'
-              className='startBtn'
-            >
-              Start
-            </button>
-          </form>
-        </div>
-      </div> */}
-
-      {/*  <div id='overlay-black'>
-        <div id='blurbBox'>
-          <div id='logoContainer'>
-            <img className='logo' src={white_logo_dark_bg} alt='' />
-          </div>
-          <div id='blurbContainer'>
-            <img className='blurb' src={blurb} alt='' />
-          </div>
-        </div>
-      </div> */}
     </div>
   );
 }

@@ -146,7 +146,6 @@ function Rooms() {
     let id = e.target.id;
     const currentUser = userID;
     const screenName = displayName;
-    let rando = Math.floor(Math.random() * 1100);
 
     const userInfo = {
       name: displayName,

@@ -4,6 +4,7 @@ import firebase from "firebase/app";
 import { useScrollTrigger } from "@mui/material";
 import Button from "@mui/material/Button";
 import { jsPDF } from "jspdf";
+import "./styles/Wordtable.css";
 
 import secondaryLogo from "./logos/whiteTextLogoOnly.png";
 import ghIcon from "./logos/ghicon.png";
@@ -18,7 +19,7 @@ const LiveRoom = () => {
   const [goBack, setgoBack] = useState(false);
   const [admin, setAdmin] = useState(false);
 
-  const [buttonHTML, setButtonHTML] = useState("Send Poem");
+  const [buttonHTML, setButtonHTML] = useState("Post Poem");
 
   localStorage.getItem("username");
 
@@ -80,6 +81,10 @@ const LiveRoom = () => {
     And dress by yellow candle-light.  
     In summer, quite the other way,  
     I have to go to bed by day.`,
+      `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.`,
+      `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim `,
+      `Mock Message 3`,
+      `Mock Message 3`,
     ];
 
     setNodes(mock_msgs);
@@ -89,7 +94,7 @@ const LiveRoom = () => {
   const SubmitPoem = (e) => {
     e.preventDefault();
     let LSsolo = localStorage.getItem("solo");
-    setButtonHTML("Poem Sent!");
+    setButtonHTML("Poem Posted!");
 
     if (!LSsolo) {
       let roomID = localStorage.getItem("room_id");
@@ -155,8 +160,8 @@ const LiveRoom = () => {
           textAlign: "center",
           margin: "auto",
           border: "2px solid grey",
-          width: "95vw",
-          padding: "5px",
+          width: "50vw",
+          padding: "10px",
           borderRadius: "5px",
           top: "15px",
           marginBottom: "10px",
@@ -164,39 +169,14 @@ const LiveRoom = () => {
         }}
         id='instruction-game'
       >
-        Post your poem below to share with your classmates in real-time! Your
-        poems will be posted as anonymous.
+        Post your poem below if you choose to share it. <br></br>
+        Unless you sign it, your post will be anonymous. <br></br>
+        Once you've posted, or decided not to, select "Exit."
       </div>
 
       {nodes.map((node, index) => {
         return (
-          <li
-            style={{
-              backgroundColor: "white",
-              textDecoration: "none",
-              listStyleType: "none",
-              width: "50vw",
-              margin: "auto",
-              position: "relative",
-              top: "40px",
-              marginTop: "30px",
-              padding: "10px",
-              borderRadius: "3px",
-              border: "3px solid grey",
-            }}
-            key={index.toString()}
-          >
-            <span
-              style={{
-                border: "1px solid black",
-                padding: "4px",
-                borderRadius: "5px",
-                lineHeight: 2,
-                backgroundColor: "#e0ffe3",
-              }}
-            >
-              Anonymous Live User {index}:
-            </span>{" "}
+          <li className='listItemLiveRoom' key={index.toString()}>
             {node}
           </li>
         );
@@ -265,15 +245,15 @@ const LiveRoom = () => {
                   cursor: "pointer",
                 }}
               >
-                Finish Game
+                Exit
               </button>
             </div>
           </div>
         </div>
       </form>
-      <div id='logoBox'>
+      {/* <div id='logoBox'>
         <img id='secondaryLogo2' src={secondaryLogo} alt='' />
-      </div>
+      </div> */}
       <footer>
         <a target='_blank' href='https://github.com/TamburriSam'>
           <img className='gitHub' src={ghIcon} alt='' />

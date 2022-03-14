@@ -239,7 +239,6 @@ const SoloMode = () => {
 
   return (
     <div id='fast-facts'>
-      <div id='blurb'></div>
       <div id='notification'>
         What's your favorite letter of the alphabet? Type it in the box.
       </div>

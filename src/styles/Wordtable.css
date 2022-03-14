@@ -182,12 +182,11 @@
   align-items: center;
   border: 2px solid grey;
   width: 50vw;
-  margin-bottom: 50px;
+  height: 30vh;
   padding: 10px;
   border-radius: 5px;
   font-size: 17px;
   justify-content: center;
-  height: 35vh;
 }
 
 /* Queries */
@@ -196,4 +195,116 @@
   #instruction-game {
     font-size: 12px;
   }
+}
+
+.instruction {
+  grid-area: instruction;
+}
+.yourPoem {
+  grid-area: yourPoem;
+}
+.poem1 {
+  grid-area: poem1;
+}
+.poem2 {
+  grid-area: poem2;
+}
+.poem3 {
+  grid-area: poem3;
+}
+.poem4 {
+  grid-area: poem4;
+}
+
+.listItemLiveRoom {
+  background-color: white;
+  text-decoration: none;
+  list-style-type: none;
+  width: 50vw;
+  margin: auto;
+  margin-top: 40px;
+  position: relative;
+  padding: 10px;
+  border-radius: 3px;
+  border: 3px solid grey;
+}
+
+/* .listItemLiveRoom:nth-child(2) {
+  color: red;
+  width: 20vw !important;
+  height: 40vh;
+  top: 30px;
+}
+
+.listItemLiveRoom:nth-child(3) {
+  position: absolute;
+  width: 20vw;
+  top: 1%;
+  left: 10px;
+  font-size: 1vw;
+  height: 10vw;
+}
+
+.listItemLiveRoom:nth-child(4) {
+  position: absolute !important;
+  width: 33vw !important;
+  top: 25%;
+  font-size: 1vw;
+  left: 10px !important;
+}
+
+.listItemLiveRoom:nth-child(5) {
+  position: absolute;
+  right: 10px;
+  top: 0px;
+  width: 20vw;
+}
+
+.listItemLiveRoom:nth-child(6) {
+  position: absolute;
+  right: 10px;
+  top: 250px;
+  width: 18vw;
+}
+
+.listItemLiveRoom:nth-child(7) {
+  position: relative;
+  right: 320px;
+  height: fit-content;
+  top: 290px;
+  width: 15vw;
+}
+ */
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  gap: 15px 15px;
+  grid-template-areas:
+    ". poem1 poem1 . . . . . ."
+    ". poem1 poem1 instruction instruction instruction instruction instruction ."
+    "poem2 poem2 poem2 poem2 your-poem your-poem your-poem . ."
+    "poem2 poem2 poem2 poem2 your-poem your-poem your-poem . ."
+    ". . . . your-poem your-poem your-poem . ."
+    "poem6 poem6 poem6 poem6 . . . . ."
+    "poem6 poem6 poem6 poem6 . . . . ."
+    ". . . . . . . . ."
+    ". . . . . . . . .";
+  width: 600px;
+  height: 611px;
+}
+.instruction {
+  grid-area: instruction;
+}
+.your-poem {
+  grid-area: your-poem;
+}
+.poem1 {
+  grid-area: poem1;
+}
+.poem2 {
+  grid-area: poem2;
+}
+.poem6 {
+  grid-area: poem6;
 }
