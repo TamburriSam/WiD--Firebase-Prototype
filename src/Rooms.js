@@ -366,9 +366,7 @@ function Rooms() {
           .then(() => {
             userDeleted(LSroomId, userArray);
 
-            let user_query = db
-              .collection("users")
-              .where("uid", "==", userID);
+            let user_query = db.collection("users").where("uid", "==", userID);
             user_query.get().then(function (querySnapshot) {
               querySnapshot.forEach(function (doc) {
                 doc.ref.delete();
@@ -478,7 +476,6 @@ function Rooms() {
 
   return (
     <div className='background'>
-      <Nav />
       <div id='overlay'></div>
       <div className='liveRoom'>
         <div id='active-container'>

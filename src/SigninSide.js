@@ -10,8 +10,11 @@ import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import IndexPage from "./IndexPage";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import white_logo_dark_bg from "./logos/white_logo_transparent_background.png";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 
 function Copyright(props) {
   return (
@@ -22,11 +25,12 @@ function Copyright(props) {
       {...props}
     >
       {"Copyright © "}
-      <Link color='inherit' href='https://mui.com/'>
-        Word Into Idea
-      </Link>{" "}
-      {new Date().getFullYear()}
+      <Link color='inherit'>Word Into Idea</Link> {new Date().getFullYear()}
       {"."}
+      {<br></br>}
+      {"Concept: Steve Fried"}
+      {<br></br>}
+      {"Realization: Sam Tamburri"}
     </Typography>
   );
 }
@@ -42,7 +46,7 @@ export default function SignInSide({ submitForm, handleChange }) {
         <Grid
           itemFS
           xs={false}
-          sm={4}
+          sm={8}
           md={7}
           sx={{
             backgroundImage:
@@ -57,25 +61,46 @@ export default function SignInSide({ submitForm, handleChange }) {
           }}
         >
           <div id='main1'>
+            <img src={white_logo_dark_bg}></img>
+
             <div id='title-ul'>
               <h1>What is this?</h1>
               <ul>
-                <li>Word into Idea is a creative writing exercise.</li>
+                <li>
+                  <span style={{ marginRight: "10px" }}>
+                    <FontAwesomeIcon icon={faChevronRight} />
+                  </span>
+                  Word into Idea is a creative writing exercise.
+                </li>
                 <br></br>
                 <li>
+                  <span style={{ marginRight: "10px" }}>
+                    <FontAwesomeIcon icon={faChevronRight} />
+                  </span>
                   Usually writing assignments ask you to put your ideas into
                   words.
                 </li>
                 <br></br>
                 <li>
+                  <span style={{ marginRight: "10px" }}>
+                    <FontAwesomeIcon icon={faChevronRight} />
+                  </span>
                   Today, we're going to reverse that and see how words can lead
                   to ideas.
+                </li>
+                <br></br>
+
+                <li style={{ fontSize: "18px" }}>
+                  <span style={{ marginRight: "10px" }}>
+                    <FontAwesomeIcon icon={faChevronRight} />
+                  </span>
+                  Sign in to start!
                 </li>
               </ul>
             </div>
           </div>
         </Grid>
-        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+        <Grid item xs={12} sm={4} md={5} component={Paper} elevation={6} square>
           <Box
             sx={{
               my: 8,
@@ -107,10 +132,6 @@ export default function SignInSide({ submitForm, handleChange }) {
                 autoFocus
               />
 
-              <FormControlLabel
-                control={<Checkbox value='remember' color='primary' />}
-                label='Remember me'
-              />
               <Button
                 type='submit'
                 fullWidth
@@ -119,18 +140,7 @@ export default function SignInSide({ submitForm, handleChange }) {
               >
                 Sign In
               </Button>
-              <Grid container>
-                <Grid item xs>
-                  <Link href='#' variant='body2'>
-                    Forgot password?
-                  </Link>
-                </Grid>
-                <Grid item>
-                  <Link href='#' variant='body2'>
-                    {"Don't have an account? Sign Up"}
-                  </Link>
-                </Grid>
-              </Grid>
+
               <Copyright sx={{ mt: 5 }} />
             </Box>
           </Box>

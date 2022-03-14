@@ -82,7 +82,7 @@
   font-size: 32px;
   text-align: center;
   justify-content: center;
-  margin: 5px 0;
+
   transition: 0.5s;
   align-items: center;
   cursor: pointer;
@@ -230,7 +230,6 @@
   font-size: 32px;
   text-align: center;
   justify-content: center;
-  margin: 5px 0;
   transition: 0.5s;
   cursor: pointer;
 }
@@ -258,7 +257,7 @@
   padding: 10px 20px;
   color: #fff;
   font-size: 32px;
-  margin: 5px 0;
+
   transition: 0.5s;
   cursor: pointer;
 }
