@@ -17,7 +17,7 @@ import Button from "@mui/material/Button";
 import ModeSelection from "./ModeSelection";
 import "./styles/index.css";
 
-function IndexPage(props) {
+function IndexPage() {
   const [inputField, setinputField] = useState("Enter a Screen Name");
   const [nextPage, setnextPage] = useState(false);
   const [uniqueId, setuniqueId] = useState(uniqid());
@@ -78,9 +78,6 @@ function IndexPage(props) {
     <div id='indexBody'>
       <div id='main-container'>
         <SignInSide submitForm={submitForm} handleChange={handleChange} />
-      </div>
-      <div id='logo2'>
-        <img className='logo' src={white_logo_dark_bg} alt='' />
       </div>
     </div>
   );
