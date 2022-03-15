@@ -16,6 +16,7 @@ import Button from "@mui/material/Button";
 import "./styles/Nav.css";
 import background from "./logos/green3.jpg";
 import uniqid from "uniqid";
+import mainLogo from "./logos/whiteLogoStandalone.png";
 
 function Rooms() {
   const db = firebase.firestore();
@@ -477,48 +478,56 @@ function Rooms() {
   return (
     <div className='background'>
       <div id='overlay'></div>
-      <div className='liveRoom'>
-        <div id='active-container'>
-          <form id='create-room' onSubmit={(e) => createRoom(e)}>
-            <p style={{ marginBottom: "10px" }}>
-              The creator of the room will be the administrator by default.
-            </p>
-            <TextField
-              label='Room Name'
-              size='small'
-              type='text'
-              id='room-name'
-              onChange={(e) => setRoomName(e.target.value)}
-              placeholder='Room Name'
-              required
-            />
-            <TextField
-              label='Password'
-              size='small'
-              type='password'
-              id='password'
-              placeholder='Room Password'
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-            <Button
-              type='submit'
-              value='Create Room'
-              variant='contained'
-              size='small'
-              id='create-final-btn'
-              className='creater create-room'
-            >
-              Create Room
-            </Button>
-            <Button onClick={closeCreateRoom} type='button'>
-              Cancel
-            </Button>
-          </form>
+      <div id='liveRoom-container'>
+        <div id='main-logo-container'>
+          <a href='rooms.html'>
+            {<img id='mainLogo' src={mainLogo} alt='' />}
+            <img id='secondaryLogo' src={secondaryLogo} alt='' />
+          </a>
+        </div>
+        <div className='liveRoom'>
+          <div id='active-container'>
+            <form id='create-room' onSubmit={(e) => createRoom(e)}>
+              <p style={{ marginBottom: "10px" }}>
+                The creator of the room will be the administrator by default.
+              </p>
+              <TextField
+                label='Room Name'
+                size='small'
+                type='text'
+                id='room-name'
+                onChange={(e) => setRoomName(e.target.value)}
+                placeholder='Room Name'
+                required
+              />
+              <TextField
+                label='Password'
+                size='small'
+                type='password'
+                id='password'
+                placeholder='Room Password'
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+              <Button
+                type='submit'
+                value='Create Room'
+                variant='contained'
+                size='small'
+                id='create-final-btn'
+                className='creater create-room'
+              >
+                Create Room
+              </Button>
+              <Button onClick={closeCreateRoom} type='button'>
+                Cancel
+              </Button>
+            </form>
 
-          <div>{content}</div>
+            <div>{content}</div>
 
-          <div>{instructionMode ? <InstructionMode /> : null}</div>
+            <div>{instructionMode ? <InstructionMode /> : null}</div>
+          </div>
         </div>
       </div>
     </div>

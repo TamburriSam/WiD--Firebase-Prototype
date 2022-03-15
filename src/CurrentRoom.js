@@ -90,9 +90,9 @@ function CurrentRoom({
             document.querySelector(".game-start").style.display = "block";
             document.querySelector(".loading").style.display = "none";
 
-            const time = new Date();
+            /* const time = new Date();
             time.setSeconds(time.getSeconds() + 9);
-            restart(time, true);
+            restart(time, true); */
 
             if (isSolo) {
               mockUsers();

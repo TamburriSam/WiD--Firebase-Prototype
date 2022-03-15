@@ -17,6 +17,8 @@ const SoloMode = () => {
   const [favoriteLetter, setfavoriteLetter] = useState("");
 
   useEffect(() => {
+    document.getElementById("main-logo-container").style.display = "none";
+
     let students = [];
     for (let i = 0; i < 10; i++) {
       students.push(`Live Student ${i}`);
@@ -238,25 +240,27 @@ const SoloMode = () => {
   }
 
   return (
-    <div id='fast-facts'>
-      <div id='notification'>
-        What's your favorite letter of the alphabet? Type it in the box.
-      </div>
-      <div id='inputContainer'>
-        <input
-          onChange={setFavLetterChange}
-          className='alphabetInput'
-          type='text'
-          placeholder='favorite letter'
-        />
-      </div>
-      <button id='letterSubmit' onClick={handleLetterChange}>
-        submit
-      </button>
+    <div id='fast-fact-container'>
+      <div id='fast-facts'>
+        <div id='notification'>
+          What's your favorite letter of the alphabet? Type it in the box.
+        </div>
+        <div id='inputContainer'>
+          <input
+            onChange={setFavLetterChange}
+            className='alphabetInput'
+            type='text'
+            placeholder='favorite letter'
+          />
+        </div>
+        <button id='letterSubmit' onClick={handleLetterChange}>
+          submit
+        </button>
 
-      {content}
-      <div id='waiting1'>
-        <p className='loading1'>Waiting for users to join</p>
+        {content}
+        <div id='waiting1'>
+          <p className='loading1'>Waiting for users to join</p>
+        </div>
       </div>
     </div>
   );

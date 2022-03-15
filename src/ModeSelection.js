@@ -33,9 +33,8 @@ const ModeSelection = ({ soloFunc }) => {
       <div id='options-container'>
         <div className='option' id='solo'>
           <div>
-            <h1 className='mode-heading'>Solo</h1>
-            <br></br>
-            <br></br>
+            <h1 className='mode-heading solo-mode'>Solo</h1>
+
             <p>
               To play by yourself, <br />
               at your own pace, <br />
@@ -57,8 +56,7 @@ const ModeSelection = ({ soloFunc }) => {
         </div>
         <div className='option' id='group'>
           <h1 className='mode-heading'>Group</h1>
-          <br></br>
-          <br></br>
+
           <p>
             To play in a group, <br />
             in real time, <br />
@@ -75,8 +73,7 @@ const ModeSelection = ({ soloFunc }) => {
             Select or create a room <br />
             and wait while the other <br />
             members join and you'll <br />
-            be shown a starting screen.<br></br>
-            <br></br>
+            be shown a starting screen.
           </p>
         </div>
       </div>

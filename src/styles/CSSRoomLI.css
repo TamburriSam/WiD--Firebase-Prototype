@@ -14,6 +14,20 @@
   background-color: black;
 }
 
+#liveRoom-container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--background-black);
+}
+
+#main-logo-container {
+  position: relative;
+  bottom: 15px;
+}
+
 #liveRoom {
   min-height: 90vh;
   padding: 15px;
@@ -24,7 +38,7 @@
   margin: auto;
   color: #e5e5e5;
   border: 2px solid #e5e5e5;
-
+  overflow-x: hidden;
   background-color: #141414;
   width: 95vw;
   overflow-y: scroll;
@@ -179,6 +193,14 @@
   background-color: white;
 }
 
+#fast-fact-container {
+  width: 100vw;
+  height: 90vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 #fast-facts {
   width: 75vw;
   margin: auto;
@@ -197,20 +219,27 @@
     4px 4px 0px #999, 5px 5px 0px #999, 6px 6px 0px #999 !important;
   position: relative;
   padding: 10px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
 
 #notification {
   font-size: 32px;
   padding: 5px;
+  position: absolute;
+  top: 0;
 }
 #inputContainer {
-  font-size: 6.5vw;
+  /*  font-size: 6.5vw;
   height: 24vh;
   align-items: center;
   display: flex;
   position: relative;
   justify-content: space-evenly;
-  text-align: center;
+  text-align: center; */
 }
 
 #waiting1 {
@@ -236,13 +265,12 @@
 /* Favorite Letter Selection */
 
 .alphabetInput {
+  height: 40vh;
+  width: 50vw;
   text-align: center;
+  font-size: 40vw;
   background-color: transparent;
-  outline: none;
-  color: white;
-  position: relative;
-  font-size: 31.5vw;
-  top: 100px;
+  color: var(--text-color);
   border: none;
 }
 
