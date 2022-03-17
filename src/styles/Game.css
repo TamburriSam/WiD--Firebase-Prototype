@@ -32,9 +32,16 @@
 }
 
 .join-btn button {
-  background-color: var(--text-color);
-  border: 2px solid var(--text-color);
+  background-color: #e7e7e7;
+  border: 1px solid var(--background-black);
   color: var(--background-black);
+  transition: 0.2s;
+}
+.join-btn button:hover {
+  background-color: var(--background-black);
+  border: 1px solid var(--text-color);
+  color: var(--text-color);
+  transform: scale(1.2);
 }
 
 /* Solo Btn */
@@ -183,16 +190,34 @@
   z-index: 100;
 }
 #continueBtn {
+  background-color: #141414;
+  border: 3px solid white !important;
+  color: white;
+  height: 40px;
   position: relative;
-  z-index: 100;
-  margin-bottom: 30px;
-  background-color: rgb(255, 255, 255);
+  top: 5px;
+  width: 20vw;
+  /* bottom: -95px; */
+  border-radius: 3px;
+  width: fit-content;
+  font-family: "Montserrat", sans-serif !important;
+  font-size: 12px;
+  cursor: pointer;
+  transition: 0.3s;
+  margin-left: 15px;
 }
 
+#continueBtn:hover {
+  transform: scale(1.1);
+  color: black !important;
+  background-color: white;
+  border: 1px solid black;
+}
 /* Game2 */
 #game2 {
   position: relative;
   z-index: 2;
+  background-color: #141414;
 }
 
 #inputForm {

@@ -11,6 +11,7 @@ const FavoriteLetter = ({
   useEffect(() => {
     const LSsolo = localStorage.getItem("solo");
     const LSfavorite_letter = localStorage.getItem("favorite_letter");
+    document.getElementById("main-logo-container").style.display = "none";
 
     if (!mounted) {
       console.log("ok");
@@ -24,8 +25,7 @@ const FavoriteLetter = ({
           "inputContainer"
         ).innerHTML = `<div className="alphabetInput">${LSfavorite_letter.toUpperCase()}</div>`;
 
-        document.getElementById("inputContainer").style.height = "62vh";
-        document.getElementById("inputContainer").style.fontSize = "54.5vw";
+        document.getElementById("inputContainer").style.fontSize = "38.5vw";
       }
 
       document.getElementById("active-container").style.height = "100vh";

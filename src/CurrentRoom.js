@@ -58,6 +58,8 @@ function CurrentRoom({
       setAdmin(true);
     }
 
+    console.log(currentRound);
+
     setroomID(localStorage.getItem("room_id"));
 
     selectAFavoriteLetter();
@@ -90,9 +92,9 @@ function CurrentRoom({
             document.querySelector(".game-start").style.display = "block";
             document.querySelector(".loading").style.display = "none";
 
-            /* const time = new Date();
+            const time = new Date();
             time.setSeconds(time.getSeconds() + 9);
-            restart(time, true); */
+            restart(time, true);
 
             if (isSolo) {
               mockUsers();
@@ -146,11 +148,14 @@ function CurrentRoom({
     document.getElementById("waiting").style.display = "block";
     document.getElementById("current-room").style.display = "block";
     document.getElementById("current-room").style.top = "185px";
+    let loadingList = document.getElementById("user-loading-list");
+    loadingList.scrollTop = loadingList.scrollHeight;
   };
 
   const startCountdown = () => {
     /* setgameStart(true); */
     setCurrentRound(1);
+    localStorage.setItem("current_round", 1);
 
     localStorage.setItem("game_start", true);
   };

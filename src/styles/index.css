@@ -544,6 +544,11 @@
   #options-container p {
     font-size: 12px;
   }
+
+  .option {
+    width: fit-content;
+    padding: 2px;
+  }
 }
 
 @media only screen and (max-width: 600px) {

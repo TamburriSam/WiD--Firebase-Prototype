@@ -31,8 +31,6 @@ function Game1({ expiryTimestamp, testGame }) {
       console.log("ok");
     }
 
-    document.body.addEventListener("click", doThis);
-
     let LSroomId = localStorage.getItem("room_id");
     let LSuserId = localStorage.getItem("user_id");
     let LSg1Start = localStorage.getItem("g1");
@@ -51,18 +49,6 @@ function Game1({ expiryTimestamp, testGame }) {
       console.log("unmounting");
     };
   }, []);
-
-  const doThis = (e) => {
-    let current = e.target;
-    let nextSibling = current.nextElementSibling;
-
-    /*   while (nextSibling) {
-      console.log(nextSibling);
-      nextSibling = nextSibling.nextElementSibling;
-
-      nextSibling.className == 'highlight'
-    } */
-  };
 
   const shuffle = (array) => {
     let currentIndex = array.length,
@@ -244,8 +230,7 @@ function Game1({ expiryTimestamp, testGame }) {
 
   return (
     <div>
-      <h1>Game One</h1>
-
+      hello
       <div
         style={{
           backgroundColor: "#e5e5e5",
@@ -267,7 +252,6 @@ function Game1({ expiryTimestamp, testGame }) {
         The word can begin with the letter or not.<br></br>
         Let your mind run free!<br></br>
       </div>
-
       <div>
         <div
           style={{
@@ -285,7 +269,10 @@ function Game1({ expiryTimestamp, testGame }) {
           </div>
         </div>
       </div>
-      <form onSubmit={(e) => allEntered(e)}>
+      <form
+        style={{ backgroundColor: "#141414" }}
+        onSubmit={(e) => allEntered(e)}
+      >
         <div id='list-container'>
           <div id='input-form'>
             <ul id='input-list1'></ul>
@@ -294,15 +281,7 @@ function Game1({ expiryTimestamp, testGame }) {
         <div className='overlay'></div>
         <div className='overlay'></div>
         <div id='button-container'>
-          <Button
-            variant='outlined'
-            id='continueBtn'
-            color='success'
-            type='submit'
-            value={roomID}
-          >
-            Continue
-          </Button>
+          <button id='continueBtn'>Continue</button>
           <div id='timer' style={{ backgroundColor: "white" }}>
             {content}
           </div>

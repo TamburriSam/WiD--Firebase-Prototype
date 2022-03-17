@@ -11,7 +11,6 @@
   background-size: cover;
   background-repeat: repeat;
   background-size: cover;
-  background-color: black;
 }
 
 #liveRoom-container {
@@ -36,10 +35,10 @@
   z-index: 100;
   max-height: 80vh;
   margin: auto;
-  color: #e5e5e5;
+  color: #141414;
   border: 2px solid #e5e5e5;
   overflow-x: hidden;
-  background-color: #141414;
+  background-color: #e5e5e5;
   width: 95vw;
   overflow-y: scroll;
 }
@@ -233,13 +232,7 @@
   top: 0;
 }
 #inputContainer {
-  /*  font-size: 6.5vw;
-  height: 24vh;
-  align-items: center;
-  display: flex;
-  position: relative;
-  justify-content: space-evenly;
-  text-align: center; */
+  height: fit-content;
 }
 
 #waiting1 {
@@ -265,7 +258,7 @@
 /* Favorite Letter Selection */
 
 .alphabetInput {
-  height: 40vh;
+  height: fit-content;
   width: 50vw;
   text-align: center;
   font-size: 40vw;
@@ -450,4 +443,29 @@
   position: absolute;
   right: 2px;
   top: 1px;
+}
+
+@media only screen and (max-width: 890px) {
+  #inputContainer {
+    position: relative;
+    top: 50px;
+    outline: none;
+  }
+
+  #user-loading-list {
+    /* width: 40vw; */
+
+    max-height: 10vh;
+    overflow-y: scroll;
+  }
+
+  #current-room {
+    right: 10px;
+    top: 230px !important;
+    max-height: 25vh;
+  }
+
+  .game-start {
+    font-size: 24px;
+  }
 }
