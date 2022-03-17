@@ -7,6 +7,7 @@ import React from "react";
 import Rooms from "./Rooms";
 import "firebaseui/dist/firebaseui.css";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
+import Main from "./Main";
 
 function App() {
   const firebaseConfig = {
@@ -29,7 +30,7 @@ function App() {
       <BrowserRouter>
         <div>
           <Switch>
-            <Route path='/' component={IndexPage} exact />
+            <Route path='/' component={Main} exact />
             <Route path='/main' component={Rooms} />
             <Route component={Error} />
           </Switch>

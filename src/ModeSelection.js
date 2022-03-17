@@ -4,27 +4,32 @@ import logo from "./logos/whiteLogoStandalone.png";
 import Rooms from "./Rooms";
 import SoloMode from "./SoloMode";
 import RoomLI from "./RoomLI";
-const ModeSelection = ({ soloFunc }) => {
+const ModeSelection = ({ ModeSelection_to_Group, ModeSelection_to_Solo }) => {
   const [option, setOption] = useState("");
 
   useEffect(() => {
+    console.log("Mode Selection mounted");
     let LSoption = localStorage.getItem("option-solo");
 
     if (LSoption) {
       return <Rooms />;
     }
+
+    return () => {
+      console.log("Mode Selection unmounted");
+    };
   }, []);
 
-  if (option === "group") {
+  /* if (option === "group") {
     localStorage.setItem("option", true);
-    return <Rooms />;
+    ModeSelection_to_Group();
   } else if (option === "solo") {
     localStorage.setItem("option", true);
 
     localStorage.setItem("option-solo", true);
 
-    return <Rooms />;
-  }
+    ModeSelection_to_Solo();
+  } */
 
   return (
     <div id='mode-container'>
@@ -42,7 +47,7 @@ const ModeSelection = ({ soloFunc }) => {
               <br />
               <br></br>
             </p>
-            <button onClick={() => setOption("solo")} id='mode-solo-btn'>
+            <button onClick={ModeSelection_to_Solo} id='mode-solo-btn'>
               Solo
             </button>
             <p>
@@ -65,7 +70,7 @@ const ModeSelection = ({ soloFunc }) => {
             <br></br>
           </p>
 
-          <button onClick={() => setOption("group")} id='mode-group-btn'>
+          <button onClick={ModeSelection_to_Group} id='mode-group-btn'>
             Group
           </button>
           <p>

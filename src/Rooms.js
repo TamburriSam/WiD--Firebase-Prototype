@@ -39,6 +39,7 @@ function Rooms() {
 
   //mount
   useEffect(() => {
+    console.log("Room mounted");
     //get the username from LS and set it to a state instead of this
     const LSuserName = localStorage.getItem("username");
     const LSid = localStorage.getItem("user_id");
@@ -59,6 +60,10 @@ function Rooms() {
     } else {
       console.log("not working");
     }
+
+    return () => {
+      console.log("Rooms unmounted");
+    };
   }, []);
 
   useEffect(() => {

@@ -17,6 +17,7 @@ const SoloMode = () => {
   const [favoriteLetter, setfavoriteLetter] = useState("");
 
   useEffect(() => {
+    console.log("mounted");
     document.getElementById("main-logo-container").style.display = "none";
 
     let students = [];
@@ -28,6 +29,10 @@ const SoloMode = () => {
     document.getElementById("active-container").style.height = "100vh";
     if (localStorage.getItem("solo")) {
     }
+
+    return () => {
+      console.log("solo unmounted");
+    };
   }, []);
 
   const setSoloRoom = () => {

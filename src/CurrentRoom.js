@@ -3,7 +3,7 @@ import "firebase/firestore";
 import { useEffect, useState } from "react";
 import Game1 from "./Game1";
 import Game2 from "./Game2";
-
+import Main_container from "./Main";
 import React from "react";
 import "./styles/CSSRoomLI.css";
 import FavoriteLetter from "./FavoriteLetter";
@@ -241,19 +241,15 @@ function CurrentRoom({
     return <Game1 testGame={testGame} />;
   }
 
-  /* if (gameStart) {
+  if (gameStart) {
     return <Game1 testGame={testGame} />;
   }
 
-  
-
   if (gameStart2) {
-   
-
-     setgameStart(false);
-    console.log("ok done"); 
-      return <Game2 />; 
-  } */
+    setgameStart(false);
+    console.log("ok done");
+    return <Game2 />;
+  }
 
   if (isLoading) {
     return <div className='App'>Loading...</div>;

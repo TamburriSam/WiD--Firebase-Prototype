@@ -17,7 +17,7 @@ import Button from "@mui/material/Button";
 import ModeSelection from "./ModeSelection";
 import "./styles/index.css";
 
-function IndexPage() {
+function IndexPage({ IndexPage_to_mode_selection }) {
   const [inputField, setinputField] = useState("Enter a Screen Name");
   const [nextPage, setnextPage] = useState(false);
   const [uniqueId, setuniqueId] = useState(uniqid());
@@ -25,14 +25,15 @@ function IndexPage() {
   const [instructionMode, setInstructionMode] = useState(false);
 
   useEffect(() => {
+    console.log("Index Mounted");
     const LSitem = localStorage.getItem("username");
 
-    if (LSitem) {
+    /*  if (LSitem) {
       setnextPage(true);
-    }
+    } */
 
     return () => {
-      console.log("unmounted");
+      console.log("Index unmounted");
     };
   }, []);
 
@@ -50,7 +51,7 @@ function IndexPage() {
     if (inputField.length < 2) {
       alert("Please enter a full screen name");
     } else {
-      setShowOption(true);
+      IndexPage_to_mode_selection();
     }
 
     if (inputField === "instruction_username") {
@@ -62,17 +63,17 @@ function IndexPage() {
     e.preventDefault();
   };
 
-  if (instructionMode) {
+  /*  if (instructionMode) {
     return <InstructionMode />;
   }
 
   if (nextPage) {
     return <Rooms />;
   }
-
-  if (showOption) {
+ */
+  /* if (showOption) {
     return <ModeSelection />;
-  }
+  } */
 
   return (
     <div id='indexBody'>
