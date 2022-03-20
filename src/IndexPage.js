@@ -26,11 +26,6 @@ function IndexPage({ IndexPage_to_mode_selection }) {
 
   useEffect(() => {
     console.log("Index Mounted");
-    const LSitem = localStorage.getItem("username");
-
-    /*  if (LSitem) {
-      setnextPage(true);
-    } */
 
     return () => {
       console.log("Index unmounted");
@@ -62,18 +57,6 @@ function IndexPage({ IndexPage_to_mode_selection }) {
 
     e.preventDefault();
   };
-
-  /*  if (instructionMode) {
-    return <InstructionMode />;
-  }
-
-  if (nextPage) {
-    return <Rooms />;
-  }
- */
-  /* if (showOption) {
-    return <ModeSelection />;
-  } */
 
   return (
     <div id='indexBody'>

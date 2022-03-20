@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import firebase from "firebase/app";
 import "firebase/firestore";
+import Main from "./Main.js";
 import Game2 from "./Game2.js";
 import "./styles/Game.css";
 import Button from "@mui/material/Button";
@@ -8,8 +9,9 @@ import { useTimer } from "react-timer-hook";
 import CurrentRoom from "./CurrentRoom.js";
 import Typing from "react-typing-animation";
 import Timer from "./Timer.js";
+import Typewriter from "typewriter-effect/dist/core";
 
-function Game1({ expiryTimestamp, testGame }) {
+function Game1({ expiryTimestamp, testGame, Game1_to_Game2 }) {
   const db = firebase.firestore();
 
   const [roomID, setroomID] = useState("");
@@ -17,38 +19,49 @@ function Game1({ expiryTimestamp, testGame }) {
   const [g2Start, setG2Start] = useState(false);
   const [isLoading, setLoading] = useState(false);
   const [mounted, setmounted] = useState(false);
-
-  let content = null;
-
-  let instruction = null;
+  const [time, setTime] = useState(false);
 
   useEffect((e) => {
-    const time = new Date();
-    time.setSeconds(time.getSeconds() + 420); // 10 minutes timer
-    restart(time, true);
-
-    if (!mounted) {
-      console.log("ok");
-    }
+    console.log("mounted");
 
     let LSroomId = localStorage.getItem("room_id");
     let LSuserId = localStorage.getItem("user_id");
     let LSg1Start = localStorage.getItem("g1");
 
-    if (LSg1Start) {
-      setG2Start(true);
-    } else {
-      setroomID(LSroomId);
-      setuserID(LSuserId);
-      populateAlphabet();
-    }
+    setroomID(LSroomId);
+    setuserID(LSuserId);
+    populateAlphabet();
+
+    var app = document.getElementById("instruction-game");
+
+    var typewriter = new Typewriter(app, {
+      loop: false,
+      delay: 75,
+    });
+    typewriter
+      .typeString(
+        `Here's a list of letters.
+    Replace each letter with a word that you think you might like to write
+    with.
+    The word can begin with the letter or not.
+    Let your mind run free!`
+      )
+      .pauseFor(300)
+      .start();
 
     return () => {
       setmounted(true);
       setLoading(true);
+      setTime(true);
       console.log("unmounting");
     };
   }, []);
+
+  useEffect(() => {
+    const time = new Date();
+    time.setSeconds(time.getSeconds() + 420); // 10 minutes timer
+    restart(time, true);
+  }, [time]);
 
   const shuffle = (array) => {
     let currentIndex = array.length,
@@ -117,7 +130,7 @@ function Game1({ expiryTimestamp, testGame }) {
       })
       .then(() => {
         setTimeout(() => {
-          setG2Start(true);
+          Game1_to_Game2();
         }, 4000);
       });
   };
@@ -197,7 +210,7 @@ function Game1({ expiryTimestamp, testGame }) {
       )
       .then(() => {
         localStorage.setItem("g1", true);
-        setG2Start(true);
+        Game1_to_Game2();
       })
       .catch((err) => {
         console.log(err);
@@ -211,22 +224,6 @@ function Game1({ expiryTimestamp, testGame }) {
   if (isLoading) {
     return <div className='App'>Loading...</div>;
   }
-
-  if (g2Start) {
-    setLoading(true);
-    testGame();
-    /*  return <Game2 />; */
-  }
-
-  let animated = (
-    <Typing>
-      Here's a list of letters<br></br>
-      Replace each letter with a word that you think you might like to write
-      with.<br></br>
-      The word can begin with the letter or not.<br></br>
-      Let your mind run free!<br></br>
-    </Typing>
-  );
 
   return (
     <div>
@@ -246,11 +243,11 @@ function Game1({ expiryTimestamp, testGame }) {
         }}
         id='instruction-game'
       >
-        Here's a list of letters<br></br>
+        {/*   Here's a list of letters<br></br>
         Replace each letter with a word that you think you might like to write
         with.<br></br>
         The word can begin with the letter or not.<br></br>
-        Let your mind run free!<br></br>
+        Let your mind run free!<br></br> */}
       </div>
       <div>
         <div
@@ -278,13 +275,17 @@ function Game1({ expiryTimestamp, testGame }) {
             <ul id='input-list1'></ul>
           </div>
         </div>
-        <div className='overlay'></div>
-        <div className='overlay'></div>
+
         <div id='button-container'>
-          <button id='continueBtn'>Continue</button>
-          <div id='timer' style={{ backgroundColor: "white" }}>
-            {content}
-          </div>
+          <Button
+            variant='outlined'
+            id='continueBtn'
+            type='submit'
+            value={roomID}
+            color='success'
+          >
+            Continue
+          </Button>
         </div>
       </form>
     </div>

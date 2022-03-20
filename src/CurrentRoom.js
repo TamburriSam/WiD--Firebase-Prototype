@@ -18,6 +18,8 @@ function CurrentRoom({
   favorite_letter,
   removeUser,
   createNewProfile,
+  CurrentRoom_to_Game1,
+  GroupMode_to_Fav_letter,
 }) {
   const db = firebase.firestore();
   const genUsername = require("unique-username-generator");
@@ -153,9 +155,8 @@ function CurrentRoom({
   };
 
   const startCountdown = () => {
-    /* setgameStart(true); */
-    setCurrentRound(1);
-    localStorage.setItem("current_round", 1);
+    localStorage.setItem("currentPage", "Game1");
+    window.location.reload();
 
     localStorage.setItem("game_start", true);
   };
@@ -222,34 +223,7 @@ function CurrentRoom({
     db.collection("rooms").doc(ROOMLS).update({ game_started: true });
   };
 
-  const testGame = () => {
-    setCurrentRound(2);
-  };
   let content = null;
-
-  useEffect(() => {
-    console.log(currentRound);
-  }, [currentRound]);
-
-  if (currentRound == 1) {
-    return <Game1 testGame={testGame} />;
-  } else if (currentRound == 2) {
-    return <Game2 />;
-  }
-
-  if (gs) {
-    return <Game1 testGame={testGame} />;
-  }
-
-  if (gameStart) {
-    return <Game1 testGame={testGame} />;
-  }
-
-  if (gameStart2) {
-    setgameStart(false);
-    console.log("ok done");
-    return <Game2 />;
-  }
 
   if (isLoading) {
     return <div className='App'>Loading...</div>;

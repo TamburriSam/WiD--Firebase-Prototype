@@ -1,5 +1,6 @@
 import firebase from "firebase/app";
 import "firebase/firestore";
+import Main from "./Main";
 import { useEffect, useState } from "react";
 import React from "react";
 import "./styles/index.css";
@@ -8,12 +9,11 @@ import LiveRoom from "./LiveRoom";
 import "./styles/Wordtable.css";
 import Button from "@mui/material/Button";
 
-const Wordtable = () => {
+const Wordtable = ({ Wordtable_to_LiveRoom }) => {
   const db = firebase.firestore();
 
   const [nodes, setNodes] = useState({});
   const [isLoading, setLoading] = useState(true);
-  const [liveRoom, setLiveRoom] = useState(false);
   const [soloLive, setSoloLive] = useState(false);
   const [list, setList] = useState([]);
 
@@ -22,11 +22,11 @@ const Wordtable = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
 
-    document.getElementById("active-container").style.height = "100vh";
+    /*  document.getElementById("active-container").style.height = "100vh"; */
     let LSPoem = localStorage.getItem("poem");
 
     if (LSPoem) {
-      setLiveRoom(true);
+      Wordtable_to_LiveRoom();
     } else {
       getData();
     }
@@ -165,20 +165,12 @@ const Wordtable = () => {
       alert(`Please complete the exercise before continuing.`);
     } else {
       if (LSsolo) {
-        setSoloLive(true);
+        Wordtable_to_LiveRoom();
       } else {
-        setLiveRoom(true);
+        Wordtable_to_LiveRoom();
       }
     }
   };
-
-  if (liveRoom) {
-    return <LiveRoom />;
-  }
-
-  if (soloLive) {
-    return <LiveRoom />;
-  }
 
   if (isLoading) {
     return <div className='App'>Loading...</div>;

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import firebase from "firebase/app";
+import Main from "./Main";
 import "firebase/firestore";
 import RoomLI from "./RoomLI";
 import Wordtable from "./WordTable";
@@ -7,13 +8,11 @@ import "./styles/Game.css";
 import Button from "@mui/material/Button";
 import { useTimer } from "react-timer-hook";
 
-const Game4 = ({ expiryTimestamp }) => {
+const Game4 = ({ expiryTimestamp, Game4_to_WordTable }) => {
   const db = firebase.firestore();
 
   const [roomID, setroomID] = useState("");
   const [userID, setuserID] = useState("");
-  const [listForRoom, setListForRoom] = useState([]);
-  const [fp, setfp] = useState(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -28,22 +27,20 @@ const Game4 = ({ expiryTimestamp }) => {
 
     let g4LS = localStorage.getItem("g4");
 
-    if (g4LS == "true") {
-      setfp(true);
-    }
+    console.log("mounted");
 
-    if (!token) {
-      console.log("mounted");
+    isThereAListInLS();
 
-      isThereAListInLS();
+    setroomID(LSroomId);
+    setuserID(LSuserId);
 
-      setroomID(LSroomId);
-      setuserID(LSuserId);
+    setTimeout(() => {
+      createCells();
+    }, 1);
 
-      setTimeout(() => {
-        createCells();
-      }, 1);
-    }
+    return () => {
+      console.log("unmounting");
+    };
   }, []);
 
   const {
@@ -96,7 +93,7 @@ const Game4 = ({ expiryTimestamp }) => {
       })
       .then(() => {
         setTimeout(() => {
-          setfp(true);
+          Game4_to_WordTable();
         }, 4000);
       });
   };
@@ -316,24 +313,7 @@ const Game4 = ({ expiryTimestamp }) => {
         { merge: true }
       )
       .then(() => {
-        localStorage.setItem("g4", true);
-        setfp(true);
-      });
-  };
-
-  if (fp) {
-    return <Wordtable />;
-  }
-
-  const test = () => {
-    let room_id = localStorage.getItem("room_id");
-
-    db.collection("rooms")
-      .doc(room_id)
-      .get()
-      .then((doc) => {
-        console.log(doc.data().list_one);
-        console.log(doc.data().list_two);
+        Game4_to_WordTable();
       });
   };
 

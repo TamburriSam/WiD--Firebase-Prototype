@@ -9,11 +9,6 @@ const ModeSelection = ({ ModeSelection_to_Group, ModeSelection_to_Solo }) => {
 
   useEffect(() => {
     console.log("Mode Selection mounted");
-    let LSoption = localStorage.getItem("option-solo");
-
-    if (LSoption) {
-      return <Rooms />;
-    }
 
     return () => {
       console.log("Mode Selection unmounted");

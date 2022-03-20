@@ -217,6 +217,8 @@ function Rooms() {
     let activeCount, totalCount;
     let roomRef = db.collection("rooms").doc(id);
 
+    localStorage.setItem("currentPage", "CurrentRoom");
+
     roomRef.get().then((doc) => {
       let users = doc.data().users;
       let userArray = [];

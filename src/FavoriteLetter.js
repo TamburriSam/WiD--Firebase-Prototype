@@ -9,13 +9,11 @@ const FavoriteLetter = ({
   const [mounted, setmounted] = useState(false);
 
   useEffect(() => {
+    console.log("HERE NOW");
     const LSsolo = localStorage.getItem("solo");
     const LSfavorite_letter = localStorage.getItem("favorite_letter");
-    document.getElementById("main-logo-container").style.display = "none";
-
-    if (!mounted) {
-      console.log("ok");
-    }
+    /*     document.getElementById("main-logo-container").style.display = "none";
+     */
 
     if (LSsolo) {
       handleSoloLetterChange();
@@ -27,8 +25,6 @@ const FavoriteLetter = ({
 
         document.getElementById("inputContainer").style.fontSize = "38.5vw";
       }
-
-      document.getElementById("active-container").style.height = "100vh";
     }
 
     return () => {

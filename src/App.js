@@ -26,9 +26,9 @@ function App() {
   }
 
   return (
-    <div /* style={{ backgroundImage: `url(${background1})` }} */>
+    <div style={{ backgroundColor: "#141414" }}>
       <BrowserRouter>
-        <div>
+        <div style={{ backgroundColor: "#141414" }}>
           <Switch>
             <Route path='/' component={Main} exact />
             <Route path='/main' component={Rooms} />

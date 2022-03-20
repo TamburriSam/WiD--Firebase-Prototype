@@ -6,18 +6,14 @@ import Button from "@mui/material/Button";
 import { useTimer } from "react-timer-hook";
 import "./styles/Game.css";
 
-const Game3 = ({ expiryTimestamp }) => {
+const Game3 = ({ expiryTimestamp, Game3_to_Game4 }) => {
   const db = firebase.firestore();
 
   const [roomID, setroomID] = useState("");
   const [userID, setuserID] = useState("");
-  const [g3Start, setG3Start] = useState(false);
-  const [listForRoom, setListForRoom] = useState([]);
-  const [what, setWhat] = useState(false);
-  const [g4, setG4] = useState(false);
-  let [g2Start, setG2start] = useState(localStorage.getItem("g2"));
 
   useEffect(() => {
+    console.log("mounted");
     window.scrollTo(0, 0);
 
     let LSroomId = localStorage.getItem("room_id");
@@ -25,26 +21,20 @@ const Game3 = ({ expiryTimestamp }) => {
     const time = new Date();
     time.setSeconds(time.getSeconds() + 420); // 10 minutes timer
     restart(time, true);
-    /*  localStorage.setItem("g2", true); */
 
-    let g3LS = localStorage.getItem("g3");
-
-    if (g3LS == "true") {
-      setG4(true);
-    }
-
-    let token = localStorage.getItem("g3");
     console.log("mounted");
 
-    if (!token) {
-      isThereAListInLS();
+    isThereAListInLS();
 
-      setroomID(LSroomId);
-      setuserID(LSuserId);
-      setTimeout(() => {
-        createCells();
-      }, 1);
-    }
+    setroomID(LSroomId);
+    setuserID(LSuserId);
+    setTimeout(() => {
+      createCells();
+    }, 1);
+
+    return () => {
+      console.log("unmounting g3");
+    };
   }, []);
 
   const {
@@ -97,7 +87,7 @@ const Game3 = ({ expiryTimestamp }) => {
       })
       .then(() => {
         setTimeout(() => {
-          setG4(true);
+          Game3_to_Game4();
         }, 4000);
       });
   };
@@ -315,14 +305,9 @@ const Game3 = ({ expiryTimestamp }) => {
         { merge: true }
       )
       .then(() => {
-        localStorage.setItem("g3", true);
-        setG4(true);
+        Game3_to_Game4();
       });
   };
-
-  if (g4) {
-    return <Game4 />;
-  }
 
   return (
     <div id='game2'>

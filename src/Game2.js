@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import firebase from "firebase/app";
+import Main from "./Main";
 import "firebase/firestore";
 import RoomLI from "./RoomLI";
 import Game3 from "./Game3";
@@ -8,7 +9,7 @@ import "./styles/Game.css";
 import Button from "@mui/material/Button";
 import { useTimer } from "react-timer-hook";
 
-const Game2 = ({ expiryTimestamp }) => {
+const Game2 = ({ expiryTimestamp, Game2_to_Game3 }) => {
   const db = firebase.firestore();
 
   const [roomID, setroomID] = useState("");
@@ -23,6 +24,7 @@ const Game2 = ({ expiryTimestamp }) => {
   const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
+    console.log("mounted");
     window.scrollTo(0, 0);
 
     let LSroomId = localStorage.getItem("room_id");
@@ -33,10 +35,6 @@ const Game2 = ({ expiryTimestamp }) => {
     restart(time, true);
 
     let g2LS = localStorage.getItem("g2");
-
-    if (g2LS == "true") {
-      setG3(true);
-    }
 
     let token = localStorage.getItem("g2");
 
@@ -51,6 +49,10 @@ const Game2 = ({ expiryTimestamp }) => {
         createCells();
       }, 1);
     }
+
+    return () => {
+      console.log("unmounted");
+    };
   }, []);
 
   const {
@@ -103,7 +105,7 @@ const Game2 = ({ expiryTimestamp }) => {
       })
       .then(() => {
         setTimeout(() => {
-          setG3(true);
+          Game2_to_Game3();
         }, 4000);
       });
   };
@@ -325,7 +327,7 @@ const Game2 = ({ expiryTimestamp }) => {
       .then(() => {
         localStorage.setItem("g2", true);
         setLoading(true);
-        setG3(true);
+        Game2_to_Game3();
       });
   };
 
@@ -345,10 +347,6 @@ const Game2 = ({ expiryTimestamp }) => {
       return false;
     }
   };
-
-  if (g3) {
-    return <Game3 />;
-  }
 
   if (isLoading) {
     return <div className='App'>Loading...</div>;

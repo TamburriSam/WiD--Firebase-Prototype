@@ -4,12 +4,12 @@ import CurrentRoom from "./CurrentRoom";
 import { useState } from "react";
 import FavoriteLetter from "./FavoriteLetter";
 import "./styles/CSSRoomLI.css";
-
+import Main from "./Main";
 import Typing from "react-typing-animation";
 import BarLoader from "react-spinners/ClipLoader";
 import mainLogo from "./logos/whiteLogoStandalone.png";
 
-const SoloMode = () => {
+const SoloMode = ({ SoloMode_to_current_room }) => {
   const db = firebase.firestore();
   const [nodes, setNodes] = useState({});
   const [isLoading, setLoading] = useState(false);
@@ -18,16 +18,16 @@ const SoloMode = () => {
 
   useEffect(() => {
     console.log("mounted");
-    document.getElementById("main-logo-container").style.display = "none";
-
+    /*     document.getElementById("main-logo-container").style.display = "none";
+     */
     let students = [];
     for (let i = 0; i < 10; i++) {
       students.push(`Live Student ${i}`);
     }
     console.log(students);
 
-    document.getElementById("active-container").style.height = "100vh";
-    if (localStorage.getItem("solo")) {
+    /*     document.getElementById("active-container").style.height = "100vh";
+     */ if (localStorage.getItem("solo")) {
     }
 
     return () => {
@@ -232,13 +232,13 @@ const SoloMode = () => {
       setSoloRoom();
       setfavoriteLetter(favoriteLetter);
       setLoading(false);
-      setGameStart(true);
+      SoloMode_to_current_room();
     }
   };
 
-  if (gameStart) {
+  /*   if (gameStart) {
     return <CurrentRoom />;
-  }
+  } */
 
   if (isLoading) {
     return <div className='App'>Loading...</div>;
