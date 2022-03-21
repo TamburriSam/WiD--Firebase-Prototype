@@ -1,0 +1,257 @@
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Montserrat:wght@600&family=Special+Elite&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Didact+Gothic&family=IBM+Plex+Mono&display=swap");
+@import url("https://cdn.jsdelivr.net/gh/jgthms/minireset.css@master/minireset.min.css");
+
+* {
+  font-family: "IBM Plex Mono", monospace;
+  box-sizing: border-box;
+}
+
+.word-table-container {
+  margin: auto;
+  width: 100vw;
+  height: 100vh;
+  background-color: #141414;
+  display: flex;
+}
+
+.instructionAndEssayContainer {
+  width: 60%;
+}
+
+.instructionsTable {
+  border-bottom: 3px solid #e5e5e5;
+  height: 40%;
+  color: #e5e5e5;
+
+  display: flex;
+
+  background-color: #323232;
+  opacity: 0.9;
+  background-size: 7px 7px;
+  background-image: repeating-linear-gradient(
+    45deg,
+    #444444 0,
+    #1b1b1b 1.2000000000000002px,
+    #3d3d3db6 0,
+    #3d3d3db6 50%
+  );
+
+  padding: 11px;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.instructionsTable h2 {
+  font-size: 2.5vw;
+  position: relative;
+  text-decoration: underline;
+  bottom: 5px;
+}
+
+.essayTable {
+  height: 60%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  font-size: 1rem;
+  position: relative;
+  background-color: #323232;
+  opacity: 0.9;
+  background-size: 7px 7px;
+  background-image: repeating-linear-gradient(
+    45deg,
+    #444444 0,
+    #1b1b1b 1.2000000000000002px,
+    #3d3d3db6 0,
+    #3d3d3db6 50%
+  );
+}
+
+.essayTable textarea {
+  position: absolute;
+  top: 0;
+  height: 70%;
+  width: 100%;
+  padding: 20px;
+  font-size: 18px;
+}
+
+.essayTable p {
+  position: absolute;
+  bottom: 20%;
+}
+
+.essayTable div {
+  position: absolute;
+  bottom: 0px;
+  display: flex;
+}
+
+.essayTable button {
+  color: white;
+  font-size: 1rem;
+  width: 21.3vw;
+  height: 6vh;
+  background-color: #e5e5e567;
+  transition: 0.2s;
+}
+
+.essayTable button:hover {
+  font-size: 1.3rem;
+  background-color: #323232;
+  opacity: 0.9;
+  background-image: linear-gradient(135deg, #1b1b1b 25%, transparent 25%),
+    linear-gradient(225deg, #1b1b1b 25%, transparent 25%),
+    linear-gradient(45deg, #1b1b1b 25%, transparent 25%),
+    linear-gradient(315deg, #1b1b1b 25%, #323232 25%);
+  background-position: 7px 0, 7px 0, 0 0, 0 0;
+  background-size: 7px 7px;
+  background-repeat: repeat;
+  cursor: pointer;
+}
+
+.word-table-game {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-left: 3px solid #e5e5e5;
+  border-right: 3px solid #e5e5e5;
+  background-color: #141414;
+
+  width: 70%;
+}
+
+#material {
+  width: 82px;
+}
+
+.word-table-continue p {
+  margin-bottom: 10px;
+}
+
+.word-table-continue {
+  width: 10%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  background-color: #141414;
+  color: #e5e5e5;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+
+  background-color: #323232;
+  opacity: 0.9;
+  background-size: 7px 7px;
+  background-image: repeating-linear-gradient(
+    45deg,
+    #444444 0,
+    #1b1b1b 1.2000000000000002px,
+    #3d3d3db6 0,
+    #3d3d3db6 50%
+  );
+  transition: 0.2s;
+  cursor: pointer;
+  outline: none;
+}
+
+.word-table-continue:hover {
+  font-size: 2rem;
+  background-color: #323232;
+  opacity: 0.9;
+  background-image: linear-gradient(135deg, #1b1b1b 25%, transparent 25%),
+    linear-gradient(225deg, #1b1b1b 25%, transparent 25%),
+    linear-gradient(45deg, #1b1b1b 25%, transparent 25%),
+    linear-gradient(315deg, #1b1b1b 25%, #323232 25%);
+  background-position: 7px 0, 7px 0, 0 0, 0 0;
+  background-size: 7px 7px;
+  background-repeat: repeat;
+}
+
+.word-table-continue:hover input {
+  height: 2.9vh;
+  width: 100%;
+  border-left: none !important;
+  border-right: none !important;
+  font-size: 19px;
+  background-color: #141414;
+  color: #e5e5e5;
+  border: 1px solid rgba(128, 128, 128, 0.459);
+}
+
+/* Turn off margin for List */
+.css-ekfslj-MuiFormControl-root-MuiTextField-root {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  position: relative;
+  min-width: 0;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  vertical-align: top;
+  /* margin: 8px; */
+  width: 25ch;
+}
+
+.css-ekfslj-MuiFormControl-root-MuiTextField-root {
+  margin: unset !important;
+}
+
+/* Input size */
+.css-1q6at85-MuiInputBase-root-MuiOutlinedInput-root {
+  height: 3.4vh !important;
+}
+
+/* Arrow continue button */
+.css-i4bv87-MuiSvgIcon-root {
+  font-size: 2.5rem !important;
+  transition: 0.2s !important;
+}
+
+.css-i4bv87-MuiSvgIcon-root:hover {
+  transform: scale(1.3) !important;
+}
+
+@media only screen and (max-width: 1200px) {
+  .word-table-continue p {
+    rotate: 90deg;
+  }
+  .instructionsTable h2 {
+    display: none;
+  }
+
+  .instructionsTable p {
+    font-size: 1.7vh;
+  }
+
+  .word-table-continue p {
+    rotate: 90deg;
+  }
+
+  .word-table-game {
+    text-align: center;
+  }
+
+  #table2 {
+    margin: auto;
+  }
+}
+
+@media only screen and (max-width: 800px) {
+  .instructionsTable p {
+    font-size: 1.3vh;
+  }
+
+  .essayTable p {
+    font-size: 1.3vh;
+  }
+}

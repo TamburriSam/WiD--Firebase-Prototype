@@ -24,6 +24,7 @@
     "react-scripts": "4.0.3",
     "react-spinners": "^0.11.0",
     "react-timer-hook": "^3.0.5",
+    "react-typewriter-effect": "^1.1.0",
     "react-typing-animation": "^1.6.2",
     "typescript": "^4.6.2",
     "typewriter-effect": "^2.18.2",

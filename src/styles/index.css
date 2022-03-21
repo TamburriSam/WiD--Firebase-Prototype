@@ -462,9 +462,13 @@
   text-decoration: underline;
 }
 
+.css-ag7rrr-MuiTypography-root {
+  font-size: 2rem !important;
+}
+
 #title-ul {
   width: 80%;
-
+  font-size: 1.2rem;
   color: white;
   padding: 10px;
 }

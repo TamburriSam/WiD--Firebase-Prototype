@@ -9,7 +9,9 @@ import { useTimer } from "react-timer-hook";
 import CurrentRoom from "./CurrentRoom.js";
 import Typing from "react-typing-animation";
 import Timer from "./Timer.js";
+import TypeWriterEffect from "react-typewriter-effect";
 import Typewriter from "typewriter-effect/dist/core";
+import "./styles/Game1.css";
 
 function Game1({ expiryTimestamp, testGame, Game1_to_Game2 }) {
   const db = firebase.firestore();
@@ -32,9 +34,9 @@ function Game1({ expiryTimestamp, testGame, Game1_to_Game2 }) {
     setuserID(LSuserId);
     populateAlphabet();
 
-    var app = document.getElementById("instruction-game");
+    var app = document.querySelector(".instructions11");
 
-    var typewriter = new Typewriter(app, {
+    /*   var typewriter = new Typewriter(app, {
       loop: false,
       delay: 75,
     });
@@ -46,8 +48,8 @@ function Game1({ expiryTimestamp, testGame, Game1_to_Game2 }) {
     The word can begin with the letter or not.
     Let your mind run free!`
       )
-      .pauseFor(300)
-      .start();
+      .pauseFor(1000)
+      .start(); */
 
     return () => {
       setmounted(true);
@@ -137,14 +139,14 @@ function Game1({ expiryTimestamp, testGame, Game1_to_Game2 }) {
 
   const populateAlphabet = () => {
     let alphabet = "abcdefghijklmnopqrstuvwxyz".toUpperCase().split("");
-    let listofInp = document.querySelector("#input-list1");
+    let listofInp = document.querySelector(".inp-list");
     let buttonContainer = document.getElementById("button-container");
     let shuffledAlpha = shuffle(alphabet);
     let count = 0;
     let html = "";
 
     alphabet.map((letter) => {
-      html += `<li><input type="text" data-id="${count}" class="input-cell"/> <span class="placeholder">${letter}</span></li><hr>`;
+      html += `<li><input type="text" data-id="${count}" class="input-cell"/> <span class="placeholder">${letter}</span></li>`;
       count++;
     });
     listofInp.innerHTML = html;
@@ -225,69 +227,49 @@ function Game1({ expiryTimestamp, testGame, Game1_to_Game2 }) {
     return <div className='App'>Loading...</div>;
   }
 
+  const timer = (
+    <div style={{ fontSize: "22px" }}>
+      <span>{minutes}</span>:<span>{seconds}</span>
+    </div>
+  );
+
+  const continueBtn = (
+    <Button
+      variant='outlined'
+      id='continueBtn'
+      type='submit'
+      value={roomID}
+      color='success'
+    >
+      Continue
+    </Button>
+  );
+
   return (
     <div>
-      hello
-      <div
-        style={{
-          backgroundColor: "#e5e5e5",
-          position: "relative",
-          textAlign: "center",
-          margin: "auto",
-          border: "2px solid grey",
-          width: "68vw",
-          padding: "5px",
-          borderRadius: "5px",
-          marginBottom: "10px",
-          height: "fit-content",
-        }}
-        id='instruction-game'
-      >
-        {/*   Here's a list of letters<br></br>
-        Replace each letter with a word that you think you might like to write
-        with.<br></br>
-        The word can begin with the letter or not.<br></br>
-        Let your mind run free!<br></br> */}
-      </div>
-      <div>
-        <div
-          style={{
-            textAlign: "center",
-            backgroundColor: "white",
-            position: "relative",
-            margin: "auto",
-            width: "15vw",
-            borderRadius: "3px",
-            top: "12px",
-          }}
-        >
-          <div style={{ fontSize: "22px" }}>
-            <span>{minutes}</span>:<span>{seconds}</span>
+      <div className='main-container'>
+        <div className='instructionAndTimerContainer'>
+          <div className='instructions11'>
+            <h2>Instructions</h2>
+            Here's a list of letters<br></br>
+            Replace each letter with a word that you think you might like to
+            write with.<br></br>
+            The word can begin with the letter or not.<br></br>
+            Let your mind run free!<br></br>{" "}
+          </div>
+          <div className='timer'>
+            <h2>{minutes}:</h2>
+            <h2>{seconds}</h2>
           </div>
         </div>
+        <div className='game1'>
+          <ul className='inp-list'></ul>
+        </div>
+        <button onClick={allEntered} className='continue'>
+          <p>continue</p>
+          {/*  <ArrowCircleRightTwoToneIcon /> */}
+        </button>
       </div>
-      <form
-        style={{ backgroundColor: "#141414" }}
-        onSubmit={(e) => allEntered(e)}
-      >
-        <div id='list-container'>
-          <div id='input-form'>
-            <ul id='input-list1'></ul>
-          </div>
-        </div>
-
-        <div id='button-container'>
-          <Button
-            variant='outlined'
-            id='continueBtn'
-            type='submit'
-            value={roomID}
-            color='success'
-          >
-            Continue
-          </Button>
-        </div>
-      </form>
     </div>
   );
 }

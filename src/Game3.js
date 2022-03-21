@@ -6,6 +6,8 @@ import Button from "@mui/material/Button";
 import { useTimer } from "react-timer-hook";
 import "./styles/Game.css";
 
+import "./styles/Game1.css";
+
 const Game3 = ({ expiryTimestamp, Game3_to_Game4 }) => {
   const db = firebase.firestore();
 
@@ -93,13 +95,13 @@ const Game3 = ({ expiryTimestamp, Game3_to_Game4 }) => {
   };
 
   const createCells = () => {
-    let inputList = document.getElementById("input-list");
+    let inputList = document.querySelector(".inp-list");
 
     let html = "";
     let count = 0;
 
     for (let i = 0; i < 26; i++) {
-      html += `<li><input data-id="${count}" class="input-cell1"></input></li><hr>`;
+      html += `<li><input data-id="${count}" class="input-cell1"></input></li>`;
       count++;
     }
     inputList.innerHTML = html;
@@ -227,7 +229,7 @@ const Game3 = ({ expiryTimestamp, Game3_to_Game4 }) => {
   };
 
   const displayListFromDB = (list) => {
-    let received_list = document.getElementById("received_word_list");
+    let received_list = document.querySelector(".received_list");
 
     let html = "";
 
@@ -236,7 +238,7 @@ const Game3 = ({ expiryTimestamp, Game3_to_Game4 }) => {
     }
 
     list.map((item) => {
-      html += `<li class="list_item">${item}</li><hr>`;
+      html += `<li class="list_item">${item}</li>`;
     });
 
     received_list.innerHTML = html;
@@ -310,66 +312,30 @@ const Game3 = ({ expiryTimestamp, Game3_to_Game4 }) => {
   };
 
   return (
-    <div id='game2'>
-      <h1>Game Three</h1>
-      <div>
-        <div
-          style={{
-            backgroundColor: "#e5e5e5",
-            position: "relative",
-            textAlign: "center",
-            margin: "auto",
-            border: "2px solid grey",
-            width: "80vw",
-            padding: "5px",
-            borderRadius: "5px",
-            marginBottom: "10px",
-            height: "fit-content",
-          }}
-          id='instruction-game'
-        >
-          Here's another column.<br></br>
-          Do the same as you did in the previous step: create a column of words.
-          <br></br>
-        </div>
-        <div
-          style={{
-            textAlign: "center",
-            backgroundColor: "white",
-            position: "relative",
-            margin: "auto",
-            width: "15vw",
-            borderRadius: "3px",
-            position: "relative",
-            top: "12px",
-          }}
-        >
-          <div style={{ fontSize: "22px" }}>
-            <span>{minutes}</span>:<span>{seconds}</span>
+    <div>
+      <div className='main-container'>
+        <div className='instructionAndTimerContainer'>
+          <div className='instructions11'>
+            <h2>Instructions</h2>
+            Here's another column.<br></br>
+            Do the same as you did in the previous step: create a column of
+            words.
+            <br></br>
+          </div>
+          <div className='timer'>
+            <h2>{minutes}:</h2>
+            <h2>{seconds}</h2>
           </div>
         </div>
-      </div>
-      <p>{userID}</p>
-      <div id='list_container'>
-        <ul id='received_word_list'></ul>
-
-        <div>
-          <ul id='input-list'></ul>
+        <div className='game2'>
+          <ul className='inp-list'></ul>
+          <ul className='received_list'></ul>
         </div>
+        <button onClick={allEntered} className='continue'>
+          <p>continue</p>
+          {/*  <ArrowCircleRightTwoToneIcon /> */}
+        </button>
       </div>
-      <div className='overlay2'></div>
-
-      <form onSubmit={(e) => allEntered(e)} className='second-button-container'>
-        <Button
-          variant='outlined'
-          id='continueBtn'
-          type='submit'
-          value={roomID}
-          color='success'
-        >
-          Continue
-        </Button>
-      </form>
     </div>
   );
 };

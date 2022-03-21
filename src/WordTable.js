@@ -6,7 +6,7 @@ import React from "react";
 import "./styles/index.css";
 import { jsPDF } from "jspdf";
 import LiveRoom from "./LiveRoom";
-import "./styles/Wordtable.css";
+import "./styles/Final.css";
 import Button from "@mui/material/Button";
 
 const Wordtable = ({ Wordtable_to_LiveRoom }) => {
@@ -177,79 +177,66 @@ const Wordtable = ({ Wordtable_to_LiveRoom }) => {
   }
   return (
     <div>
-      <div id='MainDiv'>
-        <div>
-          <div id='instruction-game'>
-            Now for the creative part!
+      <div className='word-table-container'>
+        <div className='instructionAndEssayContainer'>
+          <div className='instructionsTable'>
+            <h2>Now for the creative part!</h2>
             <br></br>
-            Read each row of four words for any interesting<br></br>connections
-            and associations. Pick four or five rows<br></br>
-            that interest you and use those words to write a poem <br></br>
-            in the blank window. Use as many other words as you <br></br>need to
-            make connections between your words and <br></br>change their forms
-            however you like; make nouns<br></br>plural, change tenses of verbs,
-            etc.<br></br>Don't worry about making sense: make poetry!<br></br>
-            When you're done, pick a word from your lists to be your title.
-            <br></br>
+            <p>
+              Read each row of four words for any interesting<br></br>
+              connections and associations. Pick four or five rows<br></br>
+              that interest you and use those words to write a poem <br></br>
+              in the blank window. Use as many other words as you <br></br>need
+              to make connections between your words and <br></br>change their
+              forms however you like; make nouns<br></br>plural, change tenses
+              of verbs, etc.<br></br>Don't worry about making sense: make
+              poetry!<br></br>
+              When you're done, pick a word from your lists to be your title.
+            </p>
           </div>
-          <div id='input_and_button_container'>
+          <div className='essayTable'>
             <textarea placeholder='Start writing here...' id='essay' />
-            <p style={{ color: "white" }}>
+            <p style={{ color: "#e5e5e5", textAlign: "center" }}>
               Save your poem and lists to your device for a later exercise. Then
               click "Continue."
             </p>
-            <div id='buttons'>
-              <Button
-                class='word-table-btns'
-                variant='outlined'
-                onClick={printEssay}
-              >
-                Print Poem to PDF
-              </Button>
-              <Button
-                class='word-table-btns'
-                variant='outlined'
-                onClick={printLists}
-              >
-                Print Lists to PDF
-              </Button>
-              <Button
-                class='word-table-btns'
-                variant='outlined'
-                color='success'
-                onClick={nextPage}
-              >
-                Finish (Continue)
-              </Button>
+            <div>
+              <button onClick={printLists}>Print Lists to PDF</button>
+              <button onClick={printEssay}>Print Poem to PDF</button>
             </div>
           </div>
         </div>
-
-        <table id='table2'>
-          <thead id='thead-col'>
-            <tr id='table-row-cols'>
-              <th className='col-title'>
-                1st
-                <br /> Column
-              </th>
-              <th className='col-title'>
-                2nd <br></br> Column{" "}
-              </th>
-              <th className='col-title'>
-                3rd <br></br> Column{" "}
-              </th>
-              <th className='col-title'>
-                4th<br></br> Column{" "}
-              </th>
-            </tr>
-          </thead>
-          <hr></hr>
-          <br></br>
-          <div id='word-count-box'>Rows Used:</div>
-          <div id='table-container'>
-            <tbody id='tbody1'></tbody>
-          </div>
-        </table>
+        <div className='word-table-game'>
+          <table id='table2'>
+            <thead id='thead-col'>
+              <tr id='table-row-cols'>
+                <th className='col-title'>
+                  1st
+                  <br />
+                  List
+                </th>
+                <th className='col-title'>
+                  2nd <br></br>List
+                </th>
+                <th className='col-title'>
+                  3rd <br></br>List
+                </th>
+                <th className='col-title'>
+                  4th<br></br>List
+                </th>
+              </tr>
+            </thead>
+            <hr></hr>
+            <br></br>
+            <div id='word-count-box'>Rows Used:</div>
+            <div id='table-container'>
+              <tbody id='tbody1'></tbody>
+            </div>
+          </table>
+        </div>
+        <button onClick={nextPage} className='word-table-continue'>
+          <p>continue</p>
+        </button>
       </div>
     </div>
   );

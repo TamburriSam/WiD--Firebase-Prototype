@@ -99,12 +99,12 @@ const Game4 = ({ expiryTimestamp, Game4_to_WordTable }) => {
   };
 
   const createCells = () => {
-    let inputList = document.getElementById("input-list");
+    let inputList = document.querySelector(".inp-list");
 
     let count = 0;
     let html = "";
     for (let i = 0; i < 26; i++) {
-      html += `<li><input data-id="${count}" class="input-cell1"></input></li><hr>`;
+      html += `<li><input data-id="${count}" class="input-cell1"></input></li>`;
       count++;
     }
     inputList.innerHTML = html;
@@ -235,7 +235,7 @@ const Game4 = ({ expiryTimestamp, Game4_to_WordTable }) => {
   };
 
   const displayListFromDB = (list) => {
-    let received_list = document.getElementById("received_word_list");
+    let received_list = document.querySelector(".received_list");
 
     let html = "";
 
@@ -244,7 +244,7 @@ const Game4 = ({ expiryTimestamp, Game4_to_WordTable }) => {
     }
 
     list.map((item) => {
-      html += `<li class="list_item">${item}</li><hr>`;
+      html += `<li class="list_item">${item}</li>`;
     });
 
     received_list.innerHTML = html;
@@ -318,66 +318,28 @@ const Game4 = ({ expiryTimestamp, Game4_to_WordTable }) => {
   };
 
   return (
-    <div id='game2'>
-      <h1>Game Four</h1>
-      <div>
-        <div
-          style={{
-            backgroundColor: "#e5e5e5",
-            position: "relative",
-            textAlign: "center",
-            margin: "auto",
-            border: "2px solid grey",
-            width: "80vw",
-            padding: "5px",
-            borderRadius: "5px",
-            marginBottom: "10px",
-            height: "fit-content",
-          }}
-          id='instruction-game'
-        >
-          Now do the same thing one more time.<br></br>
-        </div>
-        <div>
-          <div
-            style={{
-              textAlign: "center",
-              backgroundColor: "white",
-              position: "relative",
-              margin: "auto",
-              width: "15vw",
-              borderRadius: "3px",
-              position: "relative",
-              top: "13px",
-            }}
-          >
-            <div style={{ fontSize: "22px" }}>
-              <span>{minutes}</span>:<span>{seconds}</span>
-            </div>
+    <div>
+      <div className='main-container'>
+        <div className='instructionAndTimerContainer'>
+          <div className='instructions11'>
+            <h2>Instructions</h2>
+            Now do the same thing one more time.
+            <br></br>
+          </div>
+          <div className='timer'>
+            <h2>{minutes}:</h2>
+            <h2>{seconds}</h2>
           </div>
         </div>
-      </div>
-      <p>{userID}</p>
-      <div id='list_container'>
-        <ul id='received_word_list'></ul>
-
-        <div>
-          <ul id='input-list'></ul>
+        <div className='game2'>
+          <ul className='inp-list'></ul>
+          <ul className='received_list'></ul>
         </div>
+        <button onClick={allEntered} className='continue'>
+          <p>continue</p>
+          {/*  <ArrowCircleRightTwoToneIcon /> */}
+        </button>
       </div>
-      <div className='overlay2'></div>
-
-      <form onSubmit={(e) => allEntered(e)} className='second-button-container'>
-        <Button
-          variant='outlined'
-          id='continueBtn'
-          type='submit'
-          value={roomID}
-          color='success'
-        >
-          Continue
-        </Button>
-      </form>
     </div>
   );
 };

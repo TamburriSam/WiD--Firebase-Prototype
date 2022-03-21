@@ -8,6 +8,7 @@ import { create } from "@mui/material/styles/createTransitions";
 import "./styles/Game.css";
 import Button from "@mui/material/Button";
 import { useTimer } from "react-timer-hook";
+import "./styles/Game1.css";
 
 const Game2 = ({ expiryTimestamp, Game2_to_Game3 }) => {
   const db = firebase.firestore();
@@ -111,12 +112,12 @@ const Game2 = ({ expiryTimestamp, Game2_to_Game3 }) => {
   };
 
   const createCells = () => {
-    let inputList = document.getElementById("input-list");
+    let inputList = document.querySelector(".inp-list");
 
     let html = "";
     let count = 0;
     for (let i = 0; i < 26; i++) {
-      html += `<li><input data-id="${count}" class="input-cell1"/></li><hr>`;
+      html += `<li><input data-id="${count}" class="input-cell1"/></li>`;
       count++;
     }
     inputList.innerHTML = html;
@@ -240,8 +241,8 @@ const Game2 = ({ expiryTimestamp, Game2_to_Game3 }) => {
       });
   };
 
-  const displayListFromDB = (list) => {
-    let received_list = document.getElementById("received_word_list");
+  const displayListFromDB = (list, e) => {
+    let received_list = document.querySelector(".received_list");
 
     let html = "";
 
@@ -250,7 +251,7 @@ const Game2 = ({ expiryTimestamp, Game2_to_Game3 }) => {
     }
 
     list.map((item) => {
-      html += `<li class="list_item passed-words">${item}</li><hr>`;
+      html += `<li class="list_item passed-words">${item}</li>`;
     });
 
     received_list.innerHTML = html;
@@ -353,64 +354,32 @@ const Game2 = ({ expiryTimestamp, Game2_to_Game3 }) => {
   }
 
   return (
-    <div id='game2'>
-      <h1>Game Two</h1>
-      <div>
-        <div
-          style={{
-            backgroundColor: "#e5e5e5",
-            position: "relative",
-            textAlign: "center",
-            margin: "auto",
-            border: "2px solid grey",
-            width: "68vw",
-            padding: "5px",
-            borderRadius: "5px",
-            marginBottom: "10px",
-            height: "fit-content",
-          }}
-        >
-          You've received a paper with a random classmate's words.<br></br>
-          Here's someone else's list from the previous step.<br></br>
-          Look at the top word. Then, at the top of the blank column, write the
-          first word that comes into your head.<br></br>
-          Don't question whether the connection makes sense. Trust your intial
-          response!<br></br>Do the same for every word down the list.<br></br>
-        </div>
-        <div
-          style={{
-            textAlign: "center",
-            backgroundColor: "white",
-            position: "relative",
-            margin: "auto",
-            width: "15vw",
-            borderRadius: "3px",
-            top: "12px",
-          }}
-        >
-          <div style={{ fontSize: "22px" }}>
-            <span>{minutes}</span>:<span>{seconds}</span>
+    <div>
+      <div className='main-container'>
+        <div className='instructionAndTimerContainer'>
+          <div className='instructions11'>
+            <h2>Instructions</h2>
+            You've received a paper with a random classmate's words.<br></br>
+            Here's someone else's list from the previous step.<br></br>
+            Look at the top word. Then, at the top of the blank column, write
+            the first word that comes into your head.<br></br>
+            Don't question whether the connection makes sense. Trust your intial
+            response!<br></br>Do the same for every word down the list.<br></br>
+          </div>
+          <div className='timer'>
+            <h2>{minutes}:</h2>
+            <h2>{seconds}</h2>
           </div>
         </div>
+        <div className='game2'>
+          <ul className='inp-list'></ul>
+          <ul className='received_list'></ul>
+        </div>
+        <button onClick={allEntered} className='continue'>
+          <p>continue</p>
+          {/*  <ArrowCircleRightTwoToneIcon /> */}
+        </button>
       </div>
-      <p>{userID}</p>
-      <div style={{ position: "relative" }} id='list_container'>
-        <ul id='received_word_list'></ul>
-
-        <ul id='input-list'></ul>
-      </div>
-
-      <form onSubmit={(e) => allEntered(e)} className='second-button-container'>
-        <Button
-          variant='outlined'
-          id='continueBtn'
-          type='submit'
-          value={roomID}
-          color='success'
-        >
-          Continue
-        </Button>
-      </form>
     </div>
   );
 };

@@ -178,7 +178,7 @@ const Main = () => {
   } else if (currentPage === "LiveRoom") {
     content = <LiveRoom />;
   }
-  return <div style={{ backgroundColor: "#141414" }}>{content}</div>;
+  return <div>{content}</div>;
 };
 
 export default Main;
