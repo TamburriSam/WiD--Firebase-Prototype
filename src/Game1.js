@@ -155,7 +155,6 @@ function Game1({ expiryTimestamp, testGame, Game1_to_Game2 }) {
   const allEntered = (e) => {
     e.preventDefault();
     let inputList = document.querySelectorAll(".input-cell");
-
     let enteredWords = [];
 
     inputList.forEach((cell) => {
@@ -173,7 +172,6 @@ function Game1({ expiryTimestamp, testGame, Game1_to_Game2 }) {
 
   const updateUserInputList = () => {
     let userUID = localStorage.getItem("user_id");
-
     let userRef = db.collection("users").doc(userUID);
     let inputList = document.querySelectorAll(".input-cell");
     let game_one_list = [];

@@ -53,6 +53,13 @@
   align-items: center;
 }
 
+.overlay {
+  background-color: rgba(128, 128, 128, 0.616);
+  position: fixed;
+  width: 58.3vw;
+  height: 100vh;
+}
+
 /* Logo Container on Index */
 #logoContainer {
   position: absolute;
@@ -474,15 +481,17 @@
 }
 
 #title-ul ul {
-  background-color: rgba(128, 128, 128, 0.534);
   padding: 10px;
+  background-color: #e5e5e5;
+  color: #141414;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 #title-ul h1 {
-  background-color: transparent;
+  background-color: #e5e5e5;
   font-size: 3vw;
-  text-decoration: underline;
+  color: #141414;
+  box-shadow: rgb(0 0 0 / 35%) 0px 5px 15px;
   position: relative;
   bottom: 30px;
 }

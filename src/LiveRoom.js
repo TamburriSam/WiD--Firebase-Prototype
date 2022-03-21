@@ -84,7 +84,6 @@ const LiveRoom = () => {
       `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.`,
       `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim `,
       `Mock Message 3`,
-      `Mock Message 3`,
     ];
 
     setNodes(mock_msgs);
@@ -155,12 +154,13 @@ const LiveRoom = () => {
     >
       <div
         style={{
-          backgroundColor: "#e0ffe3",
+          backgroundColor: "#141414",
+          color: "#e5e5e5",
           position: "relative",
           textAlign: "center",
           margin: "auto",
           border: "2px solid grey",
-          width: "50vw",
+          width: "60vw",
           padding: "10px",
           borderRadius: "5px",
           top: "15px",

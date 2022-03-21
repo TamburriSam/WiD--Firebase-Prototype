@@ -12,9 +12,11 @@ import Grid from "@mui/material/Grid";
 import IndexPage from "./IndexPage";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import white_logo_dark_bg from "./logos/white_logo_transparent_background.png";
+import papers from "./logos/image.jpg";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
+import "./styles/index.css";
 
 function Copyright(props) {
   return (
@@ -42,15 +44,13 @@ export default function SignInSide({ submitForm, handleChange }) {
     <ThemeProvider theme={theme}>
       <Grid container component='main' sx={{ height: "100vh" }}>
         <CssBaseline />
-
         <Grid
           itemFS
           xs={false}
           sm={8}
           md={7}
           sx={{
-            backgroundImage:
-              "url(https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1374&q=80)",
+            backgroundImage: `url(${papers})`,
             backgroundRepeat: "no-repeat",
             backgroundColor: (t) =>
               t.palette.mode === "light"
@@ -90,12 +90,7 @@ export default function SignInSide({ submitForm, handleChange }) {
                 </li>
                 <br></br>
 
-                <li style={{ fontSize: "18px" }}>
-                  <span style={{ marginRight: "10px" }}>
-                    <FontAwesomeIcon icon={faChevronRight} />
-                  </span>
-                  Sign in to start!
-                </li>
+                <li style={{ fontSize: "18px" }}>Sign in to start!</li>
               </ul>
             </div>
           </div>
