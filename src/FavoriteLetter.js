@@ -27,6 +27,8 @@ const FavoriteLetter = ({
       }
     }
 
+    /*     document.getElementById("main-logo-container").style.display = "none";
+     */
     return () => {
       setmounted(true);
 

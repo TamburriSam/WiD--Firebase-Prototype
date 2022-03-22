@@ -22,22 +22,18 @@ function CurrentRoom({
   GroupMode_to_Fav_letter,
 }) {
   const db = firebase.firestore();
-  const genUsername = require("unique-username-generator");
   const [nodes, setNodes] = useState({});
   const [isLoading, setLoading] = useState(true);
   const [roomID, setroomID] = useState("");
   const [roomLoad, setroomLoad] = useState(false);
   const [users, setUsers] = useState(false);
-  const [gameStart, setgameStart] = useState(false);
-  const [gameStart2, setgameStart2] = useState(false);
+  const [buttonGreeting, setButtonGreeting] = useState("Start Game");
   const [inRoom, setinRoom] = useState(false);
   const [favoriteLetter, setfavoriteLetter] = useState("");
   const [showLetter, setShowLetter] = useState(false);
-  const [numOfStudents, setNumOfStudents] = useState(9);
-  const [count, setCount] = useState(9);
+
   const [admin, setAdmin] = useState(false);
   const [currentRound, setCurrentRound] = useState(false);
-
   let gs = localStorage.getItem("game_start");
   const {
     seconds,
@@ -87,10 +83,7 @@ function CurrentRoom({
 
           let gs = localStorage.getItem("game_start");
 
-          if (
-            (game_started === true && Boolean(gs) !== true) ||
-            (isSolo && !g1)
-          ) {
+          if ((game_started === true && Boolean(gs) !== true) || isSolo) {
             document.querySelector(".game-start").style.display = "block";
             document.querySelector(".loading").style.display = "none";
 
@@ -138,6 +131,7 @@ function CurrentRoom({
   };
 
   const setFavLetterChange = (e) => {
+    console.log(favoriteLetter);
     setfavoriteLetter(e.target.value.toUpperCase());
   };
 
@@ -219,6 +213,7 @@ function CurrentRoom({
   };
 
   const adminStartedGame = () => {
+    setButtonGreeting("Game Started");
     let ROOMLS = localStorage.getItem("room_id");
     db.collection("rooms").doc(ROOMLS).update({ game_started: true });
   };
@@ -248,7 +243,9 @@ function CurrentRoom({
       <div id='waiting'>
         <p class='loading'>Waiting for users to join</p>
 
-        <p class='loading game-start'>Game Starting in {seconds}</p>
+        <p style={{ display: "none" }} class='loading game-start'>
+          Game Starting in {seconds}
+        </p>
       </div>
 
       <div id='current-room'>
@@ -267,6 +264,23 @@ function CurrentRoom({
           Leave Room
         </button> */}
 
+        {admin ? (
+          <button
+            onClick={adminStartedGame}
+            style={{
+              backgroundColor: "red",
+              top: "10px",
+              position: "relative",
+              border: "1px solid white",
+              color: "white",
+              cursor: "pointer",
+
+              width: "10vw",
+            }}
+          >
+            {buttonGreeting}
+          </button>
+        ) : null}
         <div>
           <div id='user-loading-list'>
             Users Online
@@ -278,20 +292,6 @@ function CurrentRoom({
           </div>
         </div>
       </div>
-
-      {admin ? (
-        <button
-          onClick={adminStartedGame}
-          style={{
-            backgroundColor: "red",
-            width: "10vw",
-            position: "absolute",
-            bottom: "40px",
-          }}
-        >
-          Start Game
-        </button>
-      ) : null}
     </div>
   );
 }

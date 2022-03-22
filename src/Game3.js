@@ -5,6 +5,7 @@ import Game4 from "./Game4";
 import Button from "@mui/material/Button";
 import { useTimer } from "react-timer-hook";
 import "./styles/Game.css";
+import ArrowCircleRightTwoToneIcon from "@mui/icons-material/ArrowCircleRightTwoTone";
 
 import "./styles/Game1.css";
 
@@ -13,8 +14,11 @@ const Game3 = ({ expiryTimestamp, Game3_to_Game4 }) => {
 
   const [roomID, setroomID] = useState("");
   const [userID, setuserID] = useState("");
+  const [num, setNum] = useState("");
 
   useEffect(() => {
+    window.addEventListener("click", magnifyWords);
+    window.addEventListener("keyup", magnifyWordsWithTab);
     console.log("mounted");
     window.scrollTo(0, 0);
 
@@ -36,6 +40,8 @@ const Game3 = ({ expiryTimestamp, Game3_to_Game4 }) => {
 
     return () => {
       console.log("unmounting g3");
+      window.removeEventListener("click", magnifyWords);
+      window.removeEventListener("keyup", magnifyWordsWithTab);
     };
   }, []);
 
@@ -238,7 +244,7 @@ const Game3 = ({ expiryTimestamp, Game3_to_Game4 }) => {
     }
 
     list.map((item) => {
-      html += `<li class="list_item">${item}</li>`;
+      html += `<li class="list_item passed-words">${item}</li>`;
     });
 
     received_list.innerHTML = html;
@@ -311,12 +317,52 @@ const Game3 = ({ expiryTimestamp, Game3_to_Game4 }) => {
       });
   };
 
+  const magnifyWords = (e) => {
+    let selected = document.querySelectorAll(".selected-text");
+    let currentNumber = e.target.dataset.id;
+    let passedWords = document.querySelectorAll(".passed-words");
+
+    console.log(currentNumber, "click");
+
+    if (e.target.className === "input-cell1") {
+      setNum(currentNumber);
+      passedWords[currentNumber].className = "passed-words selected-text";
+      for (let i = 0; i < selected.length; i++) {
+        selected[i].classList.remove("selected-text");
+        return (selected[i].className = "list_item passed-words");
+      }
+    } else {
+      return false;
+    }
+  };
+
+  const magnifyWordsWithTab = (e) => {
+    if (e.keyCode === 9) {
+      let selected = document.querySelectorAll(".selected-text");
+      let currentNumber = e.target.dataset.id;
+      let passedWords = document.querySelectorAll(".passed-words");
+
+      console.log(currentNumber);
+
+      if (e.target.className === "input-cell1") {
+        console.log(e.target.dataset.id);
+        setNum(currentNumber);
+        passedWords[currentNumber].className = "passed-words selected-text";
+        for (let i = 0; i < selected.length; i++) {
+          selected[i].classList.remove("selected-text");
+          return (selected[i].className = "list_item passed-words");
+        }
+      } else {
+        return false;
+      }
+    }
+  };
+
   return (
     <div>
       <div className='main-container'>
         <div className='instructionAndTimerContainer'>
           <div className='instructions11'>
-            <h2>Instructions</h2>
             Here's another column.<br></br>
             Do the same as you did in the previous step: create a column of
             words.
@@ -333,7 +379,7 @@ const Game3 = ({ expiryTimestamp, Game3_to_Game4 }) => {
         </div>
         <button onClick={allEntered} className='continue'>
           <p>continue</p>
-          {/*  <ArrowCircleRightTwoToneIcon /> */}
+          <ArrowCircleRightTwoToneIcon />
         </button>
       </div>
     </div>

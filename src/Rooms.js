@@ -69,8 +69,7 @@ function Rooms() {
   useEffect(() => {
     if (
       localStorage.getItem("room_id") &&
-      localStorage.getItem("room_id") !== "" /* &&
-      !localStorage.getItem("isAdmin") */
+      localStorage.getItem("room_id") !== ""
     ) {
       console.log("ok");
       setwaitingRoom(true);
@@ -388,6 +387,7 @@ function Rooms() {
             removeLSitems();
           })
           .then(() => {
+            localStorage.setItem("currentPage", "Group");
             setTimeout(() => {
               window.location.reload(true);
             }, 1000);
@@ -444,7 +444,8 @@ function Rooms() {
   };
 
   const soloFunc = () => {
-    setSolo(true);
+    localStorage.setItem("currentPage", "Solo");
+    window.location.reload(true);
   };
 
   useEffect(() => {

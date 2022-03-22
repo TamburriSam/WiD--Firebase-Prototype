@@ -68,7 +68,7 @@
 }
 
 .loading-game-start {
-  display: none;
+  display: none !important;
 }
 
 .loading:after {

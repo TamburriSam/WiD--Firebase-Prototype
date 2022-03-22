@@ -313,3 +313,11 @@ ul {
     margin: auto;
   }
 }
+
+.letter {
+  width: 10vw;
+  position: relative;
+  bottom: 3px;
+  display: flex;
+  justify-content: center;
+}

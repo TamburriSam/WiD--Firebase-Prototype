@@ -7,14 +7,18 @@ import Wordtable from "./WordTable";
 import "./styles/Game.css";
 import Button from "@mui/material/Button";
 import { useTimer } from "react-timer-hook";
+import ArrowCircleRightTwoToneIcon from "@mui/icons-material/ArrowCircleRightTwoTone";
 
 const Game4 = ({ expiryTimestamp, Game4_to_WordTable }) => {
   const db = firebase.firestore();
 
   const [roomID, setroomID] = useState("");
   const [userID, setuserID] = useState("");
+  const [num, setNum] = useState("");
 
   useEffect(() => {
+    window.addEventListener("click", magnifyWords);
+    window.addEventListener("keyup", magnifyWordsWithTab);
     window.scrollTo(0, 0);
 
     let LSroomId = localStorage.getItem("room_id");
@@ -40,6 +44,8 @@ const Game4 = ({ expiryTimestamp, Game4_to_WordTable }) => {
 
     return () => {
       console.log("unmounting");
+      window.removeEventListener("click", magnifyWords);
+      window.removeEventListener("keyup", magnifyWordsWithTab);
     };
   }, []);
 
@@ -244,7 +250,7 @@ const Game4 = ({ expiryTimestamp, Game4_to_WordTable }) => {
     }
 
     list.map((item) => {
-      html += `<li class="list_item">${item}</li>`;
+      html += `<li class="list_item passed-words">${item}</li>`;
     });
 
     received_list.innerHTML = html;
@@ -317,12 +323,52 @@ const Game4 = ({ expiryTimestamp, Game4_to_WordTable }) => {
       });
   };
 
+  const magnifyWords = (e) => {
+    let selected = document.querySelectorAll(".selected-text");
+    let currentNumber = e.target.dataset.id;
+    let passedWords = document.querySelectorAll(".passed-words");
+
+    console.log(currentNumber, "click");
+
+    if (e.target.className === "input-cell1") {
+      setNum(currentNumber);
+      passedWords[currentNumber].className = "passed-words selected-text";
+      for (let i = 0; i < selected.length; i++) {
+        selected[i].classList.remove("selected-text");
+        return (selected[i].className = "list_item passed-words");
+      }
+    } else {
+      return false;
+    }
+  };
+
+  const magnifyWordsWithTab = (e) => {
+    if (e.keyCode === 9) {
+      let selected = document.querySelectorAll(".selected-text");
+      let currentNumber = e.target.dataset.id;
+      let passedWords = document.querySelectorAll(".passed-words");
+
+      console.log(currentNumber);
+
+      if (e.target.className === "input-cell1") {
+        console.log(e.target.dataset.id);
+        setNum(currentNumber);
+        passedWords[currentNumber].className = "passed-words selected-text";
+        for (let i = 0; i < selected.length; i++) {
+          selected[i].classList.remove("selected-text");
+          return (selected[i].className = "list_item passed-words");
+        }
+      } else {
+        return false;
+      }
+    }
+  };
+
   return (
     <div>
       <div className='main-container'>
         <div className='instructionAndTimerContainer'>
           <div className='instructions11'>
-            <h2>Instructions</h2>
             Now do the same thing one more time.
             <br></br>
           </div>
@@ -337,7 +383,7 @@ const Game4 = ({ expiryTimestamp, Game4_to_WordTable }) => {
         </div>
         <button onClick={allEntered} className='continue'>
           <p>continue</p>
-          {/*  <ArrowCircleRightTwoToneIcon /> */}
+          <ArrowCircleRightTwoToneIcon />
         </button>
       </div>
     </div>

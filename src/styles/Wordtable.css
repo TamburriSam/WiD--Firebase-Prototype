@@ -1,4 +1,29 @@
+@import url("https://fonts.googleapis.com/css2?family=KoHo:wght@200&display=swap");
+@import url("https://cdn.jsdelivr.net/gh/jgthms/minireset.css@master/minireset.min.css");
+@import url("https://fonts.googleapis.com/css2?family=Rock+Salt&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Baloo+Chettan+2:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Encode+Sans+SC:wght@200;300&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=KoHo:wght@200&display=swap");
+@import url("https://cdn.jsdelivr.net/gh/jgthms/minireset.css@master/minireset.min.css");
+@import url("https://fonts.googleapis.com/css2?family=Caveat&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Caveat&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Caveat&family=Montserrat&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Caveat&family=Montserrat&family=Shadows+Into+Light+Two&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Caveat&family=Montserrat&family=Sedgwick+Ave&family=Shadows+Into+Light+Two&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Caveat&family=Lato&family=Montserrat&family=Sedgwick+Ave&family=Shadows+Into+Light+Two&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Montserrat:wght@600&family=Special+Elite&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Montserrat:wght@600&family=Special+Elite&display=swap");
+/* Index Page */
+
 /* Table */
+
+:root {
+  --main-font: "IBM Plex Mono", monospace !important;
+  --test-font: "Special Elite", cursive;
+  --background-black: #141414;
+  --text-color: #e5e5e5;
+}
 
 #MainDiv {
   display: flex;
@@ -6,17 +31,15 @@
 }
 
 #table2 {
-  background-color: #e5e5e5;
+  background-color: transparent;
   padding: 5px;
-  width: 40vw;
+  width: 100%;
   margin-top: 30px;
   height: 70vh;
-  margin-left: 25px;
-  border-radius: 5px;
-  z-index: 100;
-  border-collapse: unset;
+  color: #e5e5e5;
+  font-style: var(--main-font);
 
-  font-family: "Montserrat", sans-serif !important;
+  border-collapse: unset;
 }
 
 #thead-col {
@@ -30,26 +53,35 @@
   display: flex;
 }
 
+#tbody1 {
+  margin: auto;
+  display: flex;
+  width: 100%;
+  top: 15px;
+  position: relative;
+  flex-direction: column;
+}
+
 .listItems {
-  border-bottom: 1px solid rgba(19, 18, 18, 0.226);
+  border-bottom: 1.5px solid rgb(65 65 65);
   text-align: center;
   position: relative;
-  left: 10px;
+  /* left: 10px; */
   align-items: center;
   height: 3vh;
   bottom: 7px;
-  width: 36vw;
+  width: 48vw;
   display: flex;
   justify-content: space-around;
 }
-
 .crossed-word {
   border-bottom: 1px solid rgba(19, 18, 18, 0.226);
   align-items: center;
-
+  width: 48vw;
   background-color: yellow;
+  color: #141414;
   border-radius: 5px;
-  width: 36vw;
+
   position: relative;
   height: 3vh;
   display: flex;
@@ -92,23 +124,21 @@
   border-radius: 5px;
 }
 
-.col-title {
-  padding: 1px;
-  position: relative;
-  left: 10px;
-  width: 76px;
-}
-
 #table-container {
   max-width: 300px;
 }
 
 #table-row-cols {
-  width: 30vw;
+  left: 10px;
+  width: 40vw;
   position: relative;
   display: flex;
   justify-content: space-between;
-  /* display: none !important; */
+}
+
+.col-title:nth-of-type(1) {
+  position: relative;
+  left: 20px;
 }
 
 .dynamic-items {
@@ -132,8 +162,8 @@
   /* position: absolute; */
   height: 27px;
   position: relative;
-  border: 1px solid black;
-  padding: 1px;
+  border: 1px solid #e5e5e5;
+  padding: 6px;
   width: 156px;
   bottom: 14px;
   border-radius: 5px;
@@ -144,6 +174,9 @@
   text-align: center;
   justify-content: center;
   align-items: center;
+  height: -moz-fit-content;
+  height: fit-content;
+  width: fit-content;
 }
 
 .word-table-btns {

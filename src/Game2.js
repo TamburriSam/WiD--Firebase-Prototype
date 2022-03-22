@@ -9,6 +9,7 @@ import "./styles/Game.css";
 import Button from "@mui/material/Button";
 import { useTimer } from "react-timer-hook";
 import "./styles/Game1.css";
+import ArrowCircleRightTwoToneIcon from "@mui/icons-material/ArrowCircleRightTwoTone";
 
 const Game2 = ({ expiryTimestamp, Game2_to_Game3 }) => {
   const db = firebase.firestore();
@@ -25,6 +26,9 @@ const Game2 = ({ expiryTimestamp, Game2_to_Game3 }) => {
   const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
+    window.addEventListener("click", magnifyWords);
+    window.addEventListener("keyup", magnifyWordsWithTab);
+
     console.log("mounted");
     window.scrollTo(0, 0);
 
@@ -53,6 +57,8 @@ const Game2 = ({ expiryTimestamp, Game2_to_Game3 }) => {
 
     return () => {
       console.log("unmounted");
+      window.removeEventListener("click", magnifyWords);
+      window.removeEventListener("keyup", magnifyWordsWithTab);
     };
   }, []);
 
@@ -337,6 +343,8 @@ const Game2 = ({ expiryTimestamp, Game2_to_Game3 }) => {
     let currentNumber = e.target.dataset.id;
     let passedWords = document.querySelectorAll(".passed-words");
 
+    console.log(currentNumber, "click");
+
     if (e.target.className === "input-cell1") {
       setNum(currentNumber);
       passedWords[currentNumber].className = "passed-words selected-text";
@@ -349,6 +357,28 @@ const Game2 = ({ expiryTimestamp, Game2_to_Game3 }) => {
     }
   };
 
+  const magnifyWordsWithTab = (e) => {
+    if (e.keyCode === 9) {
+      let selected = document.querySelectorAll(".selected-text");
+      let currentNumber = e.target.dataset.id;
+      let passedWords = document.querySelectorAll(".passed-words");
+
+      console.log(currentNumber);
+
+      if (e.target.className === "input-cell1") {
+        console.log(e.target.dataset.id);
+        setNum(currentNumber);
+        passedWords[currentNumber].className = "passed-words selected-text";
+        for (let i = 0; i < selected.length; i++) {
+          selected[i].classList.remove("selected-text");
+          return (selected[i].className = "list_item passed-words");
+        }
+      } else {
+        return false;
+      }
+    }
+  };
+
   if (isLoading) {
     return <div className='App'>Loading...</div>;
   }
@@ -358,7 +388,6 @@ const Game2 = ({ expiryTimestamp, Game2_to_Game3 }) => {
       <div className='main-container'>
         <div className='instructionAndTimerContainer'>
           <div className='instructions11'>
-            <h2>Instructions</h2>
             You've received a paper with a random classmate's words.<br></br>
             Here's someone else's list from the previous step.<br></br>
             Look at the top word. Then, at the top of the blank column, write
@@ -377,7 +406,7 @@ const Game2 = ({ expiryTimestamp, Game2_to_Game3 }) => {
         </div>
         <button onClick={allEntered} className='continue'>
           <p>continue</p>
-          {/*  <ArrowCircleRightTwoToneIcon /> */}
+          <ArrowCircleRightTwoToneIcon />
         </button>
       </div>
     </div>

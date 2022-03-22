@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import firebase from "firebase/app";
 import "firebase/firestore";
+import ArrowCircleRightTwoToneIcon from "@mui/icons-material/ArrowCircleRightTwoTone";
 import Main from "./Main.js";
 import Game2 from "./Game2.js";
 import "./styles/Game.css";
@@ -22,9 +23,12 @@ function Game1({ expiryTimestamp, testGame, Game1_to_Game2 }) {
   const [isLoading, setLoading] = useState(false);
   const [mounted, setmounted] = useState(false);
   const [time, setTime] = useState(false);
+  const [num, setNum] = useState("");
 
   useEffect((e) => {
     console.log("mounted");
+    window.addEventListener("click", magnifyWords);
+    window.addEventListener("keyup", magnifyWordsWithTab);
 
     let LSroomId = localStorage.getItem("room_id");
     let LSuserId = localStorage.getItem("user_id");
@@ -52,6 +56,8 @@ function Game1({ expiryTimestamp, testGame, Game1_to_Game2 }) {
       .start(); */
 
     return () => {
+      window.removeEventListener("click", magnifyWords);
+      window.removeEventListener("keyup", magnifyWordsWithTab);
       setmounted(true);
       setLoading(true);
       setTime(true);
@@ -101,7 +107,7 @@ function Game1({ expiryTimestamp, testGame, Game1_to_Game2 }) {
   });
 
   const isAllEntered = (list) => {
-    let inputList = document.querySelectorAll(".input-cell");
+    let inputList = document.querySelectorAll(".input-cell1");
     let userRef = db.collection("users").doc(localStorage.getItem("user_id"));
     let wordsRef = db.collection("words").doc("words");
     let words = "";
@@ -138,23 +144,44 @@ function Game1({ expiryTimestamp, testGame, Game1_to_Game2 }) {
   };
 
   const populateAlphabet = () => {
+    createCells();
     let alphabet = "abcdefghijklmnopqrstuvwxyz".toUpperCase().split("");
-    let listofInp = document.querySelector(".inp-list");
+    let received_list = document.querySelector(".received_list");
+    let inpList = document.querySelector(".inp-list");
     let buttonContainer = document.getElementById("button-container");
     let shuffledAlpha = shuffle(alphabet);
     let count = 0;
     let html = "";
 
-    alphabet.map((letter) => {
+    /* alphabet.map((letter) => {
       html += `<li><input type="text" data-id="${count}" class="input-cell"/> <span class="placeholder">${letter}</span></li>`;
       count++;
     });
-    listofInp.innerHTML = html;
+    listofInp.innerHTML = html; */
+
+    alphabet.map((letter) => {
+      html += `<li class="list_item passed-words letter">${letter}</li>`;
+
+      count++;
+    });
+    received_list.innerHTML = html;
+  };
+
+  const createCells = () => {
+    let inputList = document.querySelector(".inp-list");
+
+    let html = "";
+    let count = 0;
+    for (let i = 0; i < 26; i++) {
+      html += `<li><input data-id="${count}" class="input-cell1"/></li>`;
+      count++;
+    }
+    inputList.innerHTML = html;
   };
 
   const allEntered = (e) => {
     e.preventDefault();
-    let inputList = document.querySelectorAll(".input-cell");
+    let inputList = document.querySelectorAll(".input-cell1");
     let enteredWords = [];
 
     inputList.forEach((cell) => {
@@ -173,7 +200,7 @@ function Game1({ expiryTimestamp, testGame, Game1_to_Game2 }) {
   const updateUserInputList = () => {
     let userUID = localStorage.getItem("user_id");
     let userRef = db.collection("users").doc(userUID);
-    let inputList = document.querySelectorAll(".input-cell");
+    let inputList = document.querySelectorAll(".input-cell1");
     let game_one_list = [];
 
     inputList.forEach((cell) => {
@@ -243,6 +270,48 @@ function Game1({ expiryTimestamp, testGame, Game1_to_Game2 }) {
     </Button>
   );
 
+  const magnifyWords = (e) => {
+    let selected = document.querySelectorAll(".selected-text");
+    let currentNumber = e.target.dataset.id;
+    let passedWords = document.querySelectorAll(".passed-words");
+
+    console.log(currentNumber, "click");
+
+    if (e.target.className === "input-cell1") {
+      setNum(currentNumber);
+      passedWords[currentNumber].className =
+        "passed-words selected-text letter";
+      for (let i = 0; i < selected.length; i++) {
+        selected[i].classList.remove("selected-text");
+        return (selected[i].className = "list_item passed-words letter");
+      }
+    } else {
+      return false;
+    }
+  };
+
+  const magnifyWordsWithTab = (e) => {
+    if (e.keyCode === 9) {
+      let selected = document.querySelectorAll(".selected-text");
+      let currentNumber = e.target.dataset.id;
+      let passedWords = document.querySelectorAll(".passed-words");
+
+      console.log(currentNumber);
+
+      if (e.target.className === "input-cell1") {
+        setNum(currentNumber);
+        passedWords[currentNumber].className =
+          "passed-words selected-text letter";
+        for (let i = 0; i < selected.length; i++) {
+          selected[i].classList.remove("selected-text");
+          return (selected[i].className = "list_item passed-words letter");
+        }
+      } else {
+        return false;
+      }
+    }
+  };
+
   return (
     <div>
       <div className='main-container'>
@@ -260,12 +329,13 @@ function Game1({ expiryTimestamp, testGame, Game1_to_Game2 }) {
             <h2>{seconds}</h2>
           </div>
         </div>
-        <div className='game1'>
+        <div className='game2'>
           <ul className='inp-list'></ul>
+          <ul className='received_list'></ul>
         </div>
         <button onClick={allEntered} className='continue'>
           <p>continue</p>
-          {/*  <ArrowCircleRightTwoToneIcon /> */}
+          <ArrowCircleRightTwoToneIcon />
         </button>
       </div>
     </div>

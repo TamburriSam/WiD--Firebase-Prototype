@@ -8,6 +8,7 @@ import { jsPDF } from "jspdf";
 import LiveRoom from "./LiveRoom";
 import "./styles/Final.css";
 import Button from "@mui/material/Button";
+import ArrowCircleRightTwoToneIcon from "@mui/icons-material/ArrowCircleRightTwoTone";
 
 const Wordtable = ({ Wordtable_to_LiveRoom }) => {
   const db = firebase.firestore();
@@ -236,6 +237,7 @@ const Wordtable = ({ Wordtable_to_LiveRoom }) => {
         </div>
         <button onClick={nextPage} className='word-table-continue'>
           <p>continue</p>
+          <ArrowCircleRightTwoToneIcon />
         </button>
       </div>
     </div>
