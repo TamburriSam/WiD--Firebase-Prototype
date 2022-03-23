@@ -318,6 +318,7 @@ ul {
   width: 10vw;
   position: relative;
   bottom: 3px;
+  align-items: center;
   display: flex;
   justify-content: center;
 }

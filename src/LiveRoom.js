@@ -38,6 +38,8 @@ const LiveRoom = () => {
     }
   }, []);
 
+  const br = <br></br>;
+
   const getData = () => {
     let roomID = localStorage.getItem("room_id");
     let isSolo = localStorage.getItem("solo");
@@ -54,36 +56,11 @@ const LiveRoom = () => {
 
   const soloData = () => {
     let mock_msgs = [
-      `I spot the hills
-    with yellow balls in autumn. 
-    I light the prairie cornfields, 
-    Orange and tawny gold clusters, 
-    And I am called pumpkins. 
-    On the last of October,  
-    When dusk is fallen,  
-    Children join hands,  
-    And circle round me, 
-    Singing ghost songs, 
-    And love to the harvest moon;
-    I am a jack-o'-lantern, 
-    With terrible teeth, 
-    And the children know, 
-    I am fooling.`,
-      `White sheep, white sheep,
-    On a blue hill,
-    When the wind stops,
-    You all stand still.
-    When the wind blows,
-    You walk away slow.
-    White sheep, white sheep,
-    Where do you go?`,
-      `In winter I get up at night  
-    And dress by yellow candle-light.  
-    In summer, quite the other way,  
-    I have to go to bed by day.`,
-      `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.`,
-      `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim `,
-      `Mock Message 3`,
+      `Memory of water, rare, sweet, 
+      from the hands of a woman, a stranger, for a thirsty child done with play, alone, compassionate the stranger, memory of kindness.`,
+      `On a planet full of snow, An avalanche of snow falls repeatedly from mountain sides, And from other higher locations to lower locations, Keeping the planet beautiful like a holograph made of ice.`,
+      `A finite sons jacks the sunshine with abundant needs that cannot be wiped. A finite mother opens her oven to abundant aromas that cannot be hyped.`,
+      `Unwanted dark, night return. Water cart collects entropy. Fallow Flight. Zero Light. `,
     ];
 
     setNodes(mock_msgs);

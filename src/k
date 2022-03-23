@@ -1,7 +1,0 @@
-    --main-font: "IBM Plex Mono", monospace !important;
-    --test-font: "Special Elite", cursive;
-    --background-black: #141414;
-    --text-color: #e5e5e5;
-    box-sizing: inherit;
-    --secondary-font: 24px;
-    font-family: "IBM Plex Mono", monospace !important;

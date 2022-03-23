@@ -6,7 +6,6 @@ import Button from "@mui/material/Button";
 import { useTimer } from "react-timer-hook";
 import "./styles/Game.css";
 import ArrowCircleRightTwoToneIcon from "@mui/icons-material/ArrowCircleRightTwoTone";
-
 import "./styles/Game1.css";
 
 const Game3 = ({ expiryTimestamp, Game3_to_Game4 }) => {
