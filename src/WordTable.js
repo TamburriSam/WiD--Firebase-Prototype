@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 import React from "react";
 import "./styles/index.css";
 import { jsPDF } from "jspdf";
-import LiveRoom from "./LiveRoom";
 import "./styles/Final.css";
 import Button from "@mui/material/Button";
 import ArrowCircleRightTwoToneIcon from "@mui/icons-material/ArrowCircleRightTwoTone";
@@ -182,6 +181,7 @@ const Wordtable = ({ Wordtable_to_LiveRoom }) => {
         <div className='instructionAndEssayContainer'>
           <div className='instructionsTable'>
             <h2>Now for the creative part!</h2>
+            <h4>make admin controller here now get the code from liveroom </h4>
             <br></br>
             <p>
               Read each row of four words for any interesting<br></br>
@@ -235,10 +235,6 @@ const Wordtable = ({ Wordtable_to_LiveRoom }) => {
             </div>
           </table>
         </div>
-        <button onClick={nextPage} className='word-table-continue'>
-          <p>continue</p>
-          <ArrowCircleRightTwoToneIcon />
-        </button>
       </div>
     </div>
   );

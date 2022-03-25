@@ -3,7 +3,6 @@ import logoStandAlone from "./logos/logoStandalone.png";
 import white_logo_dark_bg from "./logos/white_logo_transparent_background.png";
 import white_logo_only from "./logos/whiteTextLogoOnly.png";
 import InstructionMode from "./InstructionMode";
-import blurb from "./logos/blurb10.jpeg";
 import mobileLogo from "./logos/whiteLogoStandalone.png";
 import App from "./App.js";
 import Rooms from "./Rooms";

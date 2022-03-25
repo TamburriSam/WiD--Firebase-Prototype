@@ -1,11 +1,10 @@
 import mainLogo from "./logos/whiteLogoStandalone.png";
 import secondaryLogo from "./logos/whiteTextLogoOnly.png";
 import "./styles/Nav.css";
-import background from "./logos/green3.jpg";
 
 const Nav = () => {
   return (
-    <div style={{ backgroundImage: `url(${background})` }} id='roomNav'>
+    <div id='roomNav'>
       <div id='overlay'></div>
       <div id='main-logo-container'>
         <a href='rooms.html'>

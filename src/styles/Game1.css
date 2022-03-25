@@ -51,8 +51,7 @@ li {
 
 .instructions11 h2 {
   font-size: 2.5vw;
-  /*   font-size: 2rem;
- */
+
   position: relative;
   text-decoration: underline;
   bottom: 25px;
@@ -140,7 +139,6 @@ li {
 }
 
 .continue:hover {
-  font-size: 2rem;
   background-color: #323232;
   opacity: 0.9;
   background-image: linear-gradient(135deg, #1b1b1b 25%, transparent 25%),
@@ -182,7 +180,7 @@ ul {
   text-align: center;
   width: 15%;
   list-style-type: none;
-  left: 80px;
+
   display: flex;
   flex-direction: column;
   align-items: flex-end;
@@ -202,6 +200,10 @@ ul {
   width: fit-content;
   left: 12%;
   position: relative;
+}
+
+.inp-list {
+  width: 35%;
 }
 
 .input-cell {
@@ -258,7 +260,6 @@ ul {
   margin: 0;
   border: 0;
   vertical-align: top;
-  /* margin: 8px; */
   width: 25ch;
 }
 
@@ -301,6 +302,14 @@ ul {
     border-bottom: 3px solid #e5e5e5;
   }
 
+  .continue {
+    width: 100%;
+  }
+
+  .inp-list {
+    width: 60%;
+  }
+
   .timer h2 {
     font-size: 2rem !important;
   }
@@ -311,6 +320,7 @@ ul {
 
   .game2 {
     margin: auto;
+    width: 100%;
   }
 }
 
