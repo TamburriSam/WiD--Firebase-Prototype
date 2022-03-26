@@ -282,6 +282,10 @@ ul {
   transform: scale(1.3) !important;
 }
 
+#game2-instructions {
+  font-size: 1.8vh;
+}
+
 /* Media Queries */
 /* main container flex off, insttructino and timer coontainer width 100%, instruction h2 display noone, */
 

@@ -387,7 +387,7 @@ const Game2 = ({ expiryTimestamp, Game2_to_Game3 }) => {
     <div>
       <div className='main-container'>
         <div className='instructionAndTimerContainer'>
-          <div className='instructions11'>
+          <div id='game2-instructions' className='instructions11'>
             You've received a paper with a random classmate's words.<br></br>
             Here's someone else's list from the previous step.<br></br>
             Look at the top word. Then, at the top of the blank column, write
