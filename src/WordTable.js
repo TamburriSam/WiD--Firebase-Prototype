@@ -156,19 +156,16 @@ const Wordtable = ({ Wordtable_to_LiveRoom }) => {
     doc.save("Your List.pdf");
   };
 
-  const nextPage = () => {
-    const LSsolo = localStorage.getItem("solo");
-    let essay = document.getElementById("essay");
-    localStorage.setItem("poem", essay.value);
+  const endGame = () => {
+    let answer = prompt(
+      `All of your information will be deleted. If done- enter 'Y', if not- enter 'N'. `
+    );
 
-    if (essay.value.length < 10) {
-      alert(`Please complete the exercise before continuing.`);
-    } else {
-      if (LSsolo) {
-        Wordtable_to_LiveRoom();
-      } else {
-        Wordtable_to_LiveRoom();
-      }
+    if (answer === "y") {
+      localStorage.clear();
+      window.location.reload(true);
+    } else if (answer === "n") {
+      return false;
     }
   };
 
@@ -181,7 +178,6 @@ const Wordtable = ({ Wordtable_to_LiveRoom }) => {
         <div className='instructionAndEssayContainer'>
           <div className='instructionsTable'>
             <h2>Now for the creative part!</h2>
-            <h4>make admin controller here now get the code from liveroom </h4>
             <br></br>
             <p>
               Read each row of four words for any interesting<br></br>
@@ -199,11 +195,27 @@ const Wordtable = ({ Wordtable_to_LiveRoom }) => {
             <textarea placeholder='Start writing here...' id='essay' />
             <p style={{ color: "#e5e5e5", textAlign: "center" }}>
               Save your poem and lists to your device for a later exercise. Then
-              click "Continue."
+              click "Exit"
             </p>
             <div>
               <button onClick={printLists}>Print Lists to PDF</button>
               <button onClick={printEssay}>Print Poem to PDF</button>
+              <button
+                onClick={endGame}
+                style={{
+                  color: "red",
+                  backgroundColor: "transparent",
+                  height: "30px",
+                  border: "1px solid red",
+                  width: "10vw",
+                  borderRadius: "1px",
+                  cursor: "pointer",
+                  position: "relative",
+                  top: "5px",
+                }}
+              >
+                Exit
+              </button>
             </div>
           </div>
         </div>
@@ -228,7 +240,7 @@ const Wordtable = ({ Wordtable_to_LiveRoom }) => {
               </tr>
             </thead>
             <hr></hr>
-            <br></br>
+
             <div id='word-count-box'>Rows Used:</div>
             <div id='table-container'>
               <tbody id='tbody1'></tbody>

@@ -33,7 +33,7 @@
 #table2 {
   background-color: transparent;
   padding: 5px;
-  width: 100%;
+
   margin-top: 30px;
   height: 70vh;
   color: #e5e5e5;
@@ -74,6 +74,7 @@
   display: flex;
   justify-content: space-around;
 }
+
 .crossed-word {
   border-bottom: 1px solid rgba(19, 18, 18, 0.226);
   align-items: center;
@@ -125,21 +126,24 @@
 }
 
 #table-container {
-  max-width: 300px;
+  position: relative;
+  text-align: center;
+  display: flex;
+  justify-content: center;
 }
 
 #table-row-cols {
-  left: 10px;
-  width: 40vw;
-  position: relative;
+  /* left: 10px; */
+  width: 55vw;
+  position: absolute;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
 }
 
-.col-title:nth-of-type(1) {
+/* .col-title:nth-of-type(1) {
   position: relative;
-  left: 20px;
-}
+  left: 20px !important;
+} */
 
 .dynamic-items {
   display: flex;
@@ -159,23 +163,22 @@
 }
 
 #word-count-box {
-  /* position: absolute; */
-  height: 27px;
   position: relative;
   border: 1px solid #e5e5e5;
-  padding: 6px;
-  width: 156px;
-  bottom: 14px;
-  border-radius: 5px;
-  /* margin-bottom: 10px; */
-  /* padding-bottom: 10px; */
+  padding: 10px;
+
   display: flex;
   margin: auto;
   text-align: center;
   justify-content: center;
+
+  margin-top: 16px;
+  margin-bottom: 5px;
+
   align-items: center;
   height: -moz-fit-content;
   height: fit-content;
+  width: -moz-fit-content;
   width: fit-content;
 }
 
@@ -248,6 +251,11 @@
 }
 .poem4 {
   grid-area: poem4;
+}
+
+.col-title:nth-of-type(1) {
+  position: relative;
+  left: unset;
 }
 
 .listItemLiveRoom {

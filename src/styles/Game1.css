@@ -27,12 +27,12 @@ li {
 }
 
 .instructions11 {
+  border-left: 3px solid #e5e5e5;
   border-bottom: 3px solid #e5e5e5;
+  border-top: 3px solid #e5e5e5;
   height: 50%;
   color: #e5e5e5;
-
   display: flex;
-
   background-color: #323232;
   opacity: 0.9;
   background-size: 7px 7px;
@@ -43,7 +43,6 @@ li {
     #3d3d3db6 0,
     #3d3d3db6 50%
   );
-
   padding: 11px;
   flex-direction: column;
   justify-content: center;
@@ -59,6 +58,8 @@ li {
 .timer {
   height: 50%;
   display: flex;
+  border-left: 3px solid #e5e5e5;
+  border-bottom: 3px solid #e5e5e5;
   align-items: center;
   justify-content: center;
   font-size: 4rem;
@@ -111,6 +112,10 @@ li {
 }
 
 .continue {
+  border-right: 3px solid #e5e5e5;
+  border-top: 3px solid #e5e5e5;
+  border-bottom: 3px solid #e5e5e5;
+
   width: 10%;
   height: 100%;
   display: flex;
@@ -286,6 +291,15 @@ ul {
   font-size: 1.8vh;
 }
 
+.letter {
+  width: 10vw;
+  position: relative;
+  bottom: 3px;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
 /* Media Queries */
 /* main container flex off, insttructino and timer coontainer width 100%, instruction h2 display noone, */
 
@@ -294,8 +308,16 @@ ul {
     display: unset;
   }
 
+  .inp-list {
+    width: 50%;
+  }
+
   .instructionAndTimerContainer {
     width: 100%;
+  }
+
+  .letter {
+    width: 75%;
   }
 
   .instructions11 h2 {
@@ -311,7 +333,21 @@ ul {
   }
 
   .inp-list {
-    width: 60%;
+    width: 50%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .list_item {
+    width: 75%;
+  }
+
+  .selected-text {
+    width: 75%;
+    display: flex;
+    justify-content: center;
   }
 
   .timer h2 {
@@ -322,17 +358,41 @@ ul {
     margin: auto;
   }
 
+  .received_list {
+    box-sizing: border-box;
+    position: relative;
+    text-align: center;
+    width: 50%;
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+
+    /* align-items: flex-end; */
+    box-sizing: border-box;
+    align-items: unset;
+  }
+
+  .instructions11 {
+    border-right: 3px solid #e5e5e5;
+  }
+
+  .timer {
+    border-right: 3px solid #e5e5e5;
+  }
+
+  .game2 {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    border-left: 3px solid #e5e5e5;
+    border-right: 3px solid #e5e5e5;
+    background-color: #141414;
+    flex-direction: row-reverse;
+    width: 70%;
+  }
+
   .game2 {
     margin: auto;
     width: 100%;
   }
-}
-
-.letter {
-  width: 10vw;
-  position: relative;
-  bottom: 3px;
-  align-items: center;
-  display: flex;
-  justify-content: center;
 }

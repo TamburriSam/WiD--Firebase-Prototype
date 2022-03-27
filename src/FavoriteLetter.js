@@ -37,21 +37,23 @@ const FavoriteLetter = ({
   }, []);
 
   return (
-    <div id='fast-facts'>
-      <div id='notification'>
-        What's your favorite letter of the alphabet? Type it below.
+    <div id='fast-fact-container'>
+      <div id='fast-facts' syle={{ backgroundColor: "red", display: "flex" }}>
+        <div id='notification'>
+          What's your favorite letter of the alphabet? Type it below.
+        </div>
+        <div id='inputContainer'>
+          <input
+            onChange={setFavLetterChange}
+            className='alphabetInput'
+            type='text'
+            placeholder='favorite letter'
+          />
+        </div>
+        <button id='letterSubmit' onClick={handleLetterChange}>
+          submit
+        </button>
       </div>
-      <div id='inputContainer'>
-        <input
-          onChange={setFavLetterChange}
-          className='alphabetInput'
-          type='text'
-          placeholder='favorite letter'
-        />
-      </div>
-      <button id='letterSubmit' onClick={handleLetterChange}>
-        submit
-      </button>
     </div>
   );
 };

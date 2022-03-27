@@ -132,7 +132,9 @@ function CurrentRoom({
 
   const setFavLetterChange = (e) => {
     console.log(favoriteLetter);
+    console.log(e.target.value.toUpperCase());
     setfavoriteLetter(e.target.value.toUpperCase());
+    console.log(favoriteLetter);
   };
 
   const waitingRoomShift = () => {
@@ -144,6 +146,7 @@ function CurrentRoom({
     document.getElementById("waiting").style.display = "block";
     document.getElementById("current-room").style.display = "block";
     document.getElementById("current-room").style.top = "185px";
+
     let loadingList = document.getElementById("user-loading-list");
     loadingList.scrollTop = loadingList.scrollHeight;
   };
@@ -171,7 +174,7 @@ function CurrentRoom({
 
     setroomLoad(true);
 
-    setfavoriteLetter(LSfavorite_letter);
+    setfavoriteLetter(LSfavorite_letter.toUpperCase());
 
     waitingRoomShift();
 
@@ -180,10 +183,10 @@ function CurrentRoom({
 
   const handleLetterChange = () => {
     if (favoriteLetter.length < 2 && typeof favoriteLetter == "string") {
-      localStorage.setItem("favorite_letter", favoriteLetter);
+      localStorage.setItem("favorite_letter", favoriteLetter.toUpperCase());
       setroomLoad(true);
       setinRoom(true);
-      setfavoriteLetter(favoriteLetter);
+      setfavoriteLetter(favoriteLetter.toUpperCase());
 
       waitingRoomShift();
     }
@@ -230,7 +233,7 @@ function CurrentRoom({
         showLetter={showLetter}
         handleSoloLetterChange={handleSoloLetterChange}
         handleLetterChange={handleLetterChange}
-        favoriteLetter={favoriteLetter}
+        favoriteLetter={favoriteLetter.toUpperCase()}
         setFavLetterChange={setFavLetterChange}
       />
     );
@@ -252,6 +255,7 @@ function CurrentRoom({
         <button id='leave-room' onClick={(e) => removeUser(e)}>
           Leave Room
         </button>
+        <div className='user-online'>Users Online</div>
         {/*   {admin ? (
           <button onClick={(e) => terminateUser(e)}>Terminate Room</button>
         ) : (
@@ -259,17 +263,15 @@ function CurrentRoom({
             Leave Room
           </button>
         )} */}
-
         {/*   <button id='leave-room' onClick={(e) => removeUser(e)}>
           Leave Room
         </button> */}
-
         {admin ? (
           <button
             onClick={adminStartedGame}
             style={{
               backgroundColor: "red",
-              top: "10px",
+              top: "17px",
               position: "relative",
               border: "1px solid white",
               color: "white",
@@ -283,7 +285,6 @@ function CurrentRoom({
         ) : null}
         <div>
           <div id='user-loading-list'>
-            Users Online
             <ul>
               {nodes.map((node, index) => {
                 return <li key={index.toString()}>{node}</li>;

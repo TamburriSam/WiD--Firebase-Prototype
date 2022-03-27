@@ -462,7 +462,14 @@ function Rooms() {
 
   let content = null;
   if (waitingRoom) {
-    content = (
+    /*  content = (
+      <CurrentRoom
+        name={localStorage.getItem("room")}
+        createNewProfile={createNewProfile}
+        removeUser={removeUser}
+      />
+    ); */
+    return (
       <CurrentRoom
         name={localStorage.getItem("room")}
         createNewProfile={createNewProfile}

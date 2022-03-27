@@ -79,13 +79,15 @@
 }
 
 .essayTable p {
-  position: absolute;
-  bottom: 20%;
+  position: relative;
+  bottom: -23%;
 }
 
 .essayTable div {
   position: absolute;
-  bottom: 0px;
+  bottom: 15px;
+  flex-wrap: wrap;
+  justify-content: center;
   display: flex;
 }
 
@@ -249,7 +251,7 @@
 
 @media only screen and (max-width: 800px) {
   .instructionsTable p {
-    font-size: 1.3vh;
+    font-size: 1.2vh;
   }
 
   .essayTable p {
