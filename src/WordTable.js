@@ -20,6 +20,14 @@ const Wordtable = ({ Wordtable_to_LiveRoom }) => {
   let list1, list2, list3, list4;
 
   useEffect(() => {
+    window.addEventListener("paste", () => {
+      const essay = document.getElementById("essay");
+      console.log(essay.value);
+      let essayValue = essay.value;
+
+      console.log(essayValue);
+    });
+
     window.scrollTo(0, 0);
 
     /*  document.getElementById("active-container").style.height = "100vh"; */
@@ -32,7 +40,7 @@ const Wordtable = ({ Wordtable_to_LiveRoom }) => {
     }
   }, []);
 
-  useEffect(() => {
+  /*  useEffect(() => {
     const onKeyUp = (e) => {
       if (e.keyCode === 13) {
         console.log("wahoo");
@@ -40,7 +48,7 @@ const Wordtable = ({ Wordtable_to_LiveRoom }) => {
     };
     window.addEventListener("keyup", onKeyUp);
     return () => window.removeEventListener("keyup", onKeyUp);
-  }, []);
+  }, []); */
 
   const getData = () => {
     let user_id = localStorage.getItem("user_id");
@@ -194,26 +202,13 @@ const Wordtable = ({ Wordtable_to_LiveRoom }) => {
           <div className='essayTable'>
             <textarea placeholder='Start writing here...' id='essay' />
             <p style={{ color: "#e5e5e5", textAlign: "center" }}>
-              Save your poem and lists to your device for a later exercise. Then
-              click "Exit"
+              Save your poem and lists to your device for a later exercise.
+              <br /> When you're done, click "Exit"
             </p>
             <div>
               <button onClick={printLists}>Print Lists to PDF</button>
               <button onClick={printEssay}>Print Poem to PDF</button>
-              <button
-                onClick={endGame}
-                style={{
-                  color: "red",
-                  backgroundColor: "transparent",
-                  height: "30px",
-                  border: "1px solid red",
-                  width: "10vw",
-                  borderRadius: "1px",
-                  cursor: "pointer",
-                  position: "relative",
-                  top: "5px",
-                }}
-              >
+              <button onClick={endGame} id='exitButton'>
                 Exit
               </button>
             </div>

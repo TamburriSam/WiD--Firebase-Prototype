@@ -115,12 +115,10 @@
 }
 
 #essay {
-  font-family: "Montserrat", sans-serif !important;
   font-size: 14px;
   height: 40vh;
   padding: 10px;
 
-  border: 2px solid grey;
   outline: none;
   border-radius: 5px;
 }

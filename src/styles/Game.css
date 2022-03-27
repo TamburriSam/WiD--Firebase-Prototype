@@ -261,8 +261,10 @@
   border: 1px solid #e5e5e5;
   border-bottom: none !important;
   padding: 5px;
+  width: -moz-fit-content;
   width: fit-content;
   left: 12%;
+  transition: 0.2s ease-in-out;
   position: relative;
   transform: scale(1.2);
 }

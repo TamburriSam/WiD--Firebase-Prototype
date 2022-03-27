@@ -474,20 +474,32 @@
   }
 
   .loading {
-    font-size: 22px;
+    font-size: 21px;
+  }
+
+  #user-loading-list li {
+    margin: unset;
+    padding: unset;
+    margin: 1px 1px;
   }
 
   #user-loading-list {
     /* width: 40vw; */
 
-    max-height: 10vh;
+    max-height: 20vh;
     overflow-y: scroll;
   }
 
   #current-room {
     right: 10px;
     top: 230px !important;
-    max-height: 35vh;
+    max-height: 45vh;
+  }
+
+  .alphabetInput {
+    position: relative;
+    top: 10px;
+    outline: none;
   }
 
   .game-start {
