@@ -39,6 +39,7 @@
   padding: 11px;
   flex-direction: column;
   justify-content: center;
+  text-align: center;
 }
 
 .instructionsTable h2 {

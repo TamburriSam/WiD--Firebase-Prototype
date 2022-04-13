@@ -16,10 +16,94 @@ const Wordtable = ({ Wordtable_to_LiveRoom }) => {
   const [isLoading, setLoading] = useState(true);
   const [soloLive, setSoloLive] = useState(false);
   const [list, setList] = useState([]);
+  const [wordsForComposition, setWordsForComposition] = useState([]);
 
   let list1, list2, list3, list4;
 
+  const testFunc = (e) => {
+    if (e.target.className === "word-check" && e.target.checked) {
+      let children = e.target.parentElement.children;
+
+      let count = 0;
+
+      console.log(wordsForComposition);
+
+      console.log(e.target.dataset);
+
+      wordsForComposition.push(
+        children[1].innerHTML,
+
+        children[2].innerHTML,
+
+        children[3].innerHTML,
+
+        children[4].innerHTML
+      );
+
+      document.querySelector("#pasted-words").innerHTML = wordsForComposition;
+      console.log(`state`, wordsForComposition);
+    } else if (e.target.className === "word-check" && !e.target.checked) {
+      /*   let crossedWords = document.querySelectorAll(".crossed-word");
+
+      let children = e.target.parentElement.children;
+
+    
+
+      let firstIndex = wordsForComposition.indexOf(firstChild);
+      let secondIndex = wordsForComposition.indexOf(secondChild);
+      let thirdIndex = wordsForComposition.indexOf(thirdChild);
+      let fourthIndex = wordsForComposition.indexOf(fourthChild);
+
+      console.log(firstIndex, secondIndex, thirdIndex, fourthIndex);
+
+      setWordsForComposition(wordsForComposition.splice(firstIndex, 1));
+      setWordsForComposition(wordsForComposition.splice(secondIndex - 1, 1));
+      setWordsForComposition(wordsForComposition.splice(secondIndex - 2, 1));
+      setWordsForComposition(wordsForComposition.splice(secondIndex - 3, 1));
+
+      document.querySelector("#pasted-words").innerHTML = wordsForComposition; */
+
+      let crossedWords = document.querySelectorAll(".crossed-word");
+
+      let children = e.target.parentElement.children;
+      let firstChild = children[1].innerHTML;
+      let secondChild = children[2].innerHTML;
+      let thirdChild = children[3].innerHTML;
+      let fourthChild = children[4].innerHTML;
+
+      console.log(firstChild, secondChild, thirdChild, fourthChild);
+
+      console.log(crossedWords);
+
+      let newArr = [];
+
+      [...crossedWords].forEach((item) => {
+        newArr.push(item.children[1].innerHTML);
+        newArr.push(item.children[2].innerHTML);
+        newArr.push(item.children[3].innerHTML);
+        newArr.push(item.children[4].innerHTML);
+      });
+
+      console.log(newArr);
+
+      setWordsForComposition([...newArr]);
+
+      document.querySelector("#pasted-words").innerHTML = wordsForComposition;
+    }
+  };
+
   useEffect(() => {
+    window.addEventListener("change", testFunc);
+
+    console.log("ok");
+
+    db.collection("words")
+      .doc("words")
+      .get()
+      .then((doc) => {
+        console.log(doc.data());
+      });
+
     window.addEventListener("paste", () => {
       const essay = document.getElementById("essay");
       console.log(essay.value);
@@ -100,7 +184,7 @@ const Wordtable = ({ Wordtable_to_LiveRoom }) => {
         }
 
         result2.map((item) => {
-          html += `<tr><td class="listItems"><input class="word-check" type="checkbox">${item.join(
+          html += `<tr><td class="listItems" ><input class="word-check" type="checkbox">${item.join(
             " "
           )}</td></tr>`;
         });
@@ -186,6 +270,14 @@ const Wordtable = ({ Wordtable_to_LiveRoom }) => {
         <div className='instructionAndEssayContainer'>
           <div className='instructionsTable'>
             <h2>Now for the creative part!</h2>
+            <div
+              style={{
+                width: "50px",
+                height: "50px",
+                backgroundColor: "white",
+              }}
+              id='pasted-words'
+            ></div>
             <br></br>
             <p>
               Read each row of four words for any interesting<br></br>
