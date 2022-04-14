@@ -3,6 +3,7 @@ import "firebase/firestore";
 import Main from "./Main";
 import { useEffect, useState } from "react";
 import React from "react";
+
 import "./styles/index.css";
 import { jsPDF } from "jspdf";
 import "./styles/Final.css";
@@ -16,93 +17,71 @@ const Wordtable = ({ Wordtable_to_LiveRoom }) => {
   const [isLoading, setLoading] = useState(true);
   const [soloLive, setSoloLive] = useState(false);
   const [list, setList] = useState([]);
+  const [words, setWords] = useState([]);
+
   const [wordsForComposition, setWordsForComposition] = useState([]);
 
   let list1, list2, list3, list4;
 
   const testFunc = (e) => {
     if (e.target.className === "word-check" && e.target.checked) {
-      let children = e.target.parentElement.children;
-
-      let count = 0;
-
-      console.log(wordsForComposition);
-
-      console.log(e.target.dataset);
-
-      wordsForComposition.push(
-        children[1].innerHTML,
-
-        children[2].innerHTML,
-
-        children[3].innerHTML,
-
-        children[4].innerHTML
-      );
-
-      document.querySelector("#pasted-words").innerHTML = wordsForComposition;
-      console.log(`state`, wordsForComposition);
-    } else if (e.target.className === "word-check" && !e.target.checked) {
-      /*   let crossedWords = document.querySelectorAll(".crossed-word");
-
-      let children = e.target.parentElement.children;
-
-    
-
-      let firstIndex = wordsForComposition.indexOf(firstChild);
-      let secondIndex = wordsForComposition.indexOf(secondChild);
-      let thirdIndex = wordsForComposition.indexOf(thirdChild);
-      let fourthIndex = wordsForComposition.indexOf(fourthChild);
-
-      console.log(firstIndex, secondIndex, thirdIndex, fourthIndex);
-
-      setWordsForComposition(wordsForComposition.splice(firstIndex, 1));
-      setWordsForComposition(wordsForComposition.splice(secondIndex - 1, 1));
-      setWordsForComposition(wordsForComposition.splice(secondIndex - 2, 1));
-      setWordsForComposition(wordsForComposition.splice(secondIndex - 3, 1));
-
-      document.querySelector("#pasted-words").innerHTML = wordsForComposition; */
-
       let crossedWords = document.querySelectorAll(".crossed-word");
-
-      let children = e.target.parentElement.children;
-      let firstChild = children[1].innerHTML;
-      let secondChild = children[2].innerHTML;
-      let thirdChild = children[3].innerHTML;
-      let fourthChild = children[4].innerHTML;
-
-      console.log(firstChild, secondChild, thirdChild, fourthChild);
-
-      console.log(crossedWords);
 
       let newArr = [];
 
       [...crossedWords].forEach((item) => {
-        newArr.push(item.children[1].innerHTML);
-        newArr.push(item.children[2].innerHTML);
-        newArr.push(item.children[3].innerHTML);
-        newArr.push(item.children[4].innerHTML);
+        newArr.push(
+          `${item.children[1].innerHTML} ${item.children[2].innerHTML} ${item.children[3].innerHTML} ${item.children[4].innerHTML} `
+        );
       });
 
       console.log(newArr);
 
       setWordsForComposition([...newArr]);
+    } else if (e.target.className === "word-check" && !e.target.checked) {
+      let crossedWords = document.querySelectorAll(".crossed-word");
 
-      document.querySelector("#pasted-words").innerHTML = wordsForComposition;
+      let newArr = [];
+
+      [...crossedWords].forEach((item) => {
+        newArr.push(
+          `${item.children[1].innerHTML} ${item.children[2].innerHTML} ${item.children[3].innerHTML} ${item.children[4].innerHTML}`
+        );
+      });
+
+      setWordsForComposition([...newArr]);
     }
+  };
+
+  const getWords = () => {
+    /*  for (const prop in words) {
+      console.log(words[prop]);
+
+      const doc = new jsPDF();
+
+      doc.text(words[prop], 10, 10);
+      doc.save("words.pdf");
+    } */
+    db.collection("words")
+      .doc("words")
+      .get()
+      .then((doc) => {
+        setWords(doc.data());
+      });
+
+    let myArr = [];
+
+    for (const prop in words.words) {
+      myArr.push(words.words[prop]);
+    }
+
+    console.log(myArr);
   };
 
   useEffect(() => {
     window.addEventListener("change", testFunc);
 
     console.log("ok");
-
-    db.collection("words")
-      .doc("words")
-      .get()
-      .then((doc) => {
-        console.log(doc.data());
-      });
 
     window.addEventListener("paste", () => {
       const essay = document.getElementById("essay");
@@ -270,14 +249,7 @@ const Wordtable = ({ Wordtable_to_LiveRoom }) => {
         <div className='instructionAndEssayContainer'>
           <div className='instructionsTable'>
             <h2>Now for the creative part!</h2>
-            <div
-              style={{
-                width: "50px",
-                height: "50px",
-                backgroundColor: "white",
-              }}
-              id='pasted-words'
-            ></div>
+
             <br></br>
             <p>
               Read each row of four words for any interesting<br></br>
@@ -292,12 +264,21 @@ const Wordtable = ({ Wordtable_to_LiveRoom }) => {
             </p>
           </div>
           <div className='essayTable'>
-            <textarea placeholder='Start writing here...' id='essay' />
-            <p style={{ color: "#e5e5e5", textAlign: "center" }}>
+            <div id='pasted-words'>
+              <span id='word-title'>Words to use:</span>
+              {wordsForComposition}
+            </div>
+
+            <div id='composition-windows'>
+              <textarea placeholder='Start writing here...' id='essay' />
+            </div>
+
+            <div id='save-p'>
               Save your poem and lists to your device for a later exercise.
               <br /> When you're done, click "Exit"
-            </p>
-            <div>
+            </div>
+
+            <div id='button-holder'>
               <button onClick={printLists}>Print Lists to PDF</button>
               <button onClick={printEssay}>Print Poem to PDF</button>
               <button onClick={endGame} id='exitButton'>

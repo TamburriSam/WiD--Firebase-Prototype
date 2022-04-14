@@ -391,14 +391,18 @@ const Game2 = ({ expiryTimestamp, Game2_to_Game3 }) => {
             <p style={{ marginBottom: "15px" }}>
               You've received a random classmate's list from the previous step.
             </p>
-            <br />
             <br></br>
             Look at the top word. Then, at the top of the blank column, write
             the first word that comes into your mind.<br></br>
             Don't think about it; Trust your first response!<br></br>Do the same
             for every word down the list.<br></br>
+            <br></br>
+            Try not to leave any lines blank. Even if you don't know the meaning
+            of a word on the left-hand list, you can still write a new word.
+            Pick one that sounds or looks like the unfamiliar word, or has some
+            of the same letters, or choose any word you like!
           </div>
-          <div className='timer'>
+          <div id='timer-2' className='timer'>
             <h2>{minutes}:</h2>
             <h2>{seconds}</h2>
           </div>

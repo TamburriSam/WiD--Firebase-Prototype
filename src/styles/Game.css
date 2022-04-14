@@ -289,9 +289,14 @@
   box-shadow: inset 0 0 15px var(--background-black);
 }
 
-@media only screen and (max-width: 890px) {
+@media only screen and (max-width: 990px) {
   #createNewRoom {
     position: absolute;
     top: 10px;
+  }
+
+  #timer-2 {
+    position: unset !important;
+    width: unset !important;
   }
 }

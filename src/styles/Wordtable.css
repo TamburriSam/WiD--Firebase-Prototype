@@ -114,11 +114,27 @@
   justify-content: center;
 }
 
+#pasted-words {
+  padding: 5px;
+  width: 51vw;
+  min-height: 5vh;
+  height: fit-content;
+  height: fit-content;
+  background-color: white;
+  white-space: pre-wrap;
+}
+
+#word-title {
+  font-weight: bolder;
+  display: block;
+}
+
 #essay {
   font-size: 14px;
-  height: 40vh;
-  padding: 10px;
 
+  padding: 10px;
+  width: 51vw;
+  height: 30vh;
   outline: none;
   border-radius: 5px;
 }
