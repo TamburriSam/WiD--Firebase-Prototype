@@ -26,8 +26,23 @@ li {
   width: 20%;
 }
 
+#g1 {
+  height: 90vh;
+  width: 290px;
+  border-right: 3px solid #e5e5e5;
+}
+
+#t1 {
+  height: 10vh;
+  width: 290px;
+
+  border-right: 3px solid #e5e5e5;
+}
+
 .instructions11 {
   border-left: 3px solid #e5e5e5;
+  border-right: 3px solid #e5e5e5;
+
   border-bottom: 3px solid #e5e5e5;
   border-top: 3px solid #e5e5e5;
   height: 50%;
@@ -49,7 +64,7 @@ li {
 }
 
 .instructions11 h2 {
-  font-size: 2.5vw;
+  font-size: 36px;
 
   position: relative;
   text-decoration: underline;
@@ -70,6 +85,8 @@ li {
   border-bottom: 3px solid #e5e5e5;
   align-items: center;
   justify-content: center;
+  border-right: 3px solid #e5e5e5;
+
   font-size: 4rem;
   background-color: #323232;
   opacity: 0.9;
@@ -104,7 +121,7 @@ li {
   display: flex;
   align-items: center;
   justify-content: center;
-  border-left: 3px solid #e5e5e5;
+  /* border-left: 3px solid #e5e5e5; */
   border-right: 3px solid #e5e5e5;
   background-color: #141414;
   flex-direction: row-reverse;
@@ -434,5 +451,16 @@ ul {
   .game2 {
     margin: auto;
     width: 100%;
+  }
+
+  #g1 {
+    height: unset;
+    width: unset;
+    text-align: center;
+  }
+
+  #t1 {
+    height: unset;
+    width: unset;
   }
 }

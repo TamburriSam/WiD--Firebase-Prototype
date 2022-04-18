@@ -316,21 +316,28 @@ function Game1({ expiryTimestamp, testGame, Game1_to_Game2 }) {
     <div>
       <div className='main-container'>
         <div className='instructionAndTimerContainer'>
-          <div className='instructions11'>
+          <div id='g1' className='instructions11'>
             <h2>Instructions</h2>
 
             <p style={{ fontSize: "1.8vh" }}>
-              Here's a list of letters.<br></br>
-              Alongside each letter, in the blank column, <br></br>
-              you can write a word you might like to write with that begins with
+              Here is a list of letters <br></br>
               <br></br>
-              that letter, but if the word begins with another letter, that's
-              okay.
+              Click the box to the left <br></br>
+              of the top one and, in <br></br>
+              that box, write a word <br></br>
+              that letter suggests to you<br></br>
               <br></br>
+              The word might begin with <br></br>
+              the letter but doesn't have to. <br></br>
+              <br></br>
+              Pick a word you might like to write with. <br></br>
               Let your imagination run free!<br></br>
+              <br></br>
+              Now do the same for each letter <br></br>
+              All the way down the column <br></br>
             </p>
           </div>
-          <div className='timer'>
+          <div id='t1' className='timer'>
             <h2>{minutes}:</h2>
             <h2>{seconds}</h2>
           </div>

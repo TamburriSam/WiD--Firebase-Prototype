@@ -10,7 +10,7 @@
 .word-table-container {
   margin: auto;
   width: 100vw;
-  height: 100vh;
+  height: fit-content;
   background-color: #141414;
   display: flex;
 }
@@ -25,7 +25,7 @@
   border-top: 3px solid #e5e5e5;
   border-right: 3px solid #e5e5e5;
 
-  height: 40%;
+  height: 30vh;
   color: #e5e5e5;
   display: flex;
   background-color: #323232;
@@ -45,6 +45,7 @@
 }
 
 .instructionsTable h2 {
+  padding: 4px;
   font-size: 2.5vw;
   position: relative;
   text-decoration: underline;
@@ -69,7 +70,9 @@
     #3d3d3db6 0,
     #3d3d3db6 50%
   );
-  height: 60%;
+  min-height: 70vh;
+  height: fit-content;
+
   border-bottom: 3px solid #e5e5e5;
   border-left: 3px solid #e5e5e5;
 }
@@ -77,6 +80,8 @@
 #pasted-words {
   background-color: white;
   width: 100%;
+  margin-bottom: 15px;
+
   height: fit-content;
   border: 1px solid black;
 }
@@ -87,6 +92,7 @@
 }
 
 #button-holder {
+  margin-bottom: 25px;
   width: 100%;
   text-align: center;
 }

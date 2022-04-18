@@ -3,7 +3,7 @@ import "firebase/firestore";
 import Main from "./Main";
 import { useEffect, useState } from "react";
 import React from "react";
-
+import WordsToUse from "./WordsToUse";
 import "./styles/index.css";
 import { jsPDF } from "jspdf";
 import "./styles/Final.css";
@@ -18,6 +18,7 @@ const Wordtable = ({ Wordtable_to_LiveRoom }) => {
   const [soloLive, setSoloLive] = useState(false);
   const [list, setList] = useState([]);
   const [words, setWords] = useState([]);
+  const [wordStart, setWordStart] = useState(false);
 
   const [wordsForComposition, setWordsForComposition] = useState([]);
 
@@ -35,7 +36,13 @@ const Wordtable = ({ Wordtable_to_LiveRoom }) => {
         );
       });
 
-      console.log(newArr);
+      const result2 = [];
+
+      for (let i = 0; i < newArr.length; i += 4) {
+        const chunk = newArr.slice(i, i + 4);
+        result2.push(chunk);
+        console.log(`d`, result2);
+      }
 
       setWordsForComposition([...newArr]);
     } else if (e.target.className === "word-check" && !e.target.checked) {
@@ -53,33 +60,10 @@ const Wordtable = ({ Wordtable_to_LiveRoom }) => {
     }
   };
 
-  const getWords = () => {
-    /*  for (const prop in words) {
-      console.log(words[prop]);
-
-      const doc = new jsPDF();
-
-      doc.text(words[prop], 10, 10);
-      doc.save("words.pdf");
-    } */
-    db.collection("words")
-      .doc("words")
-      .get()
-      .then((doc) => {
-        setWords(doc.data());
-      });
-
-    let myArr = [];
-
-    for (const prop in words.words) {
-      myArr.push(words.words[prop]);
-    }
-
-    console.log(myArr);
-  };
-
   useEffect(() => {
     window.addEventListener("change", testFunc);
+
+    setWordStart(true);
 
     console.log("ok");
 
@@ -102,16 +86,6 @@ const Wordtable = ({ Wordtable_to_LiveRoom }) => {
       getData();
     }
   }, []);
-
-  /*  useEffect(() => {
-    const onKeyUp = (e) => {
-      if (e.keyCode === 13) {
-        console.log("wahoo");
-      }
-    };
-    window.addEventListener("keyup", onKeyUp);
-    return () => window.removeEventListener("keyup", onKeyUp);
-  }, []); */
 
   const getData = () => {
     let user_id = localStorage.getItem("user_id");
@@ -240,6 +214,12 @@ const Wordtable = ({ Wordtable_to_LiveRoom }) => {
     }
   };
 
+  let content = null;
+
+  if (wordStart) {
+    content = <WordsToUse wordsForComposition={wordsForComposition} />;
+  }
+
   if (isLoading) {
     return <div className='App'>Loading...</div>;
   }
@@ -266,7 +246,7 @@ const Wordtable = ({ Wordtable_to_LiveRoom }) => {
           <div className='essayTable'>
             <div id='pasted-words'>
               <span id='word-title'>Words to use:</span>
-              {wordsForComposition}
+              {content}
             </div>
 
             <div id='composition-windows'>
