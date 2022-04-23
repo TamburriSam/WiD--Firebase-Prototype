@@ -36,54 +36,14 @@ function Rooms() {
   const [solo, setSolo] = useState(false);
   const [show, setShow] = useState("");
   const [instructionMode, setInstructionMode] = useState(false);
+  const [today, setToday] = useState("");
 
   //mount
   useEffect(() => {
-    console.log("Room mounted");
-    //get the username from LS and set it to a state instead of this
-    const LSuserName = localStorage.getItem("username");
-    const LSid = localStorage.getItem("user_id");
-    const LSwaiting = localStorage.getItem("waiting");
-    const LSsolo = localStorage.getItem("solo");
-
-    if (LSsolo) {
-      return <SoloMode />;
-    }
-
-    if (LSwaiting) {
-      setroomLI(false);
-    }
-
-    if (LSuserName) {
-      setdisplayName(LSuserName);
-      setuserID(LSid);
-    } else {
-      console.log("not working");
-    }
-
+    deleteOldRooms();
     return () => {
       console.log("Rooms unmounted");
     };
-  }, []);
-
-  useEffect(() => {
-    if (
-      localStorage.getItem("room_id") &&
-      localStorage.getItem("room_id") !== ""
-    ) {
-      console.log("ok");
-      setwaitingRoom(true);
-    } else {
-      setwaitingRoom(false);
-    }
-  }, []);
-
-  useEffect(() => {
-    let LSoption = localStorage.getItem("option-solo");
-
-    if (LSoption) {
-      soloFunc();
-    }
   }, []);
 
   //game room switch - takes user out of room on unmount or room switch
@@ -125,6 +85,7 @@ function Rooms() {
         password,
         display: true,
         game_started: false,
+        date_created: today,
       })
       .then(() => {
         createAdmin();
@@ -448,6 +409,39 @@ function Rooms() {
     window.location.reload(true);
   };
 
+  const deleteOldRooms = () => {
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, "0");
+    var mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
+    var yyyy = today.getFullYear();
+    today = mm + "/" + dd + "/" + yyyy;
+
+    setToday(today);
+
+    let roomRef = db.collection("rooms");
+
+    let toBeDeleted = [];
+
+    db.collection("rooms")
+      .where("date_created", "!=", today)
+      .get()
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          toBeDeleted.push(doc.id);
+
+          console.log(doc.id, " => ", doc.data());
+        });
+      })
+      .then(() => {
+        toBeDeleted.map((id) => {
+          db.collection("rooms").doc(id).delete();
+        });
+      })
+      .catch((error) => {
+        console.log("Error getting documents: ", error);
+      });
+  };
+
   useEffect(() => {
     const instruction_mode = localStorage.getItem("instruction_mode");
 
@@ -461,24 +455,7 @@ function Rooms() {
   }
 
   let content = null;
-  if (waitingRoom) {
-    /*  content = (
-      <CurrentRoom
-        name={localStorage.getItem("room")}
-        createNewProfile={createNewProfile}
-        removeUser={removeUser}
-      />
-    ); */
-    return (
-      <CurrentRoom
-        name={localStorage.getItem("room")}
-        createNewProfile={createNewProfile}
-        removeUser={removeUser}
-      />
-    );
-  } else if (solo) {
-    content = <SoloMode />;
-  } else if (roomLI) {
+  if (roomLI) {
     content = (
       <RoomLI
         data={data}
@@ -495,10 +472,10 @@ function Rooms() {
       <div id='overlay'></div>
       <div id='liveRoom-container'>
         <div id='main-logo-container'>
-          <a href='rooms.html'>
+          <div>
             {<img id='mainLogo' src={mainLogo} alt='' />}
             <img id='secondaryLogo' src={secondaryLogo} alt='' />
-          </a>
+          </div>
         </div>
         <div className='liveRoom'>
           <div id='active-container'>

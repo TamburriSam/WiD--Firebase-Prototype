@@ -316,10 +316,10 @@ function Game1({ expiryTimestamp, testGame, Game1_to_Game2 }) {
     <div>
       <div className='main-container'>
         <div className='instructionAndTimerContainer'>
-          <div id='g1' className='instructions11'>
+          <div className='instructions11 g1'>
             <h2>Instructions</h2>
 
-            <p style={{ fontSize: "1.8vh" }}>
+            <p className='instruction-text'>
               Here is a list of letters <br></br>
               <br></br>
               Click the box to the left <br></br>
@@ -337,7 +337,7 @@ function Game1({ expiryTimestamp, testGame, Game1_to_Game2 }) {
               All the way down the column <br></br>
             </p>
           </div>
-          <div id='t1' className='timer'>
+          <div className='t1 timer'>
             <h2>{minutes}:</h2>
             <h2>{seconds}</h2>
           </div>

@@ -15,8 +15,11 @@ const SoloMode = ({ SoloMode_to_current_room }) => {
   const [isLoading, setLoading] = useState(false);
   const [gameStart, setGameStart] = useState(false);
   const [favoriteLetter, setfavoriteLetter] = useState("");
+  const [today, setToday] = useState("");
 
   useEffect(() => {
+    deleteOldRooms();
+
     console.log("mounted");
     /*     document.getElementById("main-logo-container").style.display = "none";
      */
@@ -57,6 +60,7 @@ const SoloMode = ({ SoloMode_to_current_room }) => {
         active_count: 1,
         total_count: 1,
         is_solo: true,
+        date_created: today,
       })
       .then(() => {
         db.collection("users")
@@ -236,9 +240,38 @@ const SoloMode = ({ SoloMode_to_current_room }) => {
     }
   };
 
-  /*   if (gameStart) {
-    return <CurrentRoom />;
-  } */
+  const deleteOldRooms = () => {
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, "0");
+    var mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
+    var yyyy = today.getFullYear();
+    today = mm + "/" + dd + "/" + yyyy;
+
+    setToday(today);
+
+    let roomRef = db.collection("rooms");
+
+    let toBeDeleted = [];
+
+    db.collection("rooms")
+      .where("date_created", "!=", today)
+      .get()
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          toBeDeleted.push(doc.id);
+
+          console.log(doc.id, " => ", doc.data());
+        });
+      })
+      .then(() => {
+        toBeDeleted.map((id) => {
+          db.collection("rooms").doc(id).delete();
+        });
+      })
+      .catch((error) => {
+        console.log("Error getting documents: ", error);
+      });
+  };
 
   if (isLoading) {
     return <div className='App'>Loading...</div>;

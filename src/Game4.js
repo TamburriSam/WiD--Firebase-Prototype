@@ -368,11 +368,11 @@ const Game4 = ({ expiryTimestamp, Game4_to_WordTable }) => {
     <div>
       <div className='main-container'>
         <div className='instructionAndTimerContainer'>
-          <div className='instructions11'>
+          <div className='instructions11 g1'>
             Now do the same thing one more time.
             <br></br>
           </div>
-          <div className='timer'>
+          <div className='timer t1'>
             <h2>{minutes}:</h2>
             <h2>{seconds}</h2>
           </div>

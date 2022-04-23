@@ -361,13 +361,13 @@ const Game3 = ({ expiryTimestamp, Game3_to_Game4 }) => {
     <div>
       <div className='main-container'>
         <div className='instructionAndTimerContainer'>
-          <div className='instructions11'>
+          <div className='instructions11 g1'>
             Here's another column.<br></br>
-            Do the same as you did in the previous step: create a column of
-            words.
+            Do the same as you did in the previous step: <br></br> create a
+            column of words.
             <br></br>
           </div>
-          <div className='timer'>
+          <div className='timer t1'>
             <h2>{minutes}:</h2>
             <h2>{seconds}</h2>
           </div>

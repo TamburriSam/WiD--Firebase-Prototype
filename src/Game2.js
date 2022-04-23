@@ -387,7 +387,7 @@ const Game2 = ({ expiryTimestamp, Game2_to_Game3 }) => {
     <div>
       <div className='main-container'>
         <div className='instructionAndTimerContainer'>
-          <div id='game2-instructions' className='instructions11'>
+          <div className='instructions11 g1'>
             <p style={{ marginBottom: "15px" }}>
               You've received a random classmate's list from the previous step.
             </p>
@@ -402,7 +402,7 @@ const Game2 = ({ expiryTimestamp, Game2_to_Game3 }) => {
             Pick one that sounds or looks like the unfamiliar word, or has some
             of the same letters, or choose any word you like!
           </div>
-          <div id='timer-2' className='timer'>
+          <div className='timer t1'>
             <h2>{minutes}:</h2>
             <h2>{seconds}</h2>
           </div>

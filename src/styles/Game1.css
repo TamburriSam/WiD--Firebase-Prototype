@@ -22,19 +22,15 @@ li {
   display: flex;
 }
 
-.instructionAndTimerContainer {
-  width: 20%;
-}
-
-#g1 {
-  height: 90vh;
-  width: 290px;
+.g1 {
+  height: 60vh;
+  width: 300px;
   border-right: 3px solid #e5e5e5;
 }
 
-#t1 {
-  height: 10vh;
-  width: 290px;
+.t1 {
+  height: 40vh;
+  width: 300px;
 
   border-right: 3px solid #e5e5e5;
 }
@@ -42,10 +38,10 @@ li {
 .instructions11 {
   border-left: 3px solid #e5e5e5;
   border-right: 3px solid #e5e5e5;
-
+  font-size: 16px;
   border-bottom: 3px solid #e5e5e5;
   border-top: 3px solid #e5e5e5;
-  height: 50%;
+
   color: #e5e5e5;
   display: flex;
   background-color: #323232;
@@ -72,14 +68,11 @@ li {
 }
 
 #timer-2 {
-  height: 40%;
   position: absolute;
   bottom: 0;
-  width: 20vw;
 }
 
 .timer {
-  height: 50%;
   display: flex;
   border-left: 3px solid #e5e5e5;
   border-bottom: 3px solid #e5e5e5;
@@ -122,10 +115,9 @@ li {
   align-items: center;
   justify-content: center;
   /* border-left: 3px solid #e5e5e5; */
-  border-right: 3px solid #e5e5e5;
   background-color: #141414;
   flex-direction: row-reverse;
-  width: 70%;
+  width: 76%;
 }
 
 .material {
@@ -140,6 +132,7 @@ li {
   border-right: 3px solid #e5e5e5;
   border-top: 3px solid #e5e5e5;
   border-bottom: 3px solid #e5e5e5;
+  border-left: 3px solid #e5e5e5;
 
   width: 10%;
   height: 100%;
@@ -152,7 +145,6 @@ li {
   position: relative;
   display: flex;
   flex-direction: column;
-
   background-color: #323232;
   opacity: 0.9;
   background-size: 7px 7px;
@@ -166,6 +158,8 @@ li {
   transition: 0.2s ease-in;
   cursor: pointer;
   outline: none;
+  position: absolute;
+  right: 0;
 }
 
 .continue:hover {
@@ -371,10 +365,14 @@ ul {
 
   .timer {
     border-bottom: 3px solid #e5e5e5;
+    border-right: 3px solid #e5e5e5;
+    height: unset;
+    width: 100vw;
   }
 
   .continue {
     width: 100%;
+    height: unset;
   }
 
   .inp-list {
@@ -419,10 +417,9 @@ ul {
 
   .instructions11 {
     border-right: 3px solid #e5e5e5;
-  }
-
-  .timer {
-    border-right: 3px solid #e5e5e5;
+    height: unset;
+    width: 100vw;
+    text-align: center;
   }
 
   .list_item {
@@ -460,7 +457,7 @@ ul {
   }
 
   #t1 {
-    height: unset;
+    height: 10vh;
     width: unset;
   }
 }

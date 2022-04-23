@@ -32,11 +32,7 @@ const WordsToUse = (wordsForComposition) => {
   return (
     <div>
       {nodes.wordsForComposition.map((node, index) => {
-        return (
-          <div style={{ textAlign: "center" }} key={index.toString()}>
-            {node}
-          </div>
-        );
+        return <div key={index.toString()}>{node}</div>;
       })}
     </div>
   );
