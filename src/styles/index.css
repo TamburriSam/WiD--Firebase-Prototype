@@ -480,6 +480,7 @@
 }
 
 #title-ul ul {
+  border-radius: 10px;
   padding: 10px;
   background-color: #e5e5e5;
   color: #141414;
@@ -487,6 +488,7 @@
 }
 
 #title-ul h1 {
+  border-radius: 10px;
   background-color: #e5e5e5;
   font-size: 3vw;
   color: #141414;
