@@ -89,8 +89,17 @@ export default function SignInSide({ submitForm, handleChange }) {
                   to ideas.
                 </li>
                 <br></br>
-
-                <li style={{ fontSize: "18px" }}>Sign in to start!</li>
+                <li style={{ fontSize: "18px" }}>
+                  <span className='sign_in_message'>
+                    Enter a screen name of your choice to start!
+                  </span>
+                  <span className='greyed_out'>
+                    <br />
+                    There's no need to use any existing logins.
+                    <br />
+                    This site does not collect, save or share data.
+                  </span>
+                </li>
               </ul>
             </div>
           </div>
