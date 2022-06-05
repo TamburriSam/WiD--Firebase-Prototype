@@ -27,7 +27,7 @@ function IndexPage({ IndexPage_to_mode_selection }) {
     console.log("Index Mounted");
 
     return () => {
-      console.log("Index unmounted");
+      console.log("Index unmoudnted");
     };
   }, []);
 
