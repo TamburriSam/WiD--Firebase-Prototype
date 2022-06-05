@@ -38,7 +38,7 @@ li {
 .instructions11 {
   border-left: 3px solid #e5e5e5;
   border-right: 3px solid #e5e5e5;
-  font-size: 16px;
+  font-size: 14px !important;
   border-bottom: 3px solid #e5e5e5;
   border-top: 3px solid #e5e5e5;
 

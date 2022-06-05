@@ -428,7 +428,6 @@ function Rooms() {
       .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
           toBeDeleted.push(doc.id);
-
           console.log(doc.id, " => ", doc.data());
         });
       })
