@@ -88,18 +88,6 @@ export default function SignInSide({ submitForm, handleChange }) {
                   Today, we're going to reverse that and see how words can lead
                   to ideas.
                 </li>
-                <br></br>
-                <li style={{ fontSize: "18px" }}>
-                  <span className='sign_in_message'>
-                    Enter a screen name of your choice to start!
-                  </span>
-                  <span className='greyed_out'>
-                    <br />
-                    There's no need to use any existing logins.
-                    <br />
-                    This site does not collect, save or share data.
-                  </span>
-                </li>
               </ul>
             </div>
           </div>
@@ -116,7 +104,9 @@ export default function SignInSide({ submitForm, handleChange }) {
           >
             <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}></Avatar>
             <Typography component='h1' variant='h5'>
-              Create A Username
+              <span id='enter_screen_name'>
+                Enter a screen name of your choice to start!
+              </span>
             </Typography>
             <Box
               component='form'
@@ -131,10 +121,17 @@ export default function SignInSide({ submitForm, handleChange }) {
                 id='username'
                 label='Username'
                 name='username'
-                autoComplete='username'
+                autocomplete='off'
                 onChange={handleChange}
                 autoFocus
               />
+
+              <span className='greyed_out'>
+                <br />
+                There's no need to use any existing logins.
+                <br />
+                This site does not collect, save or share data.
+              </span>
 
               <Button
                 type='submit'
