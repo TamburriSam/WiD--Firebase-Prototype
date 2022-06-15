@@ -23,9 +23,11 @@ function Rooms() {
 
   const [roomName, setRoomName] = useState("");
   const [roomCount, setRoomCount] = useState("");
-  const [displayName, setdisplayName] = useState("");
+  const [displayName, setdisplayName] = useState(
+    localStorage.getItem("username")
+  );
   const [roomID, setroomID] = useState("");
-  const [userID, setuserID] = useState("");
+  const [userID, setuserID] = useState(localStorage.getItem("user_id"));
   const [inRoom, setinRoom] = useState(false);
   const [data, setData] = useState();
   const [waitingRoom, setwaitingRoom] = useState(false);
@@ -235,6 +237,9 @@ function Rooms() {
           setwaitingRoom(true);
           setroomLI(false);
           localStorage.setItem("waiting", true);
+          setTimeout(() => {
+            window.location.reload(true);
+          }, 1000);
         }
       });
   };
@@ -319,8 +324,11 @@ function Rooms() {
     let LSsolo = localStorage.getItem("solo");
     let LSadmin = localStorage.getItem("isAdmin");
 
+    console.log("in");
+
     if (LSroomId) {
       if (LSroomId !== "" && e.target.id !== LSroomId && !LSsolo) {
+        console.log("here");
         db.collection("rooms")
           .doc(LSroomId)
           .get()
@@ -333,7 +341,7 @@ function Rooms() {
           })
           .then(() => {
             userDeleted(LSroomId, userArray);
-
+            console.log("heree");
             let user_query = db.collection("users").where("uid", "==", userID);
             user_query.get().then(function (querySnapshot) {
               querySnapshot.forEach(function (doc) {
