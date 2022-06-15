@@ -111,6 +111,7 @@ export default function SignInSide({ submitForm, handleChange }) {
             <Box
               component='form'
               noValidate
+              autoComplete='off'
               onSubmit={submitForm}
               sx={{ mt: 1 }}
             >
@@ -121,7 +122,7 @@ export default function SignInSide({ submitForm, handleChange }) {
                 id='username'
                 label='Username'
                 name='username'
-                autocomplete='off'
+                autoComplete='off'
                 onChange={handleChange}
                 autoFocus
               />
