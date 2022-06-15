@@ -9,14 +9,13 @@ import "./styles/CSSRoomLI.css";
 import FavoriteLetter from "./FavoriteLetter";
 import mainLogo from "./logos/whiteLogoStandalone.png";
 import { useTimer } from "react-timer-hook";
-import genUsername from "unique-username-generator";
+
 import { lightBlue } from "@mui/material/colors";
 
 function CurrentRoom({
   expiryTimestamp,
   name,
   favorite_letter,
-  removeUser,
   createNewProfile,
   CurrentRoom_to_Game1,
   GroupMode_to_Fav_letter,
@@ -27,6 +26,7 @@ function CurrentRoom({
   const [roomID, setroomID] = useState("");
   const [roomLoad, setroomLoad] = useState(false);
   const [users, setUsers] = useState(false);
+  const [userID, setuserID] = useState(localStorage.getItem("user_id"));
   const [buttonGreeting, setButtonGreeting] = useState("Start Game");
   const [inRoom, setinRoom] = useState(false);
   const [favoriteLetter, setfavoriteLetter] = useState("");
@@ -219,6 +219,84 @@ function CurrentRoom({
     setButtonGreeting("Game Started");
     let ROOMLS = localStorage.getItem("room_id");
     db.collection("rooms").doc(ROOMLS).update({ game_started: true });
+  };
+
+  const removeUser = (e) => {
+    let LSroomId = localStorage.getItem("room_id");
+    let userArray = [];
+    let activeCount;
+    let users;
+    let LSsolo = localStorage.getItem("solo");
+    let LSadmin = localStorage.getItem("isAdmin");
+
+    console.log("in");
+
+    if (LSroomId) {
+      if (LSroomId !== "" && e.target.id !== LSroomId && !LSsolo) {
+        console.log("here");
+        db.collection("rooms")
+          .doc(LSroomId)
+          .get()
+          .then((doc) => {
+            users = doc.data().users;
+            activeCount = doc.data().active_count;
+            for (const prop in users) {
+              userArray.push(users[prop]);
+            }
+          })
+          .then(() => {
+            userDeleted(LSroomId, userArray);
+            console.log("heree");
+            let user_query = db.collection("users").where("uid", "==", userID);
+            user_query.get().then(function (querySnapshot) {
+              querySnapshot.forEach(function (doc) {
+                doc.ref.delete();
+              });
+            });
+          })
+          .then(() => {
+            decreaseCount(activeCount);
+          })
+          .then(() => {
+            removeLSitems();
+          })
+          .then(() => {
+            localStorage.setItem("currentPage", "Group");
+            setTimeout(() => {
+              window.location.reload(true);
+            }, 1000);
+          });
+      }
+    }
+  };
+
+  const userDeleted = (roomID, userArray) => {
+    const roomRef = db.collection("rooms").doc(roomID);
+    roomRef
+      .update({
+        users: userArray.filter((post) => post.uid !== userID),
+      })
+      .catch(function (error) {
+        console.error("Error removing document: ", error);
+      });
+  };
+
+  const decreaseCount = (activeCount) => {
+    let LSroomId = localStorage.getItem("room_id");
+    db.collection("rooms")
+      .doc(LSroomId)
+      .update({
+        active_count: activeCount - 1,
+      });
+  };
+
+  const removeLSitems = () => {
+    localStorage.removeItem("room_id");
+    localStorage.removeItem("favorite_letter");
+    localStorage.removeItem("waiting");
+    localStorage.removeItem("room");
+    localStorage.removeItem("isAdmin");
+    localStorage.removeItem("adminRoom");
   };
 
   let content = null;
