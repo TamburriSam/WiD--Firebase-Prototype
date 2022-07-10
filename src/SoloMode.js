@@ -75,7 +75,6 @@ const SoloMode = ({ SoloMode_to_current_room }) => {
             list_two_input: [],
             list_three_input: [],
             recipients: [],
-            poems: mock_msgs,
             list_four_input: [],
             list_one_received: [],
             list_two_received: [],
@@ -84,36 +83,6 @@ const SoloMode = ({ SoloMode_to_current_room }) => {
           });
       });
   };
-
-  let mock_msgs = [
-    `I spot the hills
-  with yellow balls in autumn. 
-  I light the prairie cornfields, 
-  Orange and tawny gold clusters, 
-  And I am called pumpkins. 
-  On the last of October,  
-  When dusk is fallen,  
-  Children join hands,  
-  And circle round me, 
-  Singing ghost songs, 
-  And love to the harvest moon;
-  I am a jack-o'-lantern, 
-  With terrible teeth, 
-  And the children know, 
-  I am fooling.`,
-    `White sheep, white sheep,
-  On a blue hill,
-  When the wind stops,
-  You all stand still.
-  When the wind blows,
-  You walk away slow.
-  White sheep, white sheep,
-  Where do you go?`,
-    `In winter I get up at night  
-  And dress by yellow candle-light.  
-  In summer, quite the other way,  
-  I have to go to bed by day.`,
-  ];
 
   const randomWordsFromDB = () => {
     let ls = localStorage.getItem("room_id");
