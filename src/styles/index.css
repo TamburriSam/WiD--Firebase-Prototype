@@ -481,6 +481,10 @@
   text-decoration: underline;
 }
 
+.license{
+  margin-bottom: 10px;
+}
+
 #main-container
   > main
   > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-elevation6.MuiGrid-root.MuiGrid-item.MuiGrid-grid-xs-12.MuiGrid-grid-sm-4.MuiGrid-grid-md-5.css-oz7eb9-MuiPaper-root-MuiGrid-root {
