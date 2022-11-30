@@ -7,6 +7,7 @@ import TextField from "@mui/material/TextField";
 import firebase from "firebase/app";
 import "firebase/firestore";
 import uniqid from "uniqid";
+import { send } from "emailjs-com";
 
 //////////// <STYLE />///////////////////////////////////
 
@@ -42,6 +43,8 @@ const buttonStyle = {
 export default function BasicModal() {
   const db = firebase.firestore();
 
+  //Modal Content handling
+
   const [mainText, setMainText] = React.useState(
     "Your feedback is important to us!"
   );
@@ -54,13 +57,17 @@ export default function BasicModal() {
     setValue(e.target.value);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
     let feedback_id = uniqid();
 
     db.collection("feedback")
       .doc(feedback_id)
       .set({
         message: value,
+      })
+      .then(() => {
+        sendMessage();
       })
       .then(() => {
         setMainText("Message Sent!");
@@ -72,6 +79,23 @@ export default function BasicModal() {
         }, 4000);
       });
   };
+
+  const sendMessage = () => {
+    send(
+      "service_nyq7etw",
+      "template_fsprwkd",
+      { message: value },
+      "IcSOjPRZWiaI_bu9t"
+    )
+      .then((response) => {
+        console.log("SUCCESS!", response.status, response.text);
+      })
+      .catch((err) => {
+        console.log("FAILED...", err);
+      });
+  };
+  //service_nyq7etw
+  //Modal Open
   const [value, setValue] = React.useState("");
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => {
@@ -81,6 +105,11 @@ export default function BasicModal() {
     setOpen(true);
   };
   const handleClose = () => setOpen(false);
+
+  ////////send message
+  const [toSend, setToSend] = React.useState({
+    message: "",
+  });
 
   return (
     <div>
@@ -95,20 +124,22 @@ export default function BasicModal() {
           <Typography sx={textStyle} id='modal-modal-description'>
             {secondaryText}
           </Typography>
-          <TextField
-            sx={textBoxStyle}
-            id='outlined-multiline-static'
-            label='Enter Feedback'
-            multiline
-            rows={4}
-            defaultValue=''
-            onChange={handleChange}
-          />
-          <div style={buttonStyle}>
-            <Button onClick={handleSubmit} variant='outlined'>
-              Submit
-            </Button>
-          </div>
+          <form onSubmit={handleSubmit}>
+            <TextField
+              sx={textBoxStyle}
+              id='outlined-multiline-static'
+              label='Enter Feedback'
+              multiline
+              rows={4}
+              defaultValue=''
+              onChange={handleChange}
+            />
+            <div style={buttonStyle}>
+              <Button variant='outlined' type='submit'>
+                Submit
+              </Button>
+            </div>
+          </form>
         </Box>
       </Modal>
     </div>
