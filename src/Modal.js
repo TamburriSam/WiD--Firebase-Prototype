@@ -113,9 +113,9 @@ export default function BasicModal() {
 
   return (
     <div>
-      <Button id='feedback-button' onClick={handleOpen}>
+      <button id='feedback-button' onClick={handleOpen}>
         <p id='feedback-text'>Feedback?</p>
-      </Button>
+      </button>
       <Modal open={open} onClose={handleClose}>
         <Box sx={style}>
           <Typography id='modal-modal-title' variant='h6' component='h2'>
