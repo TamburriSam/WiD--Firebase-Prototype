@@ -17,6 +17,9 @@
 
 .instructionAndEssayContainer {
   width: 60%;
+  position: relative; 
+  display: flex; 
+  flex-direction: column; 
 }
 
 .instructionsTable {
@@ -24,7 +27,7 @@
   border-left: 3px solid #e5e5e5;
   border-top: 3px solid #e5e5e5;
   border-right: 3px solid #e5e5e5;
-
+  height: 50%;
   color: #e5e5e5;
   display: flex;
   background-color: #323232;
@@ -68,8 +71,6 @@
     #3d3d3db6 0,
     #3d3d3db6 50%
   );
-  min-height: 70vh;
-  height: fit-content;
 
   border-bottom: 3px solid #e5e5e5;
   border-left: 3px solid #e5e5e5;
@@ -84,15 +85,40 @@
   border: 1px solid black;
 }
 
+#table-container{
+  height: 82vh;
+}
+
 #save-p {
   text-align: center;
   color: #e5e5e5;
+  padding: 10px;
 }
 
 #button-holder {
   margin-bottom: 25px;
   width: 100%;
   text-align: center;
+}
+
+#feedback-button{
+  position:absolute;
+  left:0;
+  font-family: "IBM Plex Mono", monospace !important;
+
+  bottom:0;
+  width: fit-content;
+  font-size: 12px;
+  height: unset;
+}
+
+.MuiButton{
+  color: red !important;
+}
+
+#feedback-text{
+  font-family: "IBM Plex Mono", monospace !important;
+
 }
 
 .essayTable button {
@@ -365,6 +391,11 @@
     text-align: center;
   }
 
+  .save-p{
+    font-size: 10px;
+
+  }
+
   #table2 {
     margin: auto;
   }
@@ -375,9 +406,7 @@
     font-size: 1.6vh;
   }
 
-  .instructionsTable {
-    height: 30vh;
-  }
+  
 
   .essayTable p {
     font-size: 1.3vh;

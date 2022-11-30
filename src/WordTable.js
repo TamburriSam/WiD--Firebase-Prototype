@@ -4,6 +4,7 @@ import Main from "./Main";
 import { useEffect, useState } from "react";
 import React from "react";
 import WordsToUse from "./WordsToUse";
+import Modal from "./Modal.js";
 import "./styles/index.css";
 import { jsPDF } from "jspdf";
 import "./styles/Final.css";
@@ -19,6 +20,8 @@ const Wordtable = ({ Wordtable_to_LiveRoom }) => {
   const [list, setList] = useState([]);
   const [words, setWords] = useState([]);
   const [wordStart, setWordStart] = useState(false);
+
+  const [modalOpen, setModalOpen] = useState(false);
 
   const [wordsForComposition, setWordsForComposition] = useState([]);
 
@@ -59,6 +62,10 @@ const Wordtable = ({ Wordtable_to_LiveRoom }) => {
       setWordsForComposition([...newArr]);
     }
   };
+
+  useEffect(() => {
+    console.log("modalOpen", modalOpen);
+  }, [modalOpen]);
 
   useEffect(() => {
     window.addEventListener("change", testFunc);
@@ -201,6 +208,14 @@ const Wordtable = ({ Wordtable_to_LiveRoom }) => {
     doc.save("Your List.pdf");
   };
 
+  const giveFeedback = () => {
+    setModalOpen(true);
+  };
+
+  const toggleFeedback = () => {
+    setModalOpen(false);
+  };
+
   const endGame = () => {
     let answer = prompt(
       `All of your information will be deleted. If done- enter 'Y', if not- enter 'N'. `
@@ -261,6 +276,7 @@ const Wordtable = ({ Wordtable_to_LiveRoom }) => {
             <div id='button-holder'>
               <button onClick={printLists}>Print Lists to PDF</button>
               <button onClick={printEssay}>Print Poem to PDF</button>
+              <Modal></Modal>
               <button onClick={endGame} id='exitButton'>
                 Exit
               </button>

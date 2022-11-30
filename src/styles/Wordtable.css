@@ -32,10 +32,7 @@
 
 #table2 {
   background-color: transparent;
-  padding: 5px;
 
-  margin-top: 30px;
-  height: 70vh;
   color: #e5e5e5;
   font-style: var(--main-font);
 
@@ -43,10 +40,12 @@
 }
 
 #thead-col {
-  display: flex;
+  width: 100%;
+  /* display: flex; */
   height: 50px;
+  position: relative;
   /* text-align: center; */
-  justify-content: space-evenly;
+  /* justify-content: space-evenly; */
 }
 
 #buttons {
@@ -73,6 +72,10 @@
   width: 48vw;
   display: flex;
   justify-content: space-around;
+}
+
+tr:nth-child(26) td {
+  border-bottom: none;
 }
 
 .crossed-word {
@@ -116,7 +119,6 @@
 
 #pasted-words {
   padding: 5px;
-  width: 51vw;
   min-height: 5vh;
   height: fit-content;
   height: fit-content;
@@ -133,25 +135,20 @@
   font-size: 14px;
 
   padding: 10px;
-  width: 51vw;
+  width: 100%;
   height: 30vh;
   outline: none;
   border-radius: 5px;
 }
 
-#table-container {
-  position: relative;
-  text-align: center;
-  display: flex;
-  justify-content: center;
-}
 
 #table-row-cols {
-  /* left: 10px; */
-  width: 55vw;
-  position: absolute;
-  display: flex;
-  justify-content: space-evenly;
+    /* left: 10px; */
+    /* position: absolute; */
+    /* width: 100%; */
+    padding: 10px;
+    display: flex;
+    justify-content: space-around;
 }
 
 /* .col-title:nth-of-type(1) {
@@ -180,15 +177,12 @@
   position: relative;
   border: 1px solid #e5e5e5;
   padding: 10px;
-
-  display: flex;
+  /* display: flex; */
   margin: auto;
   text-align: center;
   justify-content: center;
-
   margin-top: 16px;
-  margin-bottom: 5px;
-
+  margin-bottom: 27px;
   align-items: center;
   height: -moz-fit-content;
   height: fit-content;

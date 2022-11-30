@@ -26,16 +26,36 @@ function Copyright(props) {
       align='center'
       {...props}
     >
-          <p class="license"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/2.0/"><img alt="Creative Commons License" style={{ borderWidth: "0" }} src="https://i.creativecommons.org/l/by-nc-sa/2.0/80x15.png" /></a><br /><span >This work is licensed under a </span> <br></br> <a style={{ fontSize: "12px" }} rel="license" href="http://creativecommons.org/licenses/by-nc-sa/2.0/">Creative Commons Attribution-NonCommercial-ShareAlike 2.0 Generic License</a></p>
-      {"Copyright © "}
-      <Link color='inherit'>Word Into Idea</Link> {new Date().getFullYear()}
-      {"."}
-      {<br></br>}
+      <p class='license'>
+        {"Copyright © "}
+        <Link color='inherit'>Word Into Idea</Link> {new Date().getFullYear()}
+        {<br></br>}
+        {<br></br>}
+        <a
+          rel='license'
+          href='http://creativecommons.org/licenses/by-nc-nd/4.0/'
+        >
+          <img
+            alt='Creative Commons License'
+            style={{ borderWidth: "0" }}
+            src='https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png'
+          />
+        </a>
+        <br />
+        <span>This work is licensed under a </span> <br></br>{" "}
+        <a
+          style={{ fontSize: "12px" }}
+          rel='license'
+          href='http://creativecommons.org/licenses/by-nc-nd/4.0/'
+        >
+          Creative Commons Attribution-NonCommercial-NoDerivatives 4.0
+          International License
+        </a>
+      </p>
       {"Concept: Steve Fried"}
       {<br></br>}
       {"Realization: Sam Tamburri"}
       {<br></br>}
-  
     </Typography>
   );
 }
