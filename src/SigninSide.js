@@ -52,10 +52,6 @@ function Copyright(props) {
           International License
         </a>
       </p>
-      {"Concept: Steve Fried"}
-      {<br></br>}
-      {"Realization: Sam Tamburri"}
-      {<br></br>}
     </Typography>
   );
 }
