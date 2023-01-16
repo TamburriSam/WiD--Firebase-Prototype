@@ -72,7 +72,6 @@ export default function BasicModal() {
       .then(() => {
         setMainText("Message Sent!");
         setSecondaryText("Thank You!");
-        setSubmit("Sent!");
       })
       .then(() => {
         setTimeout(() => {
@@ -99,11 +98,9 @@ export default function BasicModal() {
   //Modal Open
   const [value, setValue] = React.useState("");
   const [open, setOpen] = React.useState(false);
-  const [submit, setSubmit] = React.useState("Submit");
   const handleOpen = () => {
-    setSubmit("Submit")
     setMainText("Your feedback is important to us!");
-    setSecondaryText(`Please share any tips below on
+    setSecondaryText(`This application is still in beta. Please share any tips below on
     how to improve this experience!`);
     setOpen(true);
   };
@@ -139,7 +136,7 @@ export default function BasicModal() {
             />
             <div style={buttonStyle}>
               <Button variant='outlined' type='submit'>
-                {submit}
+                Submit
               </Button>
             </div>
           </form>
