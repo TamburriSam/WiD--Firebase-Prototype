@@ -27,6 +27,8 @@ const Wordtable = ({ Wordtable_to_LiveRoom }) => {
 
   let list1, list2, list3, list4;
 
+  //test
+
   const testFunc = (e) => {
     if (e.target.className === "word-check" && e.target.checked) {
       let crossedWords = document.querySelectorAll(".crossed-word");
