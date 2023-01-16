@@ -276,10 +276,12 @@ const Wordtable = ({ Wordtable_to_LiveRoom }) => {
             <div id='button-holder'>
               <button onClick={printLists}>Print Lists to PDF</button>
               <button onClick={printEssay}>Print Poem to PDF</button>
-              <Modal></Modal>
-              <button onClick={endGame} id='exitButton'>
+              <div id="exit-btns-holder">
+                <Modal></Modal>
+                <button onClick={endGame} id='exitButton'>
                 Exit
-              </button>
+                </button>
+              </div>
             </div>
           </div>
         </div>
