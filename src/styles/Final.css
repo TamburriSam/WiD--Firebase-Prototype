@@ -101,15 +101,31 @@
   text-align: center;
 }
 
-#feedback-button{
-  position:absolute;
-  left:0;
-  font-family: "IBM Plex Mono", monospace !important;
+#exit-btns-holder{
+  display:flex;
+  justify-content: center;
+}
 
-  bottom:0;
-  width: fit-content;
-  font-size: 12px;
-  height: unset;
+#feedback-button{
+  color: green;
+  background-color: #141414;
+  height: 30px;
+  cursor: pointer;
+  border: 1px solid green;
+  width: 10vw;
+  border-radius: 1px;
+  cursor: pointer;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  position: relative;
+
+  transition: 0.2s ease-in-out;
+}
+
+
+#feedback-button:hover {
+  background-color: #e5e5e5;
+  font-weight: bolder;
 }
 
 .MuiButton{
