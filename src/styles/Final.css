@@ -16,6 +16,7 @@
 }
 
 .instructionAndEssayContainer {
+  height:100vh;
   width: 60%;
   position: relative; 
   display: flex; 
