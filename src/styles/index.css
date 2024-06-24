@@ -471,6 +471,27 @@
   justify-content: center;
 }
 
+.sites{
+  display: flex;
+  width: 200px;
+  align-items: center;
+
+  a{
+    width: fit-content;
+    color: white;
+    margin-top: 24px;
+  }
+
+  .vl {
+    border-left: 2px solid white;
+    height: 30px;
+    margin-top: 15px;
+    margin-right: 10px;
+  }
+}
+
+
+
 #title-h1 {
   font-size: 30px;
   color: white;

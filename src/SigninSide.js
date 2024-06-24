@@ -21,32 +21,32 @@ import "./styles/index.css";
 function Copyright(props) {
   return (
     <Typography
-      variant='body2'
-      color='text.secondary'
-      align='center'
+      variant="body2"
+      color="text.secondary"
+      align="center"
       {...props}
     >
-      <p class='license'>
+      <p class="license">
         {"Copyright © "}
-        <Link color='inherit'>Word Into Idea</Link> {new Date().getFullYear()}
+        <Link color="inherit">Word Into Idea</Link> {new Date().getFullYear()}
         {<br></br>}
         {<br></br>}
         <a
-          rel='license'
-          href='http://creativecommons.org/licenses/by-nc-nd/4.0/'
+          rel="license"
+          href="http://creativecommons.org/licenses/by-nc-nd/4.0/"
         >
           <img
-            alt='Creative Commons License'
+            alt="Creative Commons License"
             style={{ borderWidth: "0" }}
-            src='https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png'
+            src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png"
           />
         </a>
         <br />
         <span>This work is licensed under a </span> <br></br>{" "}
         <a
           style={{ fontSize: "12px" }}
-          rel='license'
-          href='http://creativecommons.org/licenses/by-nc-nd/4.0/'
+          rel="license"
+          href="http://creativecommons.org/licenses/by-nc-nd/4.0/"
         >
           Creative Commons Attribution-NonCommercial-NoDerivatives 4.0
           International License
@@ -61,7 +61,7 @@ const theme = createTheme();
 export default function SignInSide({ submitForm, handleChange, video }) {
   return (
     <ThemeProvider theme={theme}>
-      <Grid container component='main' sx={{ height: "100vh" }}>
+      <Grid container component="main" sx={{ height: "100vh" }}>
         <CssBaseline />
         <Grid
           itemFS
@@ -79,10 +79,12 @@ export default function SignInSide({ submitForm, handleChange, video }) {
             backgroundPosition: "center",
           }}
         >
-          <div id='main1'>
-            <img src={white_logo_dark_bg}></img>
-          <div>Plackets</div>
-            <div id='title-ul'>
+          <div class="sites">
+            <img src={white_logo_dark_bg}></img><div class="vl"></div>
+            <a href="https://plackets-66178.web.app/">Plackets</a>
+          </div>
+          <div id="main1">
+            <div id="title-ul">
               <h1>What is this?</h1>
               <ul>
                 <li>
@@ -122,31 +124,31 @@ export default function SignInSide({ submitForm, handleChange, video }) {
             }}
           >
             <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}></Avatar>
-            <Typography component='h1' variant='h5'>
-              <span id='enter_screen_name'>
+            <Typography component="h1" variant="h5">
+              <span id="enter_screen_name">
                 Enter a screen name of your choice to start!
               </span>
             </Typography>
             <Box
-              component='form'
+              component="form"
               noValidate
-              autoComplete='off'
+              autoComplete="off"
               onSubmit={submitForm}
               sx={{ mt: 1 }}
             >
               <TextField
-                margin='normal'
+                margin="normal"
                 required
                 fullWidth
-                id='username'
-                label='Username'
-                name='username'
-                autoComplete='off'
+                id="username"
+                label="Username"
+                name="username"
+                autoComplete="off"
                 onChange={handleChange}
                 autoFocus
               />
 
-              <span className='greyed_out'>
+              <span className="greyed_out">
                 <br />
                 There's no need to use any existing logins.
                 <br />
@@ -154,18 +156,18 @@ export default function SignInSide({ submitForm, handleChange, video }) {
               </span>
 
               <Button
-                type='submit'
+                type="submit"
                 fullWidth
-                variant='contained'
+                variant="contained"
                 sx={{ mt: 2, mb: 0 }}
               >
                 Sign In
               </Button>
               <Button
-                type='button'
+                type="button"
                 onClick={video}
                 fullWidth
-                variant='contained'
+                variant="contained"
                 sx={{ mt: 2, mb: 2 }}
               >
                 Guide For Hosting Groups
