@@ -410,6 +410,7 @@
 
 #main-container button {
   height: 5vh;
+  font-size: 18px;
   cursor: pointer;
   background-color: var(--background-black);
   color: var(--text-color);
@@ -479,6 +480,10 @@
   position: relative;
 
   text-decoration: underline;
+}
+
+.css-5k114j-MuiTypography-root{
+  margin-top: unset !important;
 }
 
 .license{

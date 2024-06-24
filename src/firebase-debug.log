@@ -1,0 +1,22 @@
+[debug] [1970-01-01T00:20:46.188Z] ----------------------------------------------------------------------
+[debug] [1970-01-01T00:20:46.190Z] Command:       /usr/local/bin/firebase /Users/samtamburri/.cache/firebase/tools/lib/node_modules/firebase-tools/lib/bin/firebase serve
+[debug] [1970-01-01T00:20:46.191Z] CLI Version:   11.13.0
+[debug] [1970-01-01T00:20:46.191Z] Platform:      darwin
+[debug] [1970-01-01T00:20:46.191Z] Node Version:  v16.16.0
+[debug] [1970-01-01T00:20:46.199Z] Time:          Wed Dec 31 1969 19:20:46 GMT-0500 (Eastern Standard Time)
+[debug] [1970-01-01T00:20:46.199Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [1970-01-01T00:20:46.290Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [1970-01-01T00:20:46.290Z] > authorizing via signed-in user (tamburrisam@gmail.com)
+[debug] [1970-01-01T00:20:46.290Z] [iam] checking project lucky6-f3de1 for permissions ["firebase.projects.get"]
+[debug] [1970-01-01T00:20:46.292Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/lucky6-f3de1:testIamPermissions [none]
+[debug] [1970-01-01T00:20:46.292Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/lucky6-f3de1:testIamPermissions x-goog-quota-user=projects/lucky6-f3de1
+[debug] [1970-01-01T00:20:46.292Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/lucky6-f3de1:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [1970-01-01T00:20:46.368Z] [iam] error while checking permissions, command may fail: FirebaseError: Failed to make request to https://cloudresourcemanager.googleapis.com/v1/projects/lucky6-f3de1:testIamPermissions
+[debug] [1970-01-01T00:20:46.369Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/lucky6-f3de1 [none]
+[debug] [1970-01-01T00:20:46.435Z] Failed to make request to https://firebase.googleapis.com/v1beta1/projects/lucky6-f3de1
+[debug] [1970-01-01T00:20:46.468Z] FirebaseError: Failed to make request to https://firebase.googleapis.com/v1beta1/projects/lucky6-f3de1
+    at RetryOperation._fn (/Users/samtamburri/.cache/firebase/tools/lib/node_modules/firebase-tools/lib/apiv2.js:242:31)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[error] 
+[error] Error: Failed to get Firebase project lucky6-f3de1. Please make sure the project exists and your account has permission to access it.

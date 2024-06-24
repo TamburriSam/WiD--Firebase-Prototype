@@ -6,8 +6,11 @@ import "firebase/firestore";
 import React from "react";
 import Rooms from "./Rooms";
 import "firebaseui/dist/firebaseui.css";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { Routes ,Route } from 'react-router-dom';
+
+import { BrowserRouter } from "react-router-dom";
 import Main from "./Main";
+import Video from "./Video";
 
 function App() {
   const firebaseConfig = {
@@ -29,11 +32,12 @@ function App() {
     <div style={{ backgroundColor: "#141414" }}>
       <BrowserRouter>
         <div style={{ backgroundColor: "#141414" }}>
-          <Switch>
-            <Route path='/' component={Main} exact />
-            <Route path='/main' component={Rooms} />
-            <Route component={Error} />
-          </Switch>
+          <Routes>
+            <Route path='/' element={<Main/>} exact />
+            <Route path='/main' element={<Rooms/>} />
+            <Route path='/userGuide' element={<Video/>} exact />
+            <Route element={Error} />
+          </Routes>
         </div>
       </BrowserRouter>
     </div>

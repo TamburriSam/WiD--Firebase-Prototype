@@ -14,14 +14,19 @@ import { useEffect, useState } from "react";
 import uniqid from "uniqid";
 import Button from "@mui/material/Button";
 import ModeSelection from "./ModeSelection";
+import Video from "./Video";
 import "./styles/index.css";
+import { useNavigate } from "react-router-dom";
 
 function IndexPage({ IndexPage_to_mode_selection }) {
+
+
   const [inputField, setinputField] = useState("Enter a Screen Name");
   const [nextPage, setnextPage] = useState(false);
   const [uniqueId, setuniqueId] = useState(uniqid());
   const [showOption, setShowOption] = useState(false);
   const [instructionMode, setInstructionMode] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     console.log("Index Mounted");
@@ -35,6 +40,12 @@ function IndexPage({ IndexPage_to_mode_selection }) {
     console.log(inputField);
     setinputField(e.target.value);
   };
+
+  const video = () => {
+  
+      navigate("/userGuide");
+    
+  }
 
   const submitForm = (e) => {
     localStorage.setItem("username", inputField);
@@ -60,7 +71,7 @@ function IndexPage({ IndexPage_to_mode_selection }) {
   return (
     <div id='indexBody'>
       <div id='main-container'>
-        <SignInSide submitForm={submitForm} handleChange={handleChange} />
+        <SignInSide video={video} submitForm={submitForm} handleChange={handleChange} />
       </div>
     </div>
   );

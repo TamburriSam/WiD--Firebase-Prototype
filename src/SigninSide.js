@@ -58,7 +58,7 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-export default function SignInSide({ submitForm, handleChange }) {
+export default function SignInSide({ submitForm, handleChange, video }) {
   return (
     <ThemeProvider theme={theme}>
       <Grid container component='main' sx={{ height: "100vh" }}>
@@ -81,7 +81,7 @@ export default function SignInSide({ submitForm, handleChange }) {
         >
           <div id='main1'>
             <img src={white_logo_dark_bg}></img>
-
+          <div>Plackets</div>
             <div id='title-ul'>
               <h1>What is this?</h1>
               <ul>
@@ -157,9 +157,18 @@ export default function SignInSide({ submitForm, handleChange }) {
                 type='submit'
                 fullWidth
                 variant='contained'
-                sx={{ mt: 3, mb: 2 }}
+                sx={{ mt: 2, mb: 0 }}
               >
                 Sign In
+              </Button>
+              <Button
+                type='button'
+                onClick={video}
+                fullWidth
+                variant='contained'
+                sx={{ mt: 2, mb: 2 }}
+              >
+                Guide For Hosting Groups
               </Button>
 
               <Copyright sx={{ mt: 5 }} />
